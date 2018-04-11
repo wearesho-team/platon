@@ -20,9 +20,49 @@ class Client implements Payments\ClientInterface
 
     public function createPayment(Payments\UrlPairInterface $pair, Payments\TransactionInterface $transaction): Payments\PaymentInterface
     {
-        $url = $this->config->getUrl();
-        $key = $this->config->getKey();
+        $data = $this->_getDataParam($transaction);
 
+        return new Payment(
+            $transaction->getService(),
+            $this->config->getLanguage(),
+            $this->config->getPayment(),
+            $pair->getGood(),
+            $this->_getSign($data, $this->config->getPayment(),$pair->getGood()),
+            $data,
+            $this->config->getKey(),
+            $transaction->getInfo(),
+            $transaction->getType()
+        );
+    }
+
+    private function _getDataParam(Payments\TransactionInterface $transaction)
+    {
+        $amount = number_format((float)($transaction->getAmount() / 100), 2, '.', '');
+
+        return base64_encode(json_encode([
+            'amount' => $amount,
+            'name' => $transaction->getDescription(),
+            'currency' => $transaction->getCurrency(),
+            'recurring'
+        ]));
+    }
+
+    /**
+     * Set 'sign' item for POST request
+     * @param string $data
+     * @param string $payment
+     * @param string $url
+     * @return string
+     */
+    private function _getSign(string $data, string $payment, string $url)
+    {
+        $result_hash = strrev($this->config->getKey())
+            . strrev($payment)
+            . strrev($data)
+            . strrev($url)
+            . strrev($this->config->getPass());
+
+        return md5(strtoupper($result_hash));
     }
 }
 

@@ -8,6 +8,9 @@ namespace Wearesho\Bobra\Platon;
  */
 interface ConfigInterface
 {
+    public const LANGUAGE_RU = 'ru';
+    public const LANGUAGE_UA = 'ua';
+
     /**
      * URL for sending form on front-end
      *
@@ -28,4 +31,14 @@ interface ConfigInterface
      * @return string
      */
     public function getPass(): string;
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string;
+
+    /**
+     * @return string
+     */
+    public function getPayment(): string;
 }

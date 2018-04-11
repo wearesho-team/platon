@@ -18,37 +18,36 @@ class ClientTest extends TestCase
         $this->client = new Client(new Config("key_string", "pass_string", "payment_string"));
     }
 
-    public function test__construct()
+    public function testConstruct()
     {
         $this->assertEquals(
             "f9a26c2992ad137f224d3908b0947f91",
-            $this->client->createPayment(
-                new Payments\UrlPair("good_string_pair"),
-                new Payments\Transaction(
-                    228,
-                    2.28,
-                    "type_string",
-                    "description_string"
-                ))->jsonSerialize()['sign']
-        );
-
-        $this->assertEquals(
-            "d050360db1a3bcf0ac4e869160f87fcc",
-            (
-            new Client(new Config(
-                    "key_string2",
-                    "pass_string2",
-                    "payment_string"
-                )
-            )
-            )->createPayment(
+            $this->client
+                ->createPayment(
                     new Payments\UrlPair("good_string_pair"),
                     new Payments\Transaction(
                         228,
                         2.28,
                         "type_string",
                         "description_string"
-                    ))->jsonSerialize()['sign']
+                    )
+                )
+                ->jsonSerialize()['sign']
+        );
+
+        $this->assertEquals(
+            "d050360db1a3bcf0ac4e869160f87fcc",
+            (new Client(new Config("key_string2", "pass_string2", "payment_string")))
+                ->createPayment(
+                    new Payments\UrlPair("good_string_pair"),
+                    new Payments\Transaction(
+                        228,
+                        2.28,
+                        "type_string",
+                        "description_string"
+                    )
+                )
+                ->jsonSerialize()['sign']
         );
     }
 
@@ -61,7 +60,8 @@ class ClientTest extends TestCase
                 "payment_string",
                 new Payments\UrlPair("good_string_pair"),
                 "f9a26c2992ad137f224d3908b0947f91",
-                "eyJhbW91bnQiOiIyLjI3IiwibmFtZSI6ImRlc2NyaXB0aW9uX3N0cmluZyIsImN1cnJlbmN5IjoiVUFIIiwiMCI6InJlY3VycmluZyJ9",
+                "eyJhbW91bnQiOiIyLjI3IiwibmFtZSI6ImRlc2NyaXB0aW9uX3N0cmluZyIsImN1cnJlbmN5IjoiVUFIIiwi".
+                "MCI6InJlY3VycmluZyJ9",
                 "key_string",
                 [],
                 "type_string"
@@ -73,7 +73,8 @@ class ClientTest extends TestCase
                     2.28,
                     "type_string",
                     "description_string"
-                ))
+                )
+            )
         );
     }
 }

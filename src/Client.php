@@ -26,7 +26,7 @@ class Client implements Payments\ClientInterface
             $transaction->getService(),
             $this->config->getLanguage(),
             $this->config->getPayment(),
-            $pair->getGood(),
+            $pair,
             $this->_getSign($data, $this->config->getPayment(),$pair->getGood()),
             $data,
             $this->config->getKey(),
@@ -35,7 +35,7 @@ class Client implements Payments\ClientInterface
         );
     }
 
-    private function _getDataParam(Payments\TransactionInterface $transaction)
+    protected function _getDataParam(Payments\TransactionInterface $transaction)
     {
         $amount = number_format((float)($transaction->getAmount() / 100), 2, '.', '');
 
@@ -54,7 +54,7 @@ class Client implements Payments\ClientInterface
      * @param string $url
      * @return string
      */
-    private function _getSign(string $data, string $payment, string $url)
+    protected function _getSign(string $data, string $payment, string $url)
     {
         $result_hash = strrev($this->config->getKey())
             . strrev($payment)
@@ -65,4 +65,3 @@ class Client implements Payments\ClientInterface
         return md5(strtoupper($result_hash));
     }
 }
-

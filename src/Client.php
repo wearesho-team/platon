@@ -32,6 +32,7 @@ class Client implements Payments\ClientInterface
             $this->getSign($data, $this->config->getPayment(), $pair->getGood()),
             $data,
             $this->config->getKey(),
+            $this->config->getUrl(),
             $transaction->getInfo(),
             $transaction->getType()
         );

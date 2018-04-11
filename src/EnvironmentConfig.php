@@ -4,14 +4,14 @@ namespace Wearesho\Bobra\Platon;
 
 use Horat1us\Environment;
 
+/**
+ * Class EnvironmentConfig
+ * @package Wearesho\Bobra\Platon
+ */
 class EnvironmentConfig extends Environment\Config implements ConfigInterface
 {
-    use LanguageConfigTrait;
-
     /**
-     * Public key for Platon
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getKey(): string
     {
@@ -19,9 +19,7 @@ class EnvironmentConfig extends Environment\Config implements ConfigInterface
     }
 
     /**
-     * Private key for signing data
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getPass(): string
     {
@@ -29,7 +27,7 @@ class EnvironmentConfig extends Environment\Config implements ConfigInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getPayment(): string
     {
@@ -37,12 +35,18 @@ class EnvironmentConfig extends Environment\Config implements ConfigInterface
     }
 
     /**
-     * URL for sending form on front-end
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getUrl(): string
     {
-        return $this->getEnv('PLATON_URL', static::PAYMENT_URL);
+        return $this->getEnv('PLATON_URL', ConfigInterface::PAYMENT_URL);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getLanguage(): string
+    {
+        return $this->getEnv('PLATON_LANGUAGE', ConfigInterface::LANGUAGE_UA);
     }
 }

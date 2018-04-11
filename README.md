@@ -6,6 +6,12 @@
 
 [Platon](https://platon.ua) integration for PHP.
 
+## Installation
+Using composer:
+```bash
+composer require wearesho-team/platon
+```
+
 ## Author
 - [Wearesho](https://wearesho.com)
 - [Alexander Letnikow](mailto:reclamme@gmail.com)

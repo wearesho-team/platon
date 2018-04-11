@@ -40,31 +40,4 @@ class PaymentTest extends TestCase
             $this->payment->jsonSerialize()
         );
     }
-
-    public function testJsonSerialize()
-    {
-        $local_payment = new Payment(
-            228,
-            "de",
-            "payment_string_local",
-            new Payments\UrlPair("good_string_local"),
-            "qwerty_sign_local",
-            "data_string_local",
-            "key_string_local"
-        );
-
-        $this->assertEquals(
-            [
-                'data' => 'data_string_local',
-                'key' => 'key_string_local',
-                'payment' => 'payment_string_local',
-                'url' => 'good_string_local',
-                'error_url' => 'good_string_local',
-                'lang' => 'de',
-                'sign' => 'qwerty_sign_local'
-
-            ],
-            $local_payment->jsonSerialize()
-        );
-    }
 }

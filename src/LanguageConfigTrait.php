@@ -22,10 +22,10 @@ trait LanguageConfigTrait
 
     public function setLanguage(string $language): self
     {
-        $isLanguageValid = $language !== ConfigInterface::LANGUAGE_UA
-            && $language !== ConfigInterface::LANGUAGE_RU;
+        $isLanguageValid = $language === ConfigInterface::LANGUAGE_UA
+            || $language === ConfigInterface::LANGUAGE_RU;
 
-        if ($isLanguageValid) {
+        if (!$isLanguageValid) {
             throw new \InvalidArgumentException("Invalid language");
         }
 

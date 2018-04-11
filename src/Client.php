@@ -22,14 +22,14 @@ class Client implements Payments\ClientInterface
         Payments\UrlPairInterface $pair,
         Payments\TransactionInterface $transaction
     ): Payments\PaymentInterface {
-        $data = $this->_getDataParam($transaction);
+        $data = $this->getDataParam($transaction);
 
         return new Payment(
             $transaction->getService(),
             $this->config->getLanguage(),
             $this->config->getPayment(),
             $pair,
-            $this->_getSign($data, $this->config->getPayment(), $pair->getGood()),
+            $this->getSign($data, $this->config->getPayment(), $pair->getGood()),
             $data,
             $this->config->getKey(),
             $transaction->getInfo(),

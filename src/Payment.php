@@ -4,6 +4,7 @@ namespace Wearesho\Bobra\Platon;
 
 use Wearesho\Bobra\Payments\PaymentInterface;
 use Wearesho\Bobra\Payments\PaymentTrait;
+use Wearesho\Bobra\Payments\UrlPairInterface;
 
 /**
  * Class Payment
@@ -16,8 +17,8 @@ class Payment implements PaymentInterface
     /** @var string */
     protected $lang;
 
-    /** @var string */
-    protected $url;
+    /** @var UrlPairInterface */
+    protected $urlPair;
 
     /** @var string */
     protected $sign;
@@ -41,7 +42,7 @@ class Payment implements PaymentInterface
         int $id,
         string $lang,
         string $payment,
-        string $url,
+        UrlPairInterface $urlPair,
         string $sign,
         string $data,
         string $key,
@@ -51,7 +52,7 @@ class Payment implements PaymentInterface
     {
         $this->id = $id;
         $this->lang = $lang;
-        $this->url = $url;
+        $this->urlPair = $urlPair;
         $this->sign = $sign;
         $this->data = $data;
         $this->ext = $ext;
@@ -69,7 +70,8 @@ class Payment implements PaymentInterface
             'data' => $this->data,
             'key' => $this->key,
             'payment' => $this->payment,
-            'url' => $this->url,
+            'url' => $this->urlPair->getGood(),
+            'error_url' => $this->urlPair->getBad(),
             'lang' => $this->lang,
             'sign' => $this->sign,
         ];

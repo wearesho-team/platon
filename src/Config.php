@@ -16,7 +16,7 @@ class Config implements ConfigInterface
     protected $pass;
 
     /** @var string */
-    protected $url = 'https://secure.platononline.com/';
+    protected $url = 'https://secure.platononline.com/payment/auth';
 
     /** @var string */
     protected $language = Config::LANGUAGE_UA;

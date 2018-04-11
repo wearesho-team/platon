@@ -4,7 +4,7 @@
   "type": "library",
   "require": {
     "php": ">=7.1",
-    "horat1us/environment-config": "^1.0",
+    "horat1us/environment-config": "^1.1",
     "wearesho-team/bobra-payments": "^1.1.0"
   },
   "require-dev": {

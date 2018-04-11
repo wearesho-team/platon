@@ -4,6 +4,7 @@ namespace Wearesho\Bobra\Platon\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\EnvironmentConfig;
+use Horat1us\Environment\MissingEnvironmentException;
 
 class EnvironmentConfigTest extends TestCase
 {
@@ -32,6 +33,17 @@ class EnvironmentConfigTest extends TestCase
             "maza_faqa",
             $this->config->getKey()
         );
+    }
+
+    /**
+     * @expectedException \Horat1us\Environment\MissingEnvironmentException::class
+     */
+    public function testException()
+    {
+        putenv("PLATON_KEY");
+
+        $this->config->getKey();
+        $this->expectException(MissingEnvironmentException::class);
     }
 
     public function testGetPass()

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eeec785c1deb0a960c7b3a2d82feff06",
+    "content-hash": "0e3f9309c6ba887eb56f8e4337a6d288",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -62,16 +62,16 @@
         },
         {
             "name": "horat1us/environment-config",
-            "version": "1.0.1",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Horat1us/environment-config.git",
-                "reference": "a448b5418a7e0fcc6de789a03f0098cbf2f9982f"
+                "reference": "806a2b42a367d45831d1e271561035f47c498953"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Horat1us/environment-config/zipball/a448b5418a7e0fcc6de789a03f0098cbf2f9982f",
-                "reference": "a448b5418a7e0fcc6de789a03f0098cbf2f9982f",
+                "url": "https://api.github.com/repos/Horat1us/environment-config/zipball/806a2b42a367d45831d1e271561035f47c498953",
+                "reference": "806a2b42a367d45831d1e271561035f47c498953",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 }
             ],
             "description": "Environment Config class",
-            "time": "2018-04-11T15:19:07+00:00"
+            "time": "2018-04-11T19:49:31+00:00"
         },
         {
             "name": "myclabs/deep-copy",

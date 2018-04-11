@@ -11,6 +11,10 @@ trait LanguageConfigTrait
     /** @var string */
     protected $language = ConfigInterface::LANGUAGE_UA;
 
+    /**
+     * @inheritdoc
+     * @see ConfigInterface::getLanguage()
+     */
     public function getLanguage(): string
     {
         return $this->language;

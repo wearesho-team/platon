@@ -2,24 +2,19 @@
 
 namespace Wearesho\Bobra\Platon;
 
-
 /**
  * Class Config
  * @package Wearesho\Bobra\Platon
  */
 class Config implements ConfigInterface
 {
+    use LanguageConfigTrait;
+
     /** @var string */
     protected $key;
 
     /** @var string */
     protected $pass;
-
-    /** @var string */
-    protected $url = 'https://secure.platononline.com/payment/auth';
-
-    /** @var string */
-    protected $language = Config::LANGUAGE_UA;
 
     /** @var string */
     protected $payment;
@@ -38,7 +33,7 @@ class Config implements ConfigInterface
      */
     public function getUrl(): string
     {
-        return $this->url;
+        return static::PAYMENT_URL;
     }
 
     /**
@@ -59,31 +54,6 @@ class Config implements ConfigInterface
     public function getPass(): string
     {
         return $this->pass;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    /**
-     * @param string $language
-     * @return $this
-     */
-    public function setLanguage(string $language): self
-    {
-        if (
-            $language !== static::LANGUAGE_UA
-            && $language !== static::LANGUAGE_RU
-        ) {
-            throw new \InvalidArgumentException("Invalid language");
-        }
-
-        $this->language = $language;
-        return $this;
     }
 
     /**

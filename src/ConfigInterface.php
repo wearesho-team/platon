@@ -11,6 +11,8 @@ interface ConfigInterface
     public const LANGUAGE_RU = 'ru';
     public const LANGUAGE_UA = 'ua';
 
+    public const PAYMENT_URL = 'https://secure.platononline.com/payment/auth';
+
     /**
      * URL for sending form on front-end
      *

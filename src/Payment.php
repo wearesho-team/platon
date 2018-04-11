@@ -48,8 +48,7 @@ class Payment implements PaymentInterface
         string $key,
         array $ext = [],
         string $formId = null
-    )
-    {
+    ) {
         $this->id = $id;
         $this->lang = $lang;
         $this->urlPair = $urlPair;

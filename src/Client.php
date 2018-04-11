@@ -18,8 +18,10 @@ class Client implements Payments\ClientInterface
         $this->config = $config;
     }
 
-    public function createPayment(Payments\UrlPairInterface $pair, Payments\TransactionInterface $transaction): Payments\PaymentInterface
-    {
+    public function createPayment(
+        Payments\UrlPairInterface $pair,
+        Payments\TransactionInterface $transaction
+    ): Payments\PaymentInterface {
         $data = $this->_getDataParam($transaction);
 
         return new Payment(
@@ -27,7 +29,7 @@ class Client implements Payments\ClientInterface
             $this->config->getLanguage(),
             $this->config->getPayment(),
             $pair,
-            $this->_getSign($data, $this->config->getPayment(),$pair->getGood()),
+            $this->_getSign($data, $this->config->getPayment(), $pair->getGood()),
             $data,
             $this->config->getKey(),
             $transaction->getInfo(),
@@ -35,9 +37,14 @@ class Client implements Payments\ClientInterface
         );
     }
 
-    protected function _getDataParam(Payments\TransactionInterface $transaction)
+    protected function getDataParam(Payments\TransactionInterface $transaction)
     {
-        $amount = number_format((float)($transaction->getAmount() / 100), 2, '.', '');
+        $amount = number_format(
+            (float)($transaction->getAmount() / 100),
+            2,
+            '.',
+            ''
+        );
 
         return base64_encode(json_encode([
             'amount' => $amount,
@@ -54,7 +61,7 @@ class Client implements Payments\ClientInterface
      * @param string $url
      * @return string
      */
-    protected function _getSign(string $data, string $payment, string $url)
+    protected function getSign(string $data, string $payment, string $url)
     {
         $result_hash = strrev($this->config->getKey())
             . strrev($payment)

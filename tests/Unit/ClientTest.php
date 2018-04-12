@@ -32,7 +32,7 @@ class ClientTest extends TestCase
                         "description_string"
                     )
                 )
-                ->jsonSerialize()['sign']
+                ->jsonSerialize()["data"]['sign']
         );
 
         $this->assertEquals(
@@ -47,7 +47,7 @@ class ClientTest extends TestCase
                         "description_string"
                     )
                 )
-                ->jsonSerialize()['sign']
+                ->jsonSerialize()["data"]['sign']
         );
     }
 
@@ -63,6 +63,7 @@ class ClientTest extends TestCase
                 "eyJhbW91bnQiOiIyLjI3IiwibmFtZSI6ImRlc2NyaXB0aW9uX3N0cmluZyIsImN1cnJlbmN5IjoiVUFIIiwi".
                 "MCI6InJlY3VycmluZyJ9",
                 "key_string",
+                "https://secure.platononline.com/payment/auth",
                 [],
                 "type_string"
             ),

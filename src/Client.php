@@ -44,7 +44,7 @@ class Client implements Payments\ClientInterface
         $ext = [];
 
         foreach ($info as $key => $value) {
-            if (!is_int($key)) {
+            if (is_int($key)) {
                 $maxExt = max($key, $maxExt);
             } else {
                 $key = is_null($maxExt) ? $maxExt = 1 : ++$maxExt;

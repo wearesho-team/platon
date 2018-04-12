@@ -3,8 +3,8 @@
 namespace Wearesho\Bobra\Platon\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Wearesho\Bobra\Platon\Payment;
 use Wearesho\Bobra\Payments;
+use Wearesho\Bobra\Platon\Payment;
 
 class PaymentTest extends TestCase
 {
@@ -36,8 +36,11 @@ class PaymentTest extends TestCase
                 'url' => 'good_string',
                 'error_url' => 'good_string',
                 'lang' => 'de',
-                'sign' => 'qwerty_sign'
-
+                'sign' => 'qwerty_sign',
+                'formid' => 'some_formId',
+                'ext0' => 'one',
+                'ext1' => 'two',
+                'ext2' => 'three'
             ],
             $this->payment->jsonSerialize()
         );

@@ -20,7 +20,9 @@ class PaymentTest extends TestCase
             new Payments\UrlPair("good_string"),
             "qwerty_sign",
             "data_string",
-            "key_string"
+            "key_string",
+            ["one", "two", "three"],
+            "some_formId"
         );
     }
 

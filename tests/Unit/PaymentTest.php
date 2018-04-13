@@ -21,6 +21,7 @@ class PaymentTest extends TestCase
             "qwerty_sign",
             "data_string",
             "key_string",
+            "form_url_string",
             ["one", "two", "three"],
             "some_formId"
         );
@@ -38,11 +39,11 @@ class PaymentTest extends TestCase
                 'lang' => 'de',
                 'sign' => 'qwerty_sign',
                 'formid' => 'some_formId',
-                'ext0' => 'one',
-                'ext1' => 'two',
-                'ext2' => 'three'
+                '0' => 'one',
+                '1' => 'two',
+                '2' => 'three',
             ],
-            $this->payment->jsonSerialize()
+            $this->payment->jsonSerialize()['data']
         );
     }
 }

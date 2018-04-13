@@ -2,9 +2,9 @@
 
 namespace Wearesho\Bobra\Platon\Tests\Unit;
 
+use Horat1us\Environment\MissingEnvironmentException;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\EnvironmentConfig;
-use Horat1us\Environment\MissingEnvironmentException;
 
 class EnvironmentConfigTest extends TestCase
 {
@@ -36,7 +36,7 @@ class EnvironmentConfigTest extends TestCase
     }
 
     /**
-     * @expectedException \Horat1us\Environment\MissingEnvironmentException::class
+     * @expectedException \Horat1us\Environment\MissingEnvironmentException
      */
     public function testException()
     {

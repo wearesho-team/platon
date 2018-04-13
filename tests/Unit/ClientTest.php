@@ -64,7 +64,12 @@ class ClientTest extends TestCase
                 "MCI6InJlY3VycmluZyJ9",
                 "key_string",
                 "https://secure.platononline.com/payment/auth",
-                [],
+                [
+                    'ext0' => "zero",
+                    "ext1" => "one",
+                    'ext2' => "two",
+                    "ext3" => "three",
+                ],
                 "type_string"
             ),
             $this->client->createPayment(
@@ -73,7 +78,13 @@ class ClientTest extends TestCase
                     228,
                     2.28,
                     "type_string",
-                    "description_string"
+                    "description_string",
+                    [
+                        '0' => "zero",
+                        '1' => "one",
+                        '2' => "two",
+                        'key1' => "three",
+                    ]
                 )
             )
         );

@@ -84,8 +84,8 @@ class Payment implements PaymentInterface
             $json['formid'] = $this->formId;
         }
 
-        foreach ($this->ext as $item => $value) {
-            $json['ext' . (int)$item] = $value;
+        if (!empty($this->ext)) {
+            $json = array_merge($json, $this->ext);
         }
 
         return [

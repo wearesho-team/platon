@@ -24,4 +24,18 @@ class LanguageConfigTraitTest extends TestCase
         $config->setLanguage(ConfigInterface::LANGUAGE_RU);
         $this->assertEquals(ConfigInterface::LANGUAGE_RU, $config->getLanguage());
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidLangException()
+    {
+        $config = new class
+        {
+            use LanguageConfigTrait;
+        };
+
+        $config->setLanguage("qwerty");
+        $this->expectExceptionMessage("Invalid language");
+    }
 }

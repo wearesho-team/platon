@@ -32,9 +32,28 @@ class Client implements Payments\ClientInterface
             $this->getSign($data, $this->config->getPayment(), $pair->getGood()),
             $data,
             $this->config->getKey(),
-            $transaction->getInfo(),
+            $this->config->getUrl(),
+            $this->transformInfoIntoExt($transaction->getInfo()),
             $transaction->getType()
         );
+    }
+
+    protected function transformInfoIntoExt(array $info): array
+    {
+        $maxExt = null;
+        $ext = [];
+
+        foreach ($info as $key => $value) {
+            if (is_int($key)) {
+                $maxExt = max($key, $maxExt);
+            } else {
+                $key = is_null($maxExt) ? $maxExt = 1 : ++$maxExt;
+            }
+
+            $ext['ext' . $key] = $value;
+        }
+
+        return $ext;
     }
 
     protected function getDataParam(Payments\TransactionInterface $transaction)

@@ -38,6 +38,9 @@ class Payment implements PaymentInterface
     /** @var array */
     protected $ext = [];
 
+    /** @var string */
+    protected $formUrl;
+
     public function __construct(
         int $id,
         string $lang,
@@ -46,6 +49,7 @@ class Payment implements PaymentInterface
         string $sign,
         string $data,
         string $key,
+        string $formUrl,
         array $ext = [],
         string $formId = null
     ) {
@@ -55,6 +59,7 @@ class Payment implements PaymentInterface
         $this->sign = $sign;
         $this->data = $data;
         $this->ext = $ext;
+        $this->formUrl = $formUrl;
         $this->payment = $payment;
         $this->formId = $formId;
         $this->key = $key;
@@ -79,10 +84,13 @@ class Payment implements PaymentInterface
             $json['formid'] = $this->formId;
         }
 
-        foreach ($this->ext as $item => $value) {
-            $json['ext' . (int)$item] = $value;
+        if (!empty($this->ext)) {
+            $json = array_merge($json, $this->ext);
         }
 
-        return $json;
+        return [
+            'action' => $this->formUrl,
+            'data' => $json,
+        ];
     }
 }

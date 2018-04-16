@@ -34,7 +34,7 @@ class Client implements Payments\ClientInterface
             $this->config->getKey(),
             $this->config->getUrl(),
             $this->transformInfoIntoExt($transaction->getInfo()),
-            $transaction->getType()
+            $transaction instanceof TransactionInterface ? $transaction->getFormId() : $transaction->getType()
         );
     }
 

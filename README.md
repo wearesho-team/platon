@@ -5,6 +5,7 @@
 [![codecov](https://codecov.io/gh/wearesho-team/platon/branch/master/graph/badge.svg)](https://codecov.io/gh/wearesho-team/platon)
 
 [Platon](https://platon.ua) integration for PHP.
+[Changelog](./CHANGELOG.md)
 
 ## Installation
 Using composer:

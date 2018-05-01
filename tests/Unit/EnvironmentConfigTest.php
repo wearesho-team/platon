@@ -20,8 +20,8 @@ class EnvironmentConfigTest extends TestCase
     public function testGetUrl()
     {
         $this->assertEquals(
-            "https://secure.platononline.com/payment/auth",
-            $this->config->getUrl()
+            "https://secure.platononline.com/",
+            $this->config->getBaseUrl()
         );
     }
 

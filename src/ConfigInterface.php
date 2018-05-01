@@ -11,14 +11,14 @@ interface ConfigInterface
     public const LANGUAGE_RU = 'ru';
     public const LANGUAGE_UA = 'ua';
 
-    public const PAYMENT_URL = 'https://secure.platononline.com/payment/auth';
+    public const PAYMENT_URL = 'https://secure.platononline.com/';
 
     /**
      * URL for sending form on front-end
      *
      * @return string
      */
-    public function getUrl(): string;
+    public function getBaseUrl(): string;
 
     /**
      * Public key for Platon

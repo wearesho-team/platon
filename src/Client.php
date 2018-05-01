@@ -32,7 +32,7 @@ class Client implements Payments\ClientInterface
             $this->getSign($data, $this->config->getPayment(), $pair->getGood()),
             $data,
             $this->config->getKey(),
-            $this->config->getUrl(),
+            rtrim($this->config->getBaseUrl(), '/') . '/payment/auth',
             $this->transformInfoIntoExt($transaction->getInfo()),
             $transaction instanceof TransactionInterface ? $transaction->getFormId() : $transaction->getType()
         );

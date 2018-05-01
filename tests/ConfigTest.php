@@ -10,7 +10,7 @@ class ConfigTest extends TestCase
     /** @var Config */
     protected $config;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->config = new Config("key_string_global", "pass_string_global", "payment_string_global");
@@ -22,11 +22,6 @@ class ConfigTest extends TestCase
             "key_string",
             "pass_string",
             "payment_string"
-        );
-
-        $this->assertEquals(
-            "https://secure.platononline.com/payment/auth",
-            $configObject->getUrl()
         );
 
         $this->assertEquals(
@@ -48,8 +43,8 @@ class ConfigTest extends TestCase
     public function testGetUrl()
     {
         $this->assertEquals(
-            "https://secure.platononline.com/payment/auth",
-            $this->config->getUrl()
+            "https://secure.platononline.com/",
+            $this->config->getBaseUrl()
         );
     }
 

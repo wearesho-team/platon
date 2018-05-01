@@ -31,7 +31,7 @@ class Config implements ConfigInterface
      *
      * @return string
      */
-    public function getUrl(): string
+    public function getBaseUrl(): string
     {
         return static::PAYMENT_URL;
     }

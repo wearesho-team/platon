@@ -37,7 +37,7 @@ class EnvironmentConfig extends Environment\Config implements ConfigInterface
     /**
      * @inheritdoc
      */
-    public function getUrl(): string
+    public function getBaseUrl(): string
     {
         return $this->getEnv('PLATON_URL', ConfigInterface::PAYMENT_URL);
     }

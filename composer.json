@@ -6,7 +6,7 @@
     "php": ">=7.1",
     "guzzlehttp/guzzle": "^6.3",
     "horat1us/environment-config": "^1.1",
-    "wearesho-team/bobra-payments": "^1.3.1"
+    "wearesho-team/bobra-payments": "^1.4.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^7.1",

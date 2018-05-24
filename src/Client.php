@@ -10,6 +10,8 @@ use Wearesho\Bobra\Payments;
  */
 class Client implements Payments\ClientInterface
 {
+    use ValidateLanguage;
+
     /** @var ConfigInterface */
     protected $config;
 
@@ -26,7 +28,7 @@ class Client implements Payments\ClientInterface
 
         return new Payment(
             $transaction->getService(),
-            $this->config->getLanguage(),
+            $this->fetchLanguage($transaction),
             $this->config->getPayment(),
             $pair,
             $this->getSign($data, $this->config->getPayment(), $pair->getGood()),
@@ -36,6 +38,18 @@ class Client implements Payments\ClientInterface
             $this->transformInfoIntoExt($transaction->getInfo()),
             $transaction instanceof TransactionInterface ? $transaction->getFormId() : $transaction->getType()
         );
+    }
+
+    protected function fetchLanguage(Payments\TransactionInterface $transaction): string
+    {
+        if (!$transaction instanceof Payments\HasLanguage) {
+            return $this->config->getLanguage();
+        }
+
+        $language = $transaction->getLanguage();
+        $this->validateLanguage($language);
+
+        return $language;
     }
 
     protected function transformInfoIntoExt(array $info): array

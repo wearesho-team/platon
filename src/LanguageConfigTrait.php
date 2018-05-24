@@ -8,6 +8,8 @@ namespace Wearesho\Bobra\Platon;
  */
 trait LanguageConfigTrait
 {
+    use ValidateLanguage;
+
     /** @var string */
     protected $language = ConfigInterface::LANGUAGE_UA;
 
@@ -22,14 +24,9 @@ trait LanguageConfigTrait
 
     public function setLanguage(string $language): self
     {
-        $isLanguageValid = $language === ConfigInterface::LANGUAGE_UA
-            || $language === ConfigInterface::LANGUAGE_RU;
-
-        if (!$isLanguageValid) {
-            throw new \InvalidArgumentException("Invalid language");
-        }
-
+        $this->validateLanguage($language);
         $this->language = $language;
+
         return $this;
     }
 }

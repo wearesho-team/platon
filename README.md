@@ -13,6 +13,40 @@ Using composer:
 composer require wearesho-team/platon
 ```
 
+## Usage
+
+See [bobra-payments](https://github.com/wearesho-team/bobra-payments) to configure environment
+
+## Notification
+
+Use [notification handler](./src/Notification/Server.php) to create payment instance from platon`s request:
+
+```php
+<?php
+
+use Wearesho\Bobra\Platon;
+
+class PlatonController
+{
+    public function actionHandle()
+    {
+        // You can use several platon configs in different cases.
+        // Handler will get that one that matches `key` param from platon`s request.
+        // All platon configs should be passed into ConfigProvider.
+        $configProvider = new Platon\Notification\ConfigProvider([
+            new Platon\Config('First key', 'first pass', 'CC'),    
+            new Platon\Config('Second key', 'second pass', 'CC'),    
+        ]);
+
+        $server = new Platon\Notification\Server($configProvider);
+        $payment = $server->handle($_POST);
+
+        // You can use returned Payment instance to save transaction data.
+    }
+}
+
+```
+
 ## Author
 - [Wearesho](https://wearesho.com)
 - [Alexander Letnikow](mailto:reclamme@gmail.com)

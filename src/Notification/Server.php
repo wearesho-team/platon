@@ -55,7 +55,6 @@ class Server
         $requiredRequestKeys = ['order', 'card'];
         foreach ($requiredRequestKeys as $requestKey) {
             if (!array_key_exists($requestKey, $data)) {
-
                 throw new \InvalidArgumentException("Key {$requestKey} is required");
             }
         }

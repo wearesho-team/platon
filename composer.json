@@ -5,7 +5,7 @@
   "require": {
     "php": ">=7.1",
     "guzzlehttp/guzzle": "^6.3",
-    "horat1us/environment-config": "^1.1",
+    "horat1us/environment-config": "^1.2",
     "wearesho-team/bobra-payments": "^1.4.0"
   },
   "require-dev": {

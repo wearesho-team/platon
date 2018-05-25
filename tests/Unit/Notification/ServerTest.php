@@ -9,16 +9,19 @@ use Wearesho\Bobra\Platon\Notification;
 /**
  * Class ServerTest
  * @package Wearesho\Bobra\Platon\Tests\Unit\Notification
+ * @coversDefaultClass \Wearesho\Bobra\Platon\Notification\Server
  */
 class ServerTest extends TestCase
 {
+    protected const KEY = 'test key';
+
     /** @var Config */
     protected $config;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->config = new Config('Test key', 'test', 'CC');
+        $this->config = new Config(static::KEY, 'test', 'CC');
     }
 
     /**
@@ -31,7 +34,9 @@ class ServerTest extends TestCase
             'sign' => 'test',
         ];
 
-        $server = new Notification\Server($this->config);
+        $server = new Notification\Server(
+            new Notification\ConfigProvider([$this->config])
+        );
         $server->handle($data);
     }
 
@@ -46,13 +51,14 @@ class ServerTest extends TestCase
             'order' => 'test',
         ];
 
-        $server = new Notification\Server($this->config);
+        $server = new Notification\Server(
+            new Notification\ConfigProvider([$this->config])
+        );
         $server->handle($data);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid sign
+     * @expectedException \Wearesho\Bobra\Platon\Notification\InvalidSignException
      */
     public function testInvalidSign(): void
     {
@@ -60,9 +66,12 @@ class ServerTest extends TestCase
             'sign' => 'invalid sign',
             'order' => 'test',
             'card' => 'test',
+            'key' => static::KEY,
         ];
 
-        $server = new Notification\Server($this->config);
+        $server = new Notification\Server(
+            new Notification\ConfigProvider([$this->config])
+        );
         $server->handle($data);
     }
 
@@ -77,9 +86,12 @@ class ServerTest extends TestCase
             'status' => Notification\Payment::STATUS_SALE,
             'amount' => mt_rand(100, 500),
             'currency' => 'UAH',
+            'key' => static::KEY,
         ];
 
-        $server = new Notification\Server($this->config);
+        $server = new Notification\Server(
+            new Notification\ConfigProvider([$this->config])
+        );
         $payment = $server->handle($data);
         $this->assertInstanceOf(Notification\Payment::class, $payment);
     }

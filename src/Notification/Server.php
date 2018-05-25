@@ -2,29 +2,27 @@
 
 namespace Wearesho\Bobra\Platon\Notification;
 
-use Wearesho\Bobra\Platon\ConfigInterface;
-
 /**
  * Class Server
  * @package Wearesho\Bobra\Platon\Notification
  */
 class Server
 {
-    /** @var ConfigInterface */
-    protected $config;
+    /** @var ConfigProviderInterface */
+    protected $configProvider;
 
-    public function __construct(ConfigInterface $config)
+    public function __construct(ConfigProviderInterface $configProvider)
     {
-        $this->config = $config;
+        $this->configProvider = $configProvider;
     }
 
+    /**
+     * @param array $data
+     * @return Payment
+     * @throws InvalidSignException
+     * @throws \InvalidArgumentException
+     */
     public function handle(array $data): Payment
-    {
-        $payment = $this->parseData($data);
-        return $payment;
-    }
-
-    protected function parseData(array $data): Payment
     {
         $this->validateSign($data);
 
@@ -50,6 +48,10 @@ class Server
         );
     }
 
+    /**
+     * @param array $data
+     * @throws InvalidSignException
+     */
     protected function validateSign(array $data): void
     {
         $requiredRequestKeys = ['order', 'card'];
@@ -59,8 +61,10 @@ class Server
             }
         }
 
+        $config = $this->configProvider->provide($data['key']);
+
         $sign = md5(strtoupper(
-            $this->config->getPass()
+            $config->getPass()
             . $data['order']
             . strrev(
                 substr($data['card'], 0, 6)
@@ -69,7 +73,7 @@ class Server
         ));
 
         if ($sign !== $data['sign']) {
-            throw new \InvalidArgumentException("Invalid sign");
+            throw new InvalidSignException();
         }
     }
 }

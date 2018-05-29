@@ -30,10 +30,6 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
         $this->configs = $configs;
     }
 
-    /**
-     * @param string $key
-     * @return Platon\ConfigInterface
-     */
     public function provide(string $key): Platon\ConfigInterface
     {
         foreach ($this->configs as $config) {

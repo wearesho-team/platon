@@ -54,7 +54,7 @@ class Server
      */
     protected function validateSign(array $data): void
     {
-        $requiredRequestKeys = ['order', 'card'];
+        $requiredRequestKeys = ['order', 'card', 'key',];
         foreach ($requiredRequestKeys as $requestKey) {
             if (!array_key_exists($requestKey, $data)) {
                 throw new \InvalidArgumentException("Key {$requestKey} is required");

@@ -16,11 +16,11 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
 
     /**
      * ConfigProvider constructor.
-     * @param Platon\ConfigInterface|Platon\ConfigInterface[] $configs
+     * @param Platon\ConfigInterface[] $configs
      */
-    public function __construct($configs = [])
+    public function __construct(array $configs = [])
     {
-        foreach ((array)$configs as $config) {
+        foreach ($configs as $config) {
             if (!$config instanceof Platon\ConfigInterface) {
                 throw new \InvalidArgumentException(
                     "All configs have to implement " . Platon\ConfigInterface::class

@@ -32,7 +32,7 @@ class Server
             $key = "ext{$extKey}";
 
             if (array_key_exists($key, $data)) {
-                $paymentData[$extKey] = $data[$extKey];
+                $paymentData[$key] = $data[$key];
             }
         }
 

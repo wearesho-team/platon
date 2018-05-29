@@ -8,10 +8,6 @@ namespace Wearesho\Bobra\Platon\Notification;
  */
 class Payment implements PaymentInterface
 {
-    public const STATUS_SALE = 'SALE';
-    public const STATUS_REFUND = 'REFUND';
-    public const STATUS_CHARGEBACK = 'CHARGEBACK';
-
     /** @var string */
     protected $id;
 
@@ -30,7 +26,7 @@ class Payment implements PaymentInterface
     /** @var string */
     protected $card;
 
-    /** @var string */
+    /** @var \DateTimeInterface */
     protected $date;
 
     /** @var array */
@@ -43,7 +39,7 @@ class Payment implements PaymentInterface
         string $currency,
         string $status,
         string $card,
-        string $date,
+        \DateTimeInterface $date,
         array $data = []
     ) {
         $this->id = $id;
@@ -86,7 +82,7 @@ class Payment implements PaymentInterface
         return $this->card;
     }
 
-    public function getDate(): string
+    public function getDate(): \DateTimeInterface
     {
         return $this->date;
     }

@@ -13,69 +13,81 @@ Using composer:
 composer require wearesho-team/platon
 ```
 
-### Usage
+## Usage
 
-Configure your environment
+### Configuration
+For configuration you have to use [ConfigInterface](./src/ConfigInterface.php).
+Available implementations:
+- [Config](./src/Config.php) - simple entity. Example:
+```php
+<?php
 
-```dotenv
-PLATON_KEY=your_key
-PLATON_PASS=your_pass
-PLATON_URL=http://custom-url-to-platon.com/
-PLATON_PAYMENT=CC
-PLATON_LANGUAGE=ru|ua
+use Wearesho\Bobra\Platon;
 
+$config = new Platon\Config("Key", "Pass", "PaymentType");
 ```
+- [EnvironmentConfig](./src/EnvironmentConfig.php) - configuration using getenv. Example:
+```php
+<?php
 
-Set up config
+use Wearesho\Bobra\Platon;
+
+$config = new Platon\EnvironmentConfig();
+```
+Environment configuration:
+
+| Variable        | Required | Default                          | Description                   |
+|-----------------|----------|----------------------------------|-------------------------------|
+| PLATON_KEY      | yes      |                                  | public key                    |
+| PLATON_PASS     | yes      |                                  | secret key                    |
+| PLATON_URL      | no       | https://secure.platononline.com/ | base url to make C2C requests |
+| PLATON_PAYMENT  | no       | CC                               | default payment type          |
+| PLATON_LANGUAGE | no       | ua                               | language: `ru` or `ua`        |
+
+### Generating payment configuration
+
+Use [Client](./src/Client.php) to fetch payment config
 
 ```php
 <?php
 
-$config = new \Wearesho\Bobra\Platon\EnvironmentConfig();
+use Wearesho\Bobra\Platon;
+use Wearesho\Bobra\Payments;
 
-```
-
-Use [client](./src/Client.php) to create payment instance
-
-```php
-<?php
-
-$client = new \Wearesho\Bobra\Platon\Client($config);
+$config = new Platon\EnvironmentConfig();
+$client = new Platon\Client($config);
 
 $payment = $client->createPayment(
-    new \Wearesho\Bobra\Payments\UrlPair(
+    new Payments\UrlPair(
         'http://redirect-url-on-success',
         'http://redirect-url-on-fail'
     ),
-    new \Wearesho\Bobra\Platon\Transaction(
-        1, // service id,
-        500, // amount
-        'paymentType', // your custom payment type
-        'description for payment',
-        [
-            '' // custom payment data (will be returned in callback in ext1, ext2 etc.            
-        ],
-        'UAH', // currency
-        'Form id for front-end'
+    new Platon\Transaction(
+        $serviceId = 1,
+        $amount = 500,
+        $paymentType = 'paymentType',
+        $description = 'description for payment',
+        $ext = [
+            0 => 'some-info'            
+        ], // optional, will be returned in notification
+        $currency = 'UAH', // optional 
+        $formId = 'Form id for front-end' // optional
     )
 );
-
 ```
 
-Get payment configuration for front-end
+### Rendering form 
 
 ```php
 <?php
 
-$config = $payment->jsonSerialize();
-
+$config = $payment->jsonSerialize(); // ['action' => 'URL', 'data' => 'url']
 ```
-
-Create iframe in front-end and pass all returned data to it.
+*You should send `data` to `action` url.
 
 ### Notification
 
-Use [notification handler](./src/Notification/Server.php) to create payment instance from platon`s request:
+Use [Notification\Server](./src/Notification/Server.php) to create payment instance from platon`s request:
 
 ```php
 <?php

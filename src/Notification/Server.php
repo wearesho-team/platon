@@ -2,6 +2,8 @@
 
 namespace Wearesho\Bobra\Platon\Notification;
 
+use Carbon\Carbon;
+
 /**
  * Class Server
  * @package Wearesho\Bobra\Platon\Notification
@@ -43,7 +45,7 @@ class Server
             $data['currency'],
             $data['status'],
             $data['card'],
-            $data['date'],
+            Carbon::parse($data['date']),
             $paymentData
         );
     }

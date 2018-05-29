@@ -82,7 +82,7 @@ class ServerTest extends TestCase
             'order' => 'order',
             'card' => '411111****1111',
             'id' => 'id',
-            'date' => new \DateTime(),
+            'date' => date('Y-m-d H:i:s'),
             'status' => Notification\Payment\Status::SALE,
             'amount' => mt_rand(100, 500),
             'currency' => 'UAH',

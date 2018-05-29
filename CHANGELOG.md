@@ -1,11 +1,9 @@
 # Platon Integration Changelog
-
-## 1.3.0 - 25 May, 2018
-- Add [notification server](./src/Notification/Server.php) for handling platon requests 
-
+ 
 ## 1.2.0 - ?
 - Add [Credit](./src/Credit) classes, that describes transfering funds to client credit card.
 It should be used for issuing credits. 
+- Add [notification server](./src/Notification/Server.php) for handling platon requests
 
 ## 1.1.0 - 16 April, 2018
 - Add [TransactionInterface](./src/TransactionInterface.php) with implementation:

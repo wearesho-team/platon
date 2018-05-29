@@ -13,11 +13,67 @@ Using composer:
 composer require wearesho-team/platon
 ```
 
-## Usage
+### Usage
 
-See [bobra-payments](https://github.com/wearesho-team/bobra-payments) to configure environment
+Configure your environment
 
-## Notification
+```dotenv
+PLATON_KEY=your_key
+PLATON_PASS=your_pass
+PLATON_URL=http://custom-url-to-platon.com/
+PLATON_PAYMENT=CC
+PLATON_LANGUAGE=ru|ua
+
+```
+
+Set up config
+
+```php
+<?php
+
+$config = new \Wearesho\Bobra\Platon\EnvironmentConfig();
+
+```
+
+Use [client](./src/Client.php) to create payment instance
+
+```php
+<?php
+
+$client = new \Wearesho\Bobra\Platon\Client($config);
+
+$payment = $client->createPayment(
+    new \Wearesho\Bobra\Payments\UrlPair(
+        'http://redirect-url-on-success',
+        'http://redirect-url-on-fail'
+    ),
+    new \Wearesho\Bobra\Platon\Transaction(
+        1, // service id,
+        500, // amount
+        'paymentType', // your custom payment type
+        'description for payment',
+        [
+            '' // custom payment data (will be returned in callback in ext1, ext2 etc.            
+        ],
+        'UAH', // currency
+        'Form id for front-end'
+    )
+);
+
+```
+
+Get payment configuration for front-end
+
+```php
+<?php
+
+$config = $payment->jsonSerialize();
+
+```
+
+Create iframe in front-end and pass all returned data to it.
+
+### Notification
 
 Use [notification handler](./src/Notification/Server.php) to create payment instance from platon`s request:
 
@@ -39,7 +95,14 @@ class PlatonController
         ]);
 
         $server = new Platon\Notification\Server($configProvider);
-        $payment = $server->handle($_POST);
+
+        try {
+            $payment = $server->handle($_POST);   
+        } catch (Platon\Notification\InvalidSignException $exception) {
+            // handle invalid sign
+        } catch (\InvalidArgumentException $exception) {
+            // When received data is incorrect or some required fields are empty
+        }
 
         // You can use returned Payment instance to save transaction data.
     }

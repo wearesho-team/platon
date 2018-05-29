@@ -67,7 +67,7 @@ class EnvironmentConfigTest extends TestCase
     public function testGetLanguage()
     {
         $this->assertEquals(
-            "ua",
+            "uk",
             $this->config->getLanguage()
         );
     }

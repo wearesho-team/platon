@@ -59,7 +59,7 @@ class ClientTest extends TestCase
         $this->assertEquals(
             new Platon\Payment(
                 228,
-                "ua",
+                "uk",
                 "payment_string",
                 new Payments\UrlPair("good_string_pair"),
                 "f9a26c2992ad137f224d3908b0947f91",

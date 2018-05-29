@@ -87,6 +87,7 @@ class ServerTest extends TestCase
             'amount' => mt_rand(100, 500),
             'currency' => 'UAH',
             'key' => static::KEY,
+            'rc_token' => uniqid(),
         ];
 
         $server = new Notification\Server(

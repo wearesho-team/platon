@@ -31,6 +31,7 @@ class Client
     public function send(CreditToCardInterface $creditToCard): Response
     {
         $params = [
+            'client_key' => $this->config->getKey(),
             'action' => $creditToCard::ACTION,
             'order_currency' => $creditToCard->getCurrency(),
             'order_description' => $creditToCard->getDescription(),

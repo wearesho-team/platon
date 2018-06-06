@@ -40,6 +40,7 @@ class Server
 
         return new Payment(
             $data['id'],
+            $data['key'],
             $data['order'],
             $data['amount'],
             $data['currency'],

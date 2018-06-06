@@ -12,6 +12,8 @@ interface PaymentInterface
 {
     public function getId(): string;
 
+    public function getKey(): string;
+
     public function getOrderId(): string;
 
     /**

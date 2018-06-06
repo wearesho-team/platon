@@ -49,6 +49,11 @@ class Client
         return new Response(json_decode((string)$response->getBody(), true));
     }
 
+    public function getConfig(): Platon\ConfigInterface
+    {
+        return $this->config;
+    }
+
     protected function appendHash(array &$data): void
     {
         $data['hash'] = md5(strtoupper(

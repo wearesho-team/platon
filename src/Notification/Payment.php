@@ -51,6 +51,7 @@ class Payment implements PaymentInterface
         array $data = []
     ) {
         $this->id = $id;
+        $this->key = $key;
         $this->orderId = $orderId;
         $this->amount = $amount;
         $this->currency = $currency;

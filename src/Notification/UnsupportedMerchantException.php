@@ -8,7 +8,7 @@ namespace Wearesho\Bobra\Platon\Notification;
  */
 class UnsupportedMerchantException extends \RuntimeException
 {
-    /** @var int */
+    /** @var string */
     protected $merchantKey;
 
     public function __construct(string $merchantKey, int $code = 0, \Throwable $previous = null)
@@ -17,7 +17,7 @@ class UnsupportedMerchantException extends \RuntimeException
         $this->merchantKey = $merchantKey;
     }
 
-    public function getMerchantKey(): int
+    public function getMerchantKey(): string
     {
         return $this->merchantKey;
     }

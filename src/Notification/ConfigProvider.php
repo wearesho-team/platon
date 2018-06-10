@@ -45,4 +45,30 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
 
         throw new UnsupportedMerchantException($key);
     }
+
+    /**
+     * @param string $order
+     * @param string $card
+     * @param string $sign
+     * @throws InvalidSignException
+     */
+    public function checkSign(string $order, string $card, string $sign): void
+    {
+        foreach ($this->configs as $config) {
+            $configSign = md5(strtoupper(
+                $config->getPass()
+                . $order
+                . strrev(
+                    substr($card, 0, 6)
+                    . substr($card, -4)
+                )
+            ));
+
+            if ($configSign === $sign) {
+                return;
+            }
+        }
+
+        throw new InvalidSignException();
+    }
 }

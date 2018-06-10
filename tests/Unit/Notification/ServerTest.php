@@ -26,7 +26,7 @@ class ServerTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Key order is required
+     * @expectedExceptionMessage Key `order` is required
      */
     public function testMissingOrder(): void
     {
@@ -42,7 +42,7 @@ class ServerTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Key card is required
+     * @expectedExceptionMessage Key `card` is required
      */
     public function testMissingCard(): void
     {

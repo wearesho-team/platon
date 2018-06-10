@@ -36,7 +36,7 @@ class Client
             'order_currency' => $creditToCard->getCurrency(),
             'order_description' => $creditToCard->getDescription(),
             'order_id' => $creditToCard->getId(),
-            'order_amount' => $creditToCard->getAmount(),
+            'order_amount' => number_format($creditToCard->getAmount(), 2, '.', ''),
             'card_token' => $creditToCard->getCardToken(),
         ];
 

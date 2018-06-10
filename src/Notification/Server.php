@@ -3,6 +3,7 @@
 namespace Wearesho\Bobra\Platon\Notification;
 
 use Carbon\Carbon;
+use Wearesho\Bobra\Platon;
 
 /**
  * Class Server
@@ -26,7 +27,7 @@ class Server
      */
     public function handle(array $data): Payment
     {
-        $this->validateSign($data);
+        $config = $this->validateSign($data);
 
         $paymentData = [];
 
@@ -40,6 +41,7 @@ class Server
 
         return new Payment(
             $data['id'],
+            $config->getKey(),
             $data['order'],
             $data['amount'],
             $data['currency'],
@@ -53,9 +55,10 @@ class Server
 
     /**
      * @param array $data
+     * @return Platon\ConfigInterface
      * @throws InvalidSignException
      */
-    protected function validateSign(array $data): void
+    protected function validateSign(array $data): Platon\ConfigInterface
     {
         $requiredRequestKeys = ['order', 'card', 'sign',];
 
@@ -65,6 +68,6 @@ class Server
             }
         }
 
-        $this->configProvider->checkSign($data['order'], $data['card'], $data['sign']);
+        return $this->configProvider->provide($data['order'], $data['card'], $data['sign']);
     }
 }

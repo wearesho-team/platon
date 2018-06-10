@@ -12,6 +12,9 @@ class Payment implements PaymentInterface
     protected $id;
 
     /** @var string */
+    protected $key;
+
+    /** @var string */
     protected $orderId;
 
     /** @var float */
@@ -37,6 +40,7 @@ class Payment implements PaymentInterface
 
     public function __construct(
         string $id,
+        string $key,
         string $orderId,
         float $amount,
         string $currency,
@@ -47,6 +51,7 @@ class Payment implements PaymentInterface
         array $data = []
     ) {
         $this->id = $id;
+        $this->key = $key;
         $this->orderId = $orderId;
         $this->amount = $amount;
         $this->currency = $currency;
@@ -100,5 +105,10 @@ class Payment implements PaymentInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    public function getKey(): string
+    {
+        return $this->key;
     }
 }

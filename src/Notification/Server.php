@@ -40,7 +40,6 @@ class Server
 
         return new Payment(
             $data['id'],
-            $data['key'],
             $data['order'],
             $data['amount'],
             $data['currency'],
@@ -58,26 +57,14 @@ class Server
      */
     protected function validateSign(array $data): void
     {
-        $requiredRequestKeys = ['order', 'card', 'key', 'sign',];
+        $requiredRequestKeys = ['order', 'card', 'sign',];
+
         foreach ($requiredRequestKeys as $requestKey) {
             if (!array_key_exists($requestKey, $data)) {
-                throw new \InvalidArgumentException("Key {$requestKey} is required");
+                throw new \InvalidArgumentException("Key `{$requestKey}` is required");
             }
         }
 
-        $config = $this->configProvider->provide($data['key']);
-
-        $sign = md5(strtoupper(
-            $config->getPass()
-            . $data['order']
-            . strrev(
-                substr($data['card'], 0, 6)
-                . substr($data['card'], -4)
-            )
-        ));
-
-        if ($sign !== $data['sign']) {
-            throw new InvalidSignException();
-        }
+        $this->configProvider->checkSign($data['order'], $data['card'], $data['sign']);
     }
 }

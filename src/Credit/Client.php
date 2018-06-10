@@ -26,6 +26,7 @@ class Client
     /**
      * @param CreditToCardInterface $creditToCard
      * @throws GuzzleHttp\Exception\GuzzleException
+     * @throws Exception
      * @return Response
      */
     public function send(CreditToCardInterface $creditToCard): Response
@@ -42,10 +43,25 @@ class Client
 
         $this->appendHash($params);
 
-        $response = $this->guzzleClient->request('post', '/p2p/index.php', [
-            'base_uri' => $this->config->getBaseUrl(),
-            'form_params' => $params,
-        ]);
+        try {
+            $response = $this->guzzleClient->request('post', '/p2p/index.php', [
+                'base_uri' => $this->config->getBaseUrl(),
+                'form_params' => $params,
+            ]);
+        } catch (GuzzleHttp\Exception\RequestException $exception) {
+            $body = $exception->getResponse()->getBody()->__toString();
+            $response = json_decode($body, true);
+
+            if (
+                json_last_error() !== JSON_ERROR_NONE
+                || !array_key_exists('result', $response)
+                || !array_key_exists('error_message', $response)
+            ) {
+                throw $exception;
+            }
+
+            throw new Exception($response['error_message'], 0, $exception);
+        }
 
         return new Response(json_decode((string)$response->getBody(), true));
     }

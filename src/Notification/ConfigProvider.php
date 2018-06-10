@@ -30,29 +30,14 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
         $this->configs = $configs;
     }
 
-    public function provide(string $key): Platon\ConfigInterface
-    {
-        foreach ($this->configs as $config) {
-            try {
-                $merchantKey = $config->getKey();
-            } catch (Environment\MissingEnvironmentException $exception) {
-                continue;
-            }
-            if ($merchantKey === $key) {
-                return $config;
-            }
-        }
-
-        throw new UnsupportedMerchantException($key);
-    }
-
     /**
      * @param string $order
      * @param string $card
      * @param string $sign
+     * @return Platon\ConfigInterface
      * @throws InvalidSignException
      */
-    public function checkSign(string $order, string $card, string $sign): void
+    public function provide(string $order, string $card, string $sign): Platon\ConfigInterface
     {
         foreach ($this->configs as $config) {
             $configSign = md5(strtoupper(
@@ -65,7 +50,7 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
             ));
 
             if ($configSign === $sign) {
-                return;
+                return $config;
             }
         }
 

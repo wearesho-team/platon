@@ -52,8 +52,7 @@ class Client
             $body = $exception->getResponse()->getBody()->__toString();
             $response = json_decode($body, true);
 
-            if (
-                json_last_error() !== JSON_ERROR_NONE
+            if (json_last_error() !== JSON_ERROR_NONE
                 || !array_key_exists('result', $response)
                 || !array_key_exists('error_message', $response)
             ) {

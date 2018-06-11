@@ -48,7 +48,7 @@ class Server
             $data['status'],
             $data['card'],
             Carbon::parse($data['date']),
-            $data['rc_token'],
+            $data['rc_token'] ?? null,
             $paymentData
         );
     }

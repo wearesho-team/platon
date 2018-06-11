@@ -86,4 +86,24 @@ class PaymentTest extends TestCase
     {
         $this->assertEquals('test', $this->payment->getKey());
     }
+
+    public function testEmptyRcToken(): void
+    {
+        $this->payment = new Payment(
+            'test',
+            'test',
+            'test',
+            100,
+            'UAH',
+            Payment\Status::SALE,
+            '411111****1111',
+            Carbon::parse(Carbon::now()->toDateString()),
+            null,
+            [
+                'ext1' => 'test',
+            ]
+        );
+
+        $this->assertNull($this->payment->getRcToken());
+    }
 }

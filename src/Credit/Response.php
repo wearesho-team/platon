@@ -8,7 +8,7 @@ namespace Wearesho\Bobra\Platon\Credit;
  */
 class Response extends \ArrayObject
 {
-    public function __construct($input, int $flags = 0, string $iterator_class = "ArrayIterator")
+    public function __construct(array $input = [], int $flags = 0, string $iterator_class = "ArrayIterator")
     {
         if (!array_key_exists('result', $input)) {
             throw new \InvalidArgumentException('Response Array have to contain result key');

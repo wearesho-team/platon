@@ -44,20 +44,21 @@ class Client implements Payments\ClientInterface
                     $formId
                 );
             case Payment\C2A::TYPE:
+                $amount = $this->fetchAmount($transaction);
                 return new Payment\C2A(
                     $transaction->getService(),
                     $language,
                     $pair,
                     $this->getSign(
                         $payment,
-                        $transaction->getAmount(),
+                        $amount,
                         $transaction->getCurrency(),
                         $transaction->getDescription(),
                         $pair->getGood()
                     ),
                     $this->config->getKey(),
                     $this->getUrl(),
-                    $this->fetchAmount($transaction),
+                    $amount,
                     $transaction->getDescription(),
                     $transaction->getCurrency(),
                     $ext,

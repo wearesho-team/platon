@@ -13,15 +13,14 @@ class PaymentTest extends TestCase
 
     protected function setUp()
     {
-        $this->payment = new Payment(
+        $this->payment = new Payment\CC(
             2,
             "de",
-            "payment_string",
             new Payments\UrlPair("good_string"),
             "qwerty_sign",
-            "data_string",
             "key_string",
             "form_url_string",
+            "data_string",
             ["one", "two", "three"],
             "some_formId"
         );
@@ -33,7 +32,7 @@ class PaymentTest extends TestCase
             [
                 'data' => 'data_string',
                 'key' => 'key_string',
-                'payment' => 'payment_string',
+                'payment' => Payment\CC::TYPE,
                 'url' => 'good_string',
                 'error_url' => 'good_string',
                 'lang' => 'de',

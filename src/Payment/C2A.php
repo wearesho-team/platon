@@ -36,6 +36,10 @@ class C2A extends Platon\Payment
         string $formId = null
     ) {
         parent::__construct($id, $lang, $urlPair, $sign, $key, $formUrl, $ext, $formId);
+
+        $this->amount = $amount;
+        $this->name = $name;
+        $this->currency = $currency;
     }
 
     public function jsonSerialize(): array

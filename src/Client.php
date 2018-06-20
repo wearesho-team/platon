@@ -24,20 +24,53 @@ class Client implements Payments\ClientInterface
         Payments\UrlPairInterface $pair,
         Payments\TransactionInterface $transaction
     ): Payments\PaymentInterface {
-        $data = $this->getDataParam($transaction);
+        $payment = $this->config->getPayment();
+        $ext = $this->transformInfoIntoExt($transaction->getInfo());
+        $language = $this->fetchLanguage($transaction);
+        $formId = $transaction instanceof TransactionInterface ? $transaction->getFormId() : $transaction->getType();
 
-        return new Payment(
-            $transaction->getService(),
-            $this->fetchLanguage($transaction),
-            $this->config->getPayment(),
-            $pair,
-            $this->getSign($data, $this->config->getPayment(), $pair->getGood()),
-            $data,
-            $this->config->getKey(),
-            rtrim($this->config->getBaseUrl(), '/') . '/payment/auth',
-            $this->transformInfoIntoExt($transaction->getInfo()),
-            $transaction instanceof TransactionInterface ? $transaction->getFormId() : $transaction->getType()
-        );
+        switch ($payment) {
+            case Payment\CC::TYPE:
+                $data = $this->getDataParam($transaction);
+                return new Payment\CC(
+                    $transaction->getService(),
+                    $language,
+                    $pair,
+                    $this->getSign($data, $payment, $pair->getGood()),
+                    $this->config->getKey(),
+                    $this->getUrl(),
+                    $data,
+                    $ext,
+                    $formId
+                );
+            case Payment\C2A::TYPE:
+                return new Payment\C2A(
+                    $transaction->getService(),
+                    $language,
+                    $pair,
+                    $this->getSign(
+                        $payment,
+                        $transaction->getAmount(),
+                        $transaction->getCurrency(),
+                        $transaction->getDescription(),
+                        $pair->getGood()
+                    ),
+                    $this->config->getKey(),
+                    $this->getUrl(),
+                    $transaction->getAmount(),
+                    $transaction->getDescription(),
+                    $transaction->getCurrency(),
+                    $ext,
+                    $formId
+                );
+        }
+
+        throw new \InvalidArgumentException("Payment type $payment is not supported");
+    }
+
+    protected function getUrl(): string
+    {
+        return rtrim($this->config->getBaseUrl(), '/') . '/payment/auth';
     }
 
     protected function fetchLanguage(Payments\TransactionInterface $transaction): string
@@ -70,7 +103,7 @@ class Client implements Payments\ClientInterface
         return $ext;
     }
 
-    protected function getDataParam(Payments\TransactionInterface $transaction)
+    protected function getDataParam(Payments\TransactionInterface $transaction): string
     {
         $amount = number_format(
             (float)($transaction->getAmount() / 100),
@@ -89,19 +122,17 @@ class Client implements Payments\ClientInterface
 
     /**
      * Set 'sign' item for POST request
-     * @param string $data
-     * @param string $payment
-     * @param string $url
+     * @param array $params
      * @return string
      */
-    protected function getSign(string $data, string $payment, string $url)
+    protected function getSign(...$params)
     {
-        $result_hash = strrev($this->config->getKey())
-            . strrev($payment)
-            . strrev($data)
-            . strrev($url)
+        $middleHash = implode('', array_map('strrev', $params));
+
+        $resultHash = strrev($this->config->getKey())
+            . $middleHash
             . strrev($this->config->getPass());
 
-        return md5(strtoupper($result_hash));
+        return md5(strtoupper($resultHash));
     }
 }

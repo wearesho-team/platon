@@ -57,7 +57,7 @@ class Client implements Payments\ClientInterface
                     ),
                     $this->config->getKey(),
                     $this->getUrl(),
-                    $transaction->getAmount(),
+                    $this->fetchAmount($transaction),
                     $transaction->getDescription(),
                     $transaction->getCurrency(),
                     $ext,
@@ -85,6 +85,16 @@ class Client implements Payments\ClientInterface
         return $language;
     }
 
+    protected function fetchAmount(Payments\TransactionInterface $transaction): string
+    {
+        return number_format(
+            (float)($transaction->getAmount() / 100),
+            2,
+            '.',
+            ''
+        );
+    }
+
     protected function transformInfoIntoExt(array $info): array
     {
         $maxExt = null;
@@ -105,15 +115,8 @@ class Client implements Payments\ClientInterface
 
     protected function getDataParam(Payments\TransactionInterface $transaction): string
     {
-        $amount = number_format(
-            (float)($transaction->getAmount() / 100),
-            2,
-            '.',
-            ''
-        );
-
         return base64_encode(json_encode([
-            'amount' => $amount,
+            'amount' => $this->fetchAmount($transaction),
             'name' => $transaction->getDescription(),
             'currency' => $transaction->getCurrency(),
             'recurring'

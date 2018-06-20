@@ -24,7 +24,7 @@ class ClientTest extends TestCase
     public function testConstruct(): void
     {
         $this->assertEquals(
-            "793fc3079812312726827296b88ecdb5",
+            "00c8ed930925d28a748a906ca81d7e10",
             $this->client
                 ->createPayment(
                     new Payments\UrlPair("good_string_pair"),
@@ -39,7 +39,7 @@ class ClientTest extends TestCase
         );
 
         $this->assertEquals(
-            "ae0ee3d26a3074acde93d7836cff4a0b",
+            "11f5d44aa4de3b9fd94d829be839412a",
             (new Platon\Client(new Platon\Config("key_string2", "pass_string2", "CC")))
                 ->createPayment(
                     new Payments\UrlPair("good_string_pair"),
@@ -61,7 +61,7 @@ class ClientTest extends TestCase
                 228,
                 "uk",
                 new Payments\UrlPair("good_string_pair"),
-                "793fc3079812312726827296b88ecdb5",
+                "00c8ed930925d28a748a906ca81d7e10",
                 "key_string",
                 "https://secure.platononline.com/payment/auth",
                 "eyJhbW91bnQiOiIyLjI3IiwibmFtZSI6ImRlc2NyaXB0aW9uX3N0cmluZyIsImN1cnJlbmN5IjoiVUFIIiwi" .
@@ -99,7 +99,7 @@ class ClientTest extends TestCase
                 228,
                 "ru",
                 new Payments\UrlPair("good_string_pair"),
-                "793fc3079812312726827296b88ecdb5",
+                "00c8ed930925d28a748a906ca81d7e10",
                 "key_string",
                 "https://secure.platononline.com/payment/auth",
                 "eyJhbW91bnQiOiIyLjI3IiwibmFtZSI6ImRlc2NyaXB0aW9uX3N0cmluZyIsImN1cnJlbmN5IjoiVUFIIiwi" .

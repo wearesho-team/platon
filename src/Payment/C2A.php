@@ -16,8 +16,8 @@ class C2A extends Platon\Payment
     /** @var int */
     protected $amount;
 
-    /** @var string description */
-    protected $name;
+    /** @var string */
+    protected $description;
 
     /** @var string */
     protected $currency;
@@ -30,7 +30,7 @@ class C2A extends Platon\Payment
         string $key,
         string $formUrl,
         string $amount,
-        string $name,
+        string $description,
         string $currency,
         array $ext = [],
         string $formId = null
@@ -38,7 +38,7 @@ class C2A extends Platon\Payment
         parent::__construct($id, $lang, $urlPair, $sign, $key, $formUrl, $ext, $formId);
 
         $this->amount = $amount;
-        $this->name = $name;
+        $this->description = $description;
         $this->currency = $currency;
     }
 
@@ -47,7 +47,7 @@ class C2A extends Platon\Payment
         $json = parent::jsonSerialize();
         $json['data'] = array_merge($json['data'] ?? [], [
             'amount' => $this->amount,
-            'name' => $this->name,
+            'description' => $this->description,
             'currency' => $this->currency,
         ]);
 

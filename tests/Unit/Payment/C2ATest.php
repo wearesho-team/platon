@@ -13,7 +13,7 @@ use Wearesho\Bobra\Platon;
 class C2ATest extends TestCase
 {
     protected const AMOUNT = '100.12';
-    protected const NAME = 'Some Description';
+    protected const DESCRIPTION = 'Some Description';
     protected const CURRENCY = 'UAH';
 
     /** @var Platon\Payment\C2A */
@@ -30,7 +30,7 @@ class C2ATest extends TestCase
             'key',
             'formUrl',
             static::AMOUNT,
-            static::NAME,
+            static::DESCRIPTION,
             static::CURRENCY
         );
     }
@@ -44,7 +44,7 @@ class C2ATest extends TestCase
 
         $this->assertArraySubset([
             'amount' => static::AMOUNT,
-            'name' => static::NAME,
+            'description' => static::DESCRIPTION,
             'currency' => static::CURRENCY,
         ], $this->payment->jsonSerialize()['data']);
     }

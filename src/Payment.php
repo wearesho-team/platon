@@ -10,9 +10,11 @@ use Wearesho\Bobra\Payments\UrlPairInterface;
  * Class Payment
  * @package Wearesho\Bobra\Platon
  */
-class Payment implements PaymentInterface
+abstract class Payment implements PaymentInterface
 {
     use PaymentTrait;
+
+    public const TYPE = null;
 
     /** @var string */
     protected $lang;
@@ -22,12 +24,6 @@ class Payment implements PaymentInterface
 
     /** @var string */
     protected $sign;
-
-    /** @var string */
-    protected $data;
-
-    /** @var string */
-    protected $payment;
 
     /** @var string */
     protected $key;
@@ -44,10 +40,8 @@ class Payment implements PaymentInterface
     public function __construct(
         int $id,
         string $lang,
-        string $payment,
         UrlPairInterface $urlPair,
         string $sign,
-        string $data,
         string $key,
         string $formUrl,
         array $ext = [],
@@ -57,10 +51,8 @@ class Payment implements PaymentInterface
         $this->lang = $lang;
         $this->urlPair = $urlPair;
         $this->sign = $sign;
-        $this->data = $data;
         $this->ext = $ext;
         $this->formUrl = $formUrl;
-        $this->payment = $payment;
         $this->formId = $formId;
         $this->key = $key;
     }
@@ -71,9 +63,8 @@ class Payment implements PaymentInterface
     public function jsonSerialize(): array
     {
         $json = [
-            'data' => $this->data,
             'key' => $this->key,
-            'payment' => $this->payment,
+            'payment' => static::TYPE,
             'url' => $this->urlPair->getGood(),
             'error_url' => $this->urlPair->getBad(),
             'lang' => $this->lang,

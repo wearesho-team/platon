@@ -15,7 +15,7 @@ class TransactionTest extends TestCase
     {
         $transaction = new Platon\Transaction(
             1,
-            20,
+            2.28,
             'type',
             'Description',
             [],
@@ -25,8 +25,9 @@ class TransactionTest extends TestCase
 
         $this->assertEquals($transaction->getFormId(), 'FormId');
         $this->assertEquals(
-            '{"id":1,"amount":2000,"type":"type","description":"Description","info":[],"currency":"UAH","formId":"FormId"}', // phpcs:ignore
+            '{"id":1,"amount":228,"type":"type","description":"Description","info":[],"currency":"UAH","formId":"FormId"}', // phpcs:ignore
             json_encode($transaction)
         );
+        $this->assertEquals(228, $transaction->getAmount());
     }
 }

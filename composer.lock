@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6d31d900745075a164723fe826a8150",
+    "content-hash": "5d0e075d1ae2af7a63fbf8379529032d",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -454,16 +454,16 @@
         },
         {
             "name": "wearesho-team/bobra-payments",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wearesho-team/bobra-payments.git",
-                "reference": "9de1c6568b044f5db70abf21f93f109307234794"
+                "reference": "986dbf4bc3eb4968f9542b4c50b5389467c5f706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wearesho-team/bobra-payments/zipball/9de1c6568b044f5db70abf21f93f109307234794",
-                "reference": "9de1c6568b044f5db70abf21f93f109307234794",
+                "url": "https://api.github.com/repos/wearesho-team/bobra-payments/zipball/986dbf4bc3eb4968f9542b4c50b5389467c5f706",
+                "reference": "986dbf4bc3eb4968f9542b4c50b5389467c5f706",
                 "shasum": ""
             },
             "require": {
@@ -494,7 +494,7 @@
                 }
             ],
             "description": "Common interfaces for processing payment",
-            "time": "2018-05-24T12:12:36+00:00"
+            "time": "2018-06-21T13:59:04+00:00"
         }
     ],
     "packages-dev": [

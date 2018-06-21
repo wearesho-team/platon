@@ -26,6 +26,19 @@ class ConfigProviderTest extends TestCase
         $this->assertEquals($targetConfig->getPass(), $config->getPass());
     }
 
+    public function testSuccessDebit(): void
+    {
+        $config = new Config('key', 'pass', 'CC');
+        $provider = new Notification\ConfigProvider([$config]);
+
+        $targetConfig = $provider->provide(
+            'order',
+            '411111****1111',
+            '36be2b0f2aeceb26e2e4f626f4e79c35'
+        );
+        $this->assertEquals($targetConfig->getPass(), $config->getPass());
+    }
+
     /**
      * @expectedException \Wearesho\Bobra\Platon\Notification\InvalidSignException
      */

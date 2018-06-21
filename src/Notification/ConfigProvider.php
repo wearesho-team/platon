@@ -52,6 +52,19 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
             if ($configSign === $sign) {
                 return $config;
             }
+
+            $debitConfigSign = md5(strtoupper(
+                $config->getPass()
+                . strrev($order)
+                . strrev(
+                    substr($card, 0, 6)
+                    . substr($card, -4)
+                )
+            ));
+
+            if ($debitConfigSign === $sign) {
+                return $config;
+            }
         }
 
         throw new InvalidSignException();

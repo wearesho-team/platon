@@ -34,7 +34,7 @@ class ConfigProviderTest extends TestCase
         $targetConfig = $provider->provide(
             'order',
             '411111****1111',
-            '36be2b0f2aeceb26e2e4f626f4e79c35'
+            '6ee9a37176e1859eb070aedcc4c6a937'
         );
         $this->assertEquals($targetConfig->getPass(), $config->getPass());
     }

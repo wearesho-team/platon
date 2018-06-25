@@ -54,7 +54,7 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
             }
 
             $debitConfigSign = md5(strtoupper(
-                $config->getPass()
+                strrev($config->getPass())
                 . strrev($order)
                 . strrev(
                     substr($card, 0, 6)

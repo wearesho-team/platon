@@ -18,10 +18,17 @@ class Client implements Credit\ClientInterface
     /** @var Platon\Config */
     protected $config;
 
-    public function __construct(Platon\ConfigInterface $config, GuzzleHttp\ClientInterface $guzzleClient)
-    {
+    /** @var Response\Validator */
+    protected $responseValidator;
+
+    public function __construct(
+        Platon\ConfigInterface $config,
+        GuzzleHttp\ClientInterface $guzzleClient,
+        Response\Validator $responseValidator
+    ) {
         $this->guzzleClient = $guzzleClient;
         $this->config = $config;
+        $this->responseValidator = $responseValidator;
     }
 
     /**
@@ -46,34 +53,16 @@ class Client implements Credit\ClientInterface
 
         $this->appendHash($params);
 
-        try {
-            $response = $this->guzzleClient->request('post', '/p2p/index.php', [
-                'base_uri' => $this->config->getBaseUrl(),
-                'form_params' => $params,
-            ]);
-        } catch (GuzzleHttp\Exception\RequestException $exception) {
-            $body = $exception->getResponse()->getBody()->__toString();
-            $response = json_decode($body, true);
+        $response = $this->guzzleClient->request('post', '/p2p/index.php', [
+            'base_uri' => $this->config->getBaseUrl(),
+            'form_params' => $params,
+        ]);
 
-            if (json_last_error() !== JSON_ERROR_NONE
-                || !array_key_exists('result', $response)
-                || !array_key_exists('error_message', $response)
-            ) {
-                throw $exception;
-            }
+        $creditResponse = new Response(json_decode((string)$response->getBody(), true));
 
-            if ($response['error_message'] === 'Duplicate request') {
-                throw new Platon\Credit\Exceptions\DuplicatedTransfer($creditToCard, 0, $exception);
-            }
+        $this->responseValidator->validate($creditResponse, $creditToCard);
 
-            if ($response['error_message'] === '2 9852 Invalid card') {
-                throw new Platon\Credit\Exceptions\InvalidCardToken($creditToCard, 0, $exception);
-            }
-
-            throw new Exception($creditToCard, $response['error_message'], 0, $exception);
-        }
-
-        return new Response(json_decode((string)$response->getBody(), true));
+        return $creditResponse;
     }
 
     public function getConfig(): Platon\ConfigInterface

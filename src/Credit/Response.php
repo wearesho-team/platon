@@ -26,6 +26,6 @@ class Response extends \ArrayObject implements Credit\Response
 
     public function isSuccessful(): bool
     {
-        return $this->getResult() === 'SUCCESS';
+        return $this->getResult() === Response\Result::SUCCESS;
     }
 }

@@ -28,9 +28,24 @@ class ValidatorTest extends TestCase
 
     /**
      * @expectedException \Wearesho\Bobra\Payments\Credit\Exception\DuplicatedTransfer
-     * @expectedExceptionMessage Order already exists
+     * @expectedExceptionMessage Duplicate request
      */
     public function testDuplicateRequest(): void
+    {
+        $this->validator->validate(
+            new Response([
+                'result' => 'ERROR',
+                'error_message' => 'Duplicate request',
+            ]),
+            $this->transfer
+        );
+    }
+
+    /**
+     * @expectedException \Wearesho\Bobra\Payments\Credit\Exception\DuplicatedTransfer
+     * @expectedExceptionMessage Order already exists
+     */
+    public function testOrderExists(): void
     {
         $this->validator->validate(
             new Response([

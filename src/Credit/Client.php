@@ -73,7 +73,7 @@ class Client implements Credit\ClientInterface
     protected function validateCardToken(string $cardToken): void
     {
         if (!preg_match('/\w{32}/', $cardToken)) {
-            throw new \InvalidArgumentException("Invalid Card Token");
+            throw new \InvalidArgumentException("Invalid card token");
         }
     }
 

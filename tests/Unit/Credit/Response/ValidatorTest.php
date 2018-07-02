@@ -103,13 +103,13 @@ class ValidatorTest extends TestCase
 
     /**
      * @expectedException \Wearesho\Bobra\Platon\Credit\Exception
-     * @expectedExceptionMessage Unknown result
+     * @expectedExceptionMessage Unknown result: unknown
      */
     public function testUnknownResult(): void
     {
         $this->validator->validate(
             new Response([
-                'result' => 'Unknown result',
+                'result' => 'unknown',
             ]),
             $this->transfer
         );

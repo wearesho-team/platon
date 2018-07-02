@@ -2,11 +2,13 @@
 
 namespace Wearesho\Bobra\Platon\Credit;
 
+use Wearesho\Bobra\Payments\Credit;
+
 /**
  * Class CreditToCard
  * @package Wearesho\Bobra\Platon\Credit
  */
-class CreditToCard implements CreditToCardInterface
+class CreditToCard extends Credit\Transfer implements CreditToCardInterface
 {
     use CreditToCardTrait;
 
@@ -17,10 +19,7 @@ class CreditToCard implements CreditToCardInterface
         string $description = null,
         string $currency = null
     ) {
-        $this->id = $id;
-        $this->amount = $amount;
-        $this->description = $description;
-        $this->currency = $currency;
+        parent::__construct($id, $amount, $cardToken, $description, $currency);
         $this->setCardToken($cardToken);
     }
 }

@@ -19,7 +19,10 @@ class Validator
 
         switch ($response->getResult()) {
             case Result::ERROR:
-                if ($response['error_message'] === 'Order already exists') {
+                if (
+                    $response['error_message'] === 'Order already exists'
+                    || $response['error_message'] === 'Duplicate request'
+                ) {
                     throw new class($transfer, $response['error_message'])
                         extends Platon\Credit\Exception
                         implements Credit\Exception\DuplicatedTransfer

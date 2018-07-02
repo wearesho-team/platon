@@ -51,13 +51,4 @@ class CreditToCardTest extends TestCase
     {
         $this->assertEquals('test', $this->model->getDescription());
     }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid Card Token
-     */
-    public function testInvalidCardToken(): void
-    {
-        new CreditToCard(1, 100, 'test', 'test', 'UAH');
-    }
 }

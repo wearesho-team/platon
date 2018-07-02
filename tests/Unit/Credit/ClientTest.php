@@ -68,6 +68,15 @@ class ClientTest extends TestCase
     }
 
     /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid card token
+     */
+    public function testInvalidClientToken(): void
+    {
+        $this->client->send(new CreditToCard(1, 100, 'invalid token'));
+    }
+
+    /**
      * @expectedException GuzzleHttp\Exception\RequestException
      * @expectedExceptionMessage Runtime error
      */

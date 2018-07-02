@@ -2,6 +2,7 @@
 
 namespace Wearesho\Bobra\Platon\Credit;
 
+use Wearesho\Bobra\Payments\Credit;
 use Wearesho\Bobra\Platon;
 use GuzzleHttp;
 
@@ -9,7 +10,7 @@ use GuzzleHttp;
  * Class Client
  * @package Wearesho\Bobra\Platon\Credit
  */
-class Client
+class Client implements Credit\ClientInterface
 {
     /** @var GuzzleHttp\ClientInterface */
     protected $guzzleClient;
@@ -24,16 +25,16 @@ class Client
     }
 
     /**
-     * @param CreditToCardInterface $creditToCard
-     * @throws GuzzleHttp\Exception\GuzzleException
-     * @throws Exception
+     * @param Credit\TransferInterface $creditToCard
      * @return Response
+     * @throws Exception
+     * @throws GuzzleHttp\Exception\GuzzleException
      */
-    public function send(CreditToCardInterface $creditToCard): Response
+    public function send(Credit\TransferInterface $creditToCard): Credit\Response
     {
         $params = [
             'client_key' => $this->config->getKey(),
-            'action' => $creditToCard::ACTION,
+            'action' => CreditToCardInterface::ACTION,
             'order_currency' => $creditToCard->getCurrency(),
             'order_description' => $creditToCard->getDescription(),
             'order_id' => $creditToCard->getId(),

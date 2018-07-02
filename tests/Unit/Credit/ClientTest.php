@@ -119,6 +119,46 @@ class ClientTest extends TestCase
         $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
     }
 
+    /**
+     * @expectedException \Wearesho\Bobra\Platon\Credit\Exceptions\DuplicatedTransfer
+     * @expectedExceptionMessage Duplicate request
+     */
+    public function testDuplicateRequest(): void
+    {
+        $this->mock->append(
+            new GuzzleHttp\Exception\RequestException(
+                'Runtime error',
+                new GuzzleHttp\Psr7\Request('GET', 'http://google.com/'),
+                new GuzzleHttp\Psr7\Response(500, [], json_encode([
+                    'result' => 'fail',
+                    'error_message' => 'Duplicate request',
+                ]))
+            )
+        );
+
+        $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
+    }
+
+    /**
+     * @expectedException \Wearesho\Bobra\Platon\Credit\Exceptions\InvalidCardToken
+     * @expectedExceptionMessage Invalid card
+     */
+    public function testInvalidCard(): void
+    {
+        $this->mock->append(
+            new GuzzleHttp\Exception\RequestException(
+                'Runtime error',
+                new GuzzleHttp\Psr7\Request('GET', 'http://google.com/'),
+                new GuzzleHttp\Psr7\Response(500, [], json_encode([
+                    'result' => 'fail',
+                    'error_message' => '2 9852 Invalid card',
+                ]))
+            )
+        );
+
+        $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
+    }
+
     public function testSuccessResponse(): void
     {
         $this->mock->append(

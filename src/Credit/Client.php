@@ -32,6 +32,8 @@ class Client implements Credit\ClientInterface
      */
     public function send(Credit\TransferInterface $creditToCard): Credit\Response
     {
+        $this->validateCardToken($creditToCard->getCardToken());
+
         $params = [
             'client_key' => $this->config->getKey(),
             'action' => CreditToCardInterface::ACTION,
@@ -60,7 +62,15 @@ class Client implements Credit\ClientInterface
                 throw $exception;
             }
 
-            throw new Exception($response['error_message'], 0, $exception);
+            if ($response['error_message'] === 'Duplicate request') {
+                throw new Platon\Credit\Exceptions\DuplicatedTransfer($creditToCard, 0, $exception);
+            }
+
+            if ($response['error_message'] === '2 9852 Invalid card') {
+                throw new Platon\Credit\Exceptions\InvalidCardToken($creditToCard, 0, $exception);
+            }
+
+            throw new Exception($creditToCard, $response['error_message'], 0, $exception);
         }
 
         return new Response(json_decode((string)$response->getBody(), true));
@@ -69,6 +79,13 @@ class Client implements Credit\ClientInterface
     public function getConfig(): Platon\ConfigInterface
     {
         return $this->config;
+    }
+
+    protected function validateCardToken(string $cardToken): void
+    {
+        if (!preg_match('/\w{32}/', $cardToken)) {
+            throw new \InvalidArgumentException("Invalid Card Token");
+        }
     }
 
     protected function appendHash(array &$data): void

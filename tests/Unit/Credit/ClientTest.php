@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Config;
 use Wearesho\Bobra\Platon\Credit\Client;
 use Wearesho\Bobra\Platon\Credit\CreditToCard;
+use Wearesho\Bobra\Platon\Credit\Response\Validator;
 
 /**
  * Class ClientTest
@@ -37,7 +38,8 @@ class ClientTest extends TestCase
 
         $this->client = new Client(
             new Config('test', 'test', 'CC'),
-            new GuzzleHttp\Client(['handler' => $stack,])
+            new GuzzleHttp\Client(['handler' => $stack,]),
+            new Validator()
         );
     }
 
@@ -92,67 +94,6 @@ class ClientTest extends TestCase
                 'Runtime error',
                 new GuzzleHttp\Psr7\Request('GET', 'http://google.com/'),
                 new GuzzleHttp\Psr7\Response(500, [], json_encode(['result' => 'fail']))
-            )
-        );
-
-        $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
-    }
-
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Credit\Exception
-     * @expectedExceptionMessage Custom error message
-     */
-    public function testErrorHandling(): void
-    {
-
-        $this->mock->append(
-            new GuzzleHttp\Exception\RequestException(
-                'Runtime error',
-                new GuzzleHttp\Psr7\Request('GET', 'http://google.com/'),
-                new GuzzleHttp\Psr7\Response(500, [], json_encode([
-                    'result' => 'fail',
-                    'error_message' => 'Custom error message',
-                ]))
-            )
-        );
-
-        $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
-    }
-
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Credit\Exceptions\DuplicatedTransfer
-     * @expectedExceptionMessage Duplicate request
-     */
-    public function testDuplicateRequest(): void
-    {
-        $this->mock->append(
-            new GuzzleHttp\Exception\RequestException(
-                'Runtime error',
-                new GuzzleHttp\Psr7\Request('GET', 'http://google.com/'),
-                new GuzzleHttp\Psr7\Response(500, [], json_encode([
-                    'result' => 'fail',
-                    'error_message' => 'Duplicate request',
-                ]))
-            )
-        );
-
-        $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
-    }
-
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Credit\Exceptions\InvalidCardToken
-     * @expectedExceptionMessage Invalid card
-     */
-    public function testInvalidCard(): void
-    {
-        $this->mock->append(
-            new GuzzleHttp\Exception\RequestException(
-                'Runtime error',
-                new GuzzleHttp\Psr7\Request('GET', 'http://google.com/'),
-                new GuzzleHttp\Psr7\Response(500, [], json_encode([
-                    'result' => 'fail',
-                    'error_message' => '2 9852 Invalid card',
-                ]))
             )
         );
 

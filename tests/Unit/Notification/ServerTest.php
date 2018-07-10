@@ -95,5 +95,9 @@ class ServerTest extends TestCase
         );
         $payment = $server->handle($data);
         $this->assertInstanceOf(Notification\Payment::class, $payment);
+        $this->assertEquals(
+            new \DateTimeZone('UTC'),
+            $payment->getDate()->getTimezone()
+        );
     }
 }

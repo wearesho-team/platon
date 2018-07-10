@@ -1,6 +1,12 @@
 # Platon Integration Changelog
 
-## 1.3.0 - 20 June, 2017
+## 1.5.0 - 10 Jule, 2018
+- Add timezone to Notification payments date
+
+## 1.4.0 - 2 Jule, 2018
+- Bobra Payments 1.5.0 support (exceptions)
+
+## 1.3.0 - 20 June, 2018
 - Split *Payment* class into [Payment\CC](./src/Payment/CC.php) and [Payment\C2A](./src/Payment/C2A.php) classes
 - Modify Client to generate CC and C2A payments depending on configuration
 (\InvalidArgumentException will be thrown if no type not match both *CC* and *C2A*)

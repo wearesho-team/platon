@@ -19,8 +19,7 @@ class Validator
 
         switch ($response->getResult()) {
             case Result::ERROR:
-                $isDuplicatedTransfer = $response['error_message'] === 'Order already exists'
-                    || $response['error_message'] === 'Duplicate request';
+                $isDuplicatedTransfer = $response['error_message'] === 'Order already exists';
 
                 if ($isDuplicatedTransfer) {
                     throw new class($transfer, $response['error_message'])

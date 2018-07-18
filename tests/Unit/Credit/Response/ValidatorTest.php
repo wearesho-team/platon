@@ -27,8 +27,10 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Wearesho\Bobra\Payments\Credit\Exception\DuplicatedTransfer
+     * @expectedException \Wearesho\Bobra\Payments\Credit\Exception
      * @expectedExceptionMessage Duplicate request
+     *
+     * @singe 1.5.1 this test expect Credit\Exception to be thrown instead of DuplicatedTransfer
      */
     public function testDuplicateRequest(): void
     {

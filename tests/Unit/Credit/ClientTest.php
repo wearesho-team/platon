@@ -4,9 +4,12 @@ namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
 use GuzzleHttp;
 use PHPUnit\Framework\TestCase;
+use Wearesho\Bobra\Payments\Credit\TransferInterface;
+use Wearesho\Bobra\Platon;
 use Wearesho\Bobra\Platon\Config;
 use Wearesho\Bobra\Platon\Credit\Client;
 use Wearesho\Bobra\Platon\Credit\CreditToCard;
+use Wearesho\Bobra\Platon\Credit\Response;
 use Wearesho\Bobra\Platon\Credit\Response\Validator;
 
 /**
@@ -117,5 +120,71 @@ class ClientTest extends TestCase
 
         $response = $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
         $this->assertTrue($response->isSuccessful());
+    }
+
+    public function testGenerateCardData(): void
+    {
+        $client = new class() extends Client
+        {
+            public function __construct() {
+                parent::__construct(
+                    new Config('test', 'test', 'CC'),
+                    new GuzzleHttp\Client(),
+                    new Validator()
+                );
+            }
+
+            public function getParams(TransferInterface $credit2Card): array
+            {
+                return $this->generateParams($credit2Card);
+            }
+        };
+
+        $card = "5555555555555599";
+
+        $params = $client->getParams(new CreditToCard(1, 100, $card));
+        $this->assertEquals(Platon\Credit\CreditToCardInterface::ACTION_CARD, $params['action']);
+        $this->assertArrayHasKey('card_number', $params);
+        $this->assertEquals($card, $params['card_number']);
+    }
+
+    public function testGenerateExpireDate(): void
+    {
+        $client = new class() extends Client
+        {
+            public function __construct() {
+                parent::__construct(
+                    new Config('test', 'test', 'CC'),
+                    new GuzzleHttp\Client(),
+                    new Validator()
+                );
+            }
+
+            public function getParams(TransferInterface $credit2Card): array
+            {
+                return $this->generateParams($credit2Card);
+            }
+        };
+
+        $card = "5555555555555599";
+
+        $credit2Card = new class(1, 100, $card) extends CreditToCard implements Platon\Credit\HasExpireDate
+        {
+            public function getExpireMonth(): int
+            {
+                return 1;
+            }
+
+            public function getExpireYear(): int
+            {
+                return 20;
+            }
+        };
+
+        $params = $client->getParams($credit2Card);
+        $this->assertArrayHasKey('card_exp_month', $params);
+        $this->assertEquals(1, $params['card_exp_month']);
+        $this->assertArrayHasKey('card_exp_year', $params);
+        $this->assertEquals(20, $params['card_exp_year']);
     }
 }

@@ -126,7 +126,7 @@ class Client implements Credit\ClientInterface
             strtoupper(
                 $this->config->getPass()
                 . strrev(
-                    substr($data['card_number'],0,6) . substr($data['card_number'],-4)
+                    substr($data['card_number'], 0, 6) . substr($data['card_number'], -4)
                 )
             )
         );

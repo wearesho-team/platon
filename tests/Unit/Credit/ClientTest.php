@@ -126,7 +126,8 @@ class ClientTest extends TestCase
     {
         $client = new class() extends Client
         {
-            public function __construct() {
+            public function __construct()
+            {
                 parent::__construct(
                     new Config('test', 'test', 'CC'),
                     new GuzzleHttp\Client(),
@@ -152,7 +153,8 @@ class ClientTest extends TestCase
     {
         $client = new class extends Client
         {
-            public function __construct() {
+            public function __construct()
+            {
                 parent::__construct(
                     new Config('test', 'test', 'CC'),
                     new GuzzleHttp\Client(),

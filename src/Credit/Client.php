@@ -63,8 +63,6 @@ class Client implements Credit\ClientInterface
 
     protected function generateParams(Credit\TransferInterface $creditToCard): array
     {
-        $this->validateCardToken($creditToCard->getCardToken());
-
         $params = [
             'client_key' => $this->config->getKey(),
             'order_currency' => $creditToCard->getCurrency(),
@@ -85,6 +83,8 @@ class Client implements Credit\ClientInterface
                 $params['card_exp_year'] = $creditToCard->getExpireYear();
             }
         } else {
+            $this->validateCardToken($token);
+
             $params['action'] = CreditToCardInterface::ACTION_TOKEN;
             $params['card_token'] = $token;
             $this->appendTokenHash($params);
@@ -95,15 +95,11 @@ class Client implements Credit\ClientInterface
 
     protected function isCardNumber(string $token): bool
     {
-        return is_numeric($token) && $this->luhn->isValid(LuhnAlgorithm\Number::fromString($token));
+        return preg_match('/\d{16}/', $token) && $this->luhn->isValid(LuhnAlgorithm\Number::fromString($token));
     }
 
     protected function validateCardToken(string $cardToken): void
     {
-        if ($this->isCardNumber($cardToken)) {
-            return;
-        }
-
         if (!preg_match('/\w{32}/', $cardToken)) {
             throw new \InvalidArgumentException("Invalid card token");
         }

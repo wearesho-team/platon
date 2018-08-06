@@ -10,5 +10,6 @@ use Wearesho\Bobra\Payments\Credit;
  */
 interface CreditToCardInterface extends Credit\TransferInterface
 {
-    public const ACTION = 'CREDIT2CARDTOKEN';
+    public const ACTION_CARD = 'CREDIT2CARD';
+    public const ACTION_TOKEN = 'CREDIT2CARDTOKEN';
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4c76f2ace31f5b956a760923bcebe17",
+    "content-hash": "796eca12e8e0830d090a96c9f677357f",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -226,6 +226,53 @@
             ],
             "description": "Environment Config class",
             "time": "2018-04-20T13:53:09+00:00"
+        },
+        {
+            "name": "nekman/luhn-algorithm",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ekman/Luhn-Algorithm.git",
+                "reference": "d4cef0a643491587a606cef534efbed0d14b6a66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ekman/Luhn-Algorithm/zipball/d4cef0a643491587a606cef534efbed0d14b6a66",
+                "reference": "d4cef0a643491587a606cef534efbed0d14b6a66",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nekman\\LuhnAlgorithm\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niklas Ekman",
+                    "email": "nikl.ekman@gmail.com"
+                }
+            ],
+            "description": "Implementation of the Luhn algorithm in PHP. Used in validation of credit card numbers and some national identification numbers.",
+            "keywords": [
+                "card",
+                "credit",
+                "identification",
+                "luhn",
+                "validation"
+            ],
+            "time": "2018-05-22T17:13:59+00:00"
         },
         {
             "name": "nesbot/carbon",

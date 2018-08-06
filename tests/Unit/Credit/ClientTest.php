@@ -150,7 +150,7 @@ class ClientTest extends TestCase
 
     public function testGenerateExpireDate(): void
     {
-        $client = new class() extends Client
+        $client = new class extends Client
         {
             public function __construct() {
                 parent::__construct(
@@ -168,18 +168,7 @@ class ClientTest extends TestCase
 
         $card = "5555555555555599";
 
-        $credit2Card = new class(1, 100, $card) extends CreditToCard implements Platon\Credit\HasExpireDate
-        {
-            public function getExpireMonth(): int
-            {
-                return 1;
-            }
-
-            public function getExpireYear(): int
-            {
-                return 20;
-            }
-        };
+        $credit2Card = new Platon\Credit\CardTransfer(1, 100, $card, 1, 20);
 
         $params = $client->getParams($credit2Card);
         $this->assertArrayHasKey('card_exp_month', $params);

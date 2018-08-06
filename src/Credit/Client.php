@@ -95,12 +95,12 @@ class Client implements Credit\ClientInterface
 
     protected function isCardNumber(string $token): bool
     {
-        return preg_match('/\d{16}/', $token) && $this->luhn->isValid(LuhnAlgorithm\Number::fromString($token));
+        return preg_match('/^\d{16}$/', $token) && $this->luhn->isValid(LuhnAlgorithm\Number::fromString($token));
     }
 
     protected function validateCardToken(string $cardToken): void
     {
-        if (!preg_match('/\w{32}/', $cardToken)) {
+        if (!preg_match('/^\w{32}$/', $cardToken)) {
             throw new \InvalidArgumentException("Invalid card token");
         }
     }

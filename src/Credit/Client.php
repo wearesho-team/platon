@@ -2,6 +2,7 @@
 
 namespace Wearesho\Bobra\Platon\Credit;
 
+use Carbon\Carbon;
 use Nekman\LuhnAlgorithm;
 use Wearesho\Bobra\Payments\Credit;
 use Wearesho\Bobra\Platon;
@@ -79,8 +80,12 @@ class Client implements Credit\ClientInterface
             $this->appendCardHash($params);
 
             if ($creditToCard instanceof HasExpireDate) {
-                $params['card_exp_month'] = $creditToCard->getExpireMonth();
-                $params['card_exp_year'] = $creditToCard->getExpireYear();
+                $carbon = Carbon::createFromFormat(
+                    "y.m",
+                    "{$creditToCard->getExpireYear()}.{$creditToCard->getExpireMonth()}"
+                );
+                $params['card_exp_month'] = $carbon->format('m');
+                $params['card_exp_year'] = $carbon->format('Y');
             }
         } else {
             $this->validateCardToken($token);

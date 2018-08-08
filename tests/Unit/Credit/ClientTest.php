@@ -174,8 +174,8 @@ class ClientTest extends TestCase
 
         $params = $client->getParams($credit2Card);
         $this->assertArrayHasKey('card_exp_month', $params);
-        $this->assertEquals(1, $params['card_exp_month']);
+        $this->assertEquals('01', $params['card_exp_month']);
         $this->assertArrayHasKey('card_exp_year', $params);
-        $this->assertEquals(20, $params['card_exp_year']);
+        $this->assertEquals('2020', $params['card_exp_year']);
     }
 }

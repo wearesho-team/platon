@@ -74,9 +74,27 @@ class ClientTest extends TestCase
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Invalid card token
      */
-    public function testInvalidClientToken(): void
+    public function testInvalidCardToken(): void
     {
         $this->client->send(new CreditToCard(1, 100, 'invalid token'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid card token
+     */
+    public function testTooBigCardToken(): void
+    {
+        $this->client->send(new CreditToCard(1, 100, md5('1') . '1'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid card token
+     */
+    public function testTooBigCardNumber(): void
+    {
+        $this->client->send(new CreditToCard(1, 100, '11111111111111111'));
     }
 
     /**

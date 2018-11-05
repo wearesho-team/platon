@@ -45,7 +45,11 @@ class Client implements Credit\ClientInterface
      */
     public function send(Credit\TransferInterface $creditToCard): Credit\Response
     {
-        $response = $this->guzzleClient->request('post', '/p2p/index.php', [
+        $path = $creditToCard instanceof Platon\Credit\Transfer\Unique
+            ? '/p2p-unq/'
+            : '/p2p/index.php';
+
+        $response = $this->guzzleClient->request('post', $path, [
             'base_uri' => $this->config->getBaseUrl(),
             'form_params' => $this->generateParams($creditToCard),
         ]);

@@ -138,6 +138,36 @@ class ClientTest extends TestCase
 
         $response = $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
         $this->assertTrue($response->isSuccessful());
+
+        $this->assertCount(1, $this->container);
+        /** @var GuzzleHttp\Psr7\Request $request */
+        $request = $this->container[0]['request'];
+        $this->assertEquals(
+            'https://secure.platononline.com/p2p/index.php',
+            (string)$request->getUri()
+        );
+    }
+
+    public function testSuccessUniqueResponse(): void
+    {
+        $this->mock->append(
+            new GuzzleHttp\Psr7\Response(200, [], json_encode(['result' => 'SUCCESS',]))
+        );
+
+        $response = $this->client->send(
+            new class(1, 100, md5(uniqid())) extends CreditToCard implements Platon\Credit\Transfer\Unique
+            {
+            }
+        );
+        $this->assertTrue($response->isSuccessful());
+
+        $this->assertCount(1, $this->container);
+        /** @var GuzzleHttp\Psr7\Request $request */
+        $request = $this->container[0]['request'];
+        $this->assertEquals(
+            'https://secure.platononline.com/p2p-unq/',
+            (string)$request->getUri()
+        );
     }
 
     public function testGenerateCardData(): void

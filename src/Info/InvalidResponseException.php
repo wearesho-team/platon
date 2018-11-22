@@ -13,7 +13,7 @@ class InvalidResponseException extends \RuntimeException
     /** @var array */
     protected $body;
 
-    public function __construct(string $message = "", int $code = 0, array $body, Throwable $previous = null)
+    public function __construct(string $message, int $code, array $body, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->body = $body;

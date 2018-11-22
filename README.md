@@ -123,6 +123,34 @@ class PlatonController
 
 ```
 
+### Info
+Fetching information about account balance.
+Use [Info\ConfigInterface](./src/Info/ConfigInterface.php) for configuration.
+[EnvironmentConfig](./src/Info/EnvironmentConfig.php) available:
+
+| Variable                | Required | Description                                    |
+|-------------------------|----------|------------------------------------------------|
+| PLATON_INFO_PUBLIC_KEY  | yes      | Public Key for Info API                        |
+| PLATON_INFO_PRIVATE_KEY | yes      | Private Key for Info API                       |
+
+```php
+<?php
+
+use Wearesho\Bobra\Platon;
+
+$publicKey = readline("Public Key: ");
+$privateKey = readline("Private Key: ");
+
+$config = new Platon\Info\Config($publicKey, $privateKey);
+$client = new GuzzleHttp\Client();
+
+$repository = new Platon\Info\Repository($config, $client);
+
+// All items can be converted to string and JSON formats
+$responses = $repository->get();
+```
+See [Info\Response](./src/Info/Response.php) for details.
+
 ## Author
 - [Wearesho](https://wearesho.com)
 - [Alexander Letnikow](mailto:reclamme@gmail.com)

@@ -35,7 +35,8 @@ class Repository
      */
     public function get(\DateTimeInterface $date = null): array
     {
-        $response = $this->client->request("POST", 'http://62.113.194.121/credit/api/v1/check', [
+        $baseUrl = rtrim($this->config->getBaseUrl(), '/');
+        $response = $this->client->request("POST", "$baseUrl/credit/api/v1/check", [
             GuzzleHttp\RequestOptions::FORM_PARAMS => $this->generateFormParams($date ?? Carbon::now()),
         ]);
         $body = json_decode((string)$response->getBody(), true);

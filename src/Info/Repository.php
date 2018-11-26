@@ -77,6 +77,7 @@ class Repository
     }
 
     /**
+     * @param array $body
      * @throws InvalidResponseException
      */
     protected function validateResponseSign(array $body): void

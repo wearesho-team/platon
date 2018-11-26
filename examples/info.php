@@ -8,7 +8,7 @@ include dirname(__DIR__) . '/vendor/autoload.php';
 $publicKey = readline("Public Key: ");
 $privateKey = readline("Private Key: ");
 
-$config = new Platon\Config($publicKey, $privateKey, 'CC');
+$config = new Platon\Info\Config($publicKey, $privateKey);
 $client = new GuzzleHttp\Client();
 
 $repository = new Platon\Info\Repository($config, $client);

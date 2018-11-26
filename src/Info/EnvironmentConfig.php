@@ -24,4 +24,9 @@ class EnvironmentConfig extends Environment\Config implements ConfigInterface
     {
         return $this->getEnv('PRIVATE_KEY');
     }
+
+    public function getBaseUrl(): string
+    {
+        return $this->getEnv('BASE_URL', ConfigInterface::DEFAULT_BASE_URL);
+    }
 }

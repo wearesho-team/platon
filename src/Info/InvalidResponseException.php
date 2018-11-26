@@ -24,6 +24,6 @@ class InvalidResponseException extends \RuntimeException
 
     public function __toString(): string
     {
-        return parent::__toString() . PHP_EOL . "Body: {$this->body}";
+        return parent::__toString() . PHP_EOL . 'Body: ' . json_encode($this->body);
     }
 }

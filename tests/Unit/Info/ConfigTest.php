@@ -3,7 +3,7 @@
 namespace Wearesho\Bobra\Platon\Tests\Unit\Info;
 
 use PHPUnit\Framework\TestCase;
-use Wearesho\Bobra\Platon\Info\Config;
+use Wearesho\Bobra\Platon;
 
 /**
  * Class ConfigTest
@@ -11,13 +11,44 @@ use Wearesho\Bobra\Platon\Info\Config;
  */
 class ConfigTest extends TestCase
 {
-    public function testGetters(): void
+    protected const TEST_PUBLIC_KEY = 'publicKey';
+    protected const TEST_PRIVATE_KEY = 'privateKey';
+    protected const TEST_BASE_URL = Platon\Info\ConfigInterface::DEFAULT_BASE_URL;
+
+    /** @var Platon\Info\Config */
+    protected $config;
+
+    protected function setUp(): void
     {
-        $config = new Config('public', 'private');
-        $this->assertEquals('public', $config->getPublicKey());
-        $this->assertEquals('private', $config->getPrivateKey());
-        $this->assertEquals('http://62.113.194.121/', $config->getBaseUrl());
-        $config = new Config('', '', 'http://google.com');
-        $this->assertEquals('http://google.com', $config->getBaseUrl());
+        parent::setUp();
+        $this->config = new Platon\Info\Config(
+            static::TEST_PUBLIC_KEY,
+            static::TEST_PRIVATE_KEY,
+            static::TEST_BASE_URL
+        );
+    }
+
+    public function testGetPublicKey(): void
+    {
+        $this->assertEquals(
+            static::TEST_PUBLIC_KEY,
+            $this->config->getPublicKey()
+        );
+    }
+
+    public function testGetPrivateKey(): void
+    {
+        $this->assertEquals(
+            static::TEST_PRIVATE_KEY,
+            $this->config->getPrivateKey()
+        );
+    }
+
+    public function testGetBaseUrl(): void
+    {
+        $this->assertEquals(
+            static::TEST_BASE_URL,
+            $this->config->getBaseUrl()
+        );
     }
 }

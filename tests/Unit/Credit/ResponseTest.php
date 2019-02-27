@@ -34,4 +34,19 @@ class ResponseTest extends TestCase
         $this->assertEquals('FAIL', $response->getResult());
         $this->assertFalse($response->isSuccessful());
     }
+
+    public function testNotWaiting(): void
+    {
+        $response = new Response(['result' => Response\Result::SUCCESS,]);
+        $this->assertFalse($response->isWaiting());
+
+        $response = new Response(['result' => Response\Result::SUCCESS, 'status' => 'unknown',]);
+        $this->assertFalse($response->isWaiting());
+    }
+
+    public function testWaiting(): void
+    {
+        $response = new Response(['result' => Response\Result::SUCCESS, 'status' => Response\Status::WAITING,]);
+        $this->assertTrue($response->isWaiting());
+    }
 }

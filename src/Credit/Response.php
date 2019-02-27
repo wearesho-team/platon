@@ -28,4 +28,9 @@ class Response extends \ArrayObject implements Credit\Response
     {
         return $this->getResult() === Response\Result::SUCCESS;
     }
+
+    public function isWaiting(): bool
+    {
+        return $this->offsetExists('status') && $this['status'] === Response\Status::WAITING;
+    }
 }

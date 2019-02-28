@@ -11,6 +11,7 @@
     "wearesho-team/bobra-payments": "^1.5"
   },
   "require-dev": {
+    "brainmaestro/composer-git-hooks": "^2.6",
     "phpunit/phpunit": "^7.1",
     "squizlabs/php_codesniffer": "^3.3.2"
   },
@@ -40,7 +41,20 @@
     }
   },
   "scripts": {
-    "lint": "./vendor/bin/phpcs --standard=PSR2 ./src ./tests",
-    "test": "./vendor/bin/phpunit"
+    "lint": "phpcs --standard=PSR2 ./src ./tests",
+    "phpcbf": "phpcbf --standard=PSR2 ./src ./tests",
+    "cover": "phpunit --coverage-clover=coverage.xml",
+    "test": "phpunit",
+    "post-install-cmd": "cghooks add --ignore-lock",
+    "post-update-cmd": "cghooks update"
+  },
+  "extra": {
+    "hooks": {
+      "pre-commit": [
+        "composer lint",
+        "composer test"
+      ],
+      "post-merge": "composer update --lock"
+    }
   }
 }

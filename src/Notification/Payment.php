@@ -38,6 +38,9 @@ class Payment implements PaymentInterface
     /** @var string|null */
     protected $rcToken;
 
+    /** @var array */
+    protected $body;
+
     public function __construct(
         string $id,
         string $key,
@@ -48,7 +51,8 @@ class Payment implements PaymentInterface
         string $card,
         \DateTimeInterface $date,
         string $rcToken = null,
-        array $data = []
+        array $data = [],
+        array $body = []
     ) {
         $this->id = $id;
         $this->key = $key;
@@ -60,6 +64,7 @@ class Payment implements PaymentInterface
         $this->date = $date;
         $this->rcToken = $rcToken;
         $this->data = $data;
+        $this->body = $body;
     }
 
     public function getId(): string
@@ -110,5 +115,10 @@ class Payment implements PaymentInterface
     public function getKey(): string
     {
         return $this->key;
+    }
+
+    public function getBody(): array
+    {
+        return $this->body;
     }
 }

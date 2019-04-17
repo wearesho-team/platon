@@ -49,7 +49,8 @@ class Server
             $data['card'],
             Carbon::parse($data['date'], new \DateTimeZone('UTC')),
             $data['rc_token'] ?? null,
-            $paymentData
+            $paymentData,
+            $data
         );
     }
 

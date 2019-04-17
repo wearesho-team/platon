@@ -99,5 +99,6 @@ class ServerTest extends TestCase
             new \DateTimeZone('UTC'),
             $payment->getDate()->getTimezone()
         );
+        $this->assertArraySubset($data, $payment->getBody());
     }
 }

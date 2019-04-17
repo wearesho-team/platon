@@ -6,7 +6,7 @@ namespace Wearesho\Bobra\Platon\Notification;
  * Class Payment
  * @package Wearesho\Bobra\Platon\Notification
  */
-class Payment implements PaymentInterface
+class Payment implements PaymentInterface, HasBody
 {
     /** @var string */
     protected $id;

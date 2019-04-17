@@ -31,6 +31,4 @@ interface PaymentInterface
     public function getDate(): \DateTimeInterface;
 
     public function getData(): array;
-
-    public function getBody(): array;
 }

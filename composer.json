@@ -4,6 +4,7 @@
   "type": "library",
   "require": {
     "php": ">=7.1",
+    "ext-json": "*",
     "guzzlehttp/guzzle": "^6.3",
     "horat1us/environment-config": "^1.2",
     "nekman/luhn-algorithm": "^4.0",

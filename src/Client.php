@@ -71,7 +71,7 @@ class Client implements Payments\ClientInterface
 
     protected function getUrl(): string
     {
-        return rtrim($this->config->getBaseUrl(), '/') . '/payment/auth';
+        return \rtrim($this->config->getBaseUrl(), '/') . '/payment/auth';
     }
 
     protected function fetchLanguage(Payments\TransactionInterface $transaction): string
@@ -88,7 +88,7 @@ class Client implements Payments\ClientInterface
 
     protected function fetchAmount(Payments\TransactionInterface $transaction): string
     {
-        return number_format(
+        return \number_format(
             (float)($transaction->getAmount() / 100),
             2,
             '.',
@@ -102,13 +102,13 @@ class Client implements Payments\ClientInterface
         $ext = [];
 
         foreach ($info as $key => $value) {
-            if (is_int($key)) {
-                $maxExt = max($key, $maxExt);
+            if (\is_int($key)) {
+                $maxExt = \max($key, $maxExt);
             } else {
-                $key = is_null($maxExt) ? $maxExt = 1 : ++$maxExt;
+                $key = \is_null($maxExt) ? $maxExt = 1 : ++$maxExt;
             }
 
-            $ext['ext' . $key] = $value;
+            $ext["ext{$key}"] = $value;
         }
 
         return $ext;
@@ -116,7 +116,7 @@ class Client implements Payments\ClientInterface
 
     protected function getDataParam(Payments\TransactionInterface $transaction): string
     {
-        return base64_encode(json_encode([
+        return \base64_encode(\json_encode([
             'amount' => $this->fetchAmount($transaction),
             'name' => $transaction->getDescription(),
             'currency' => $transaction->getCurrency(),
@@ -131,12 +131,12 @@ class Client implements Payments\ClientInterface
      */
     protected function getSign(...$params)
     {
-        $middleHash = implode('', array_map('strrev', $params));
+        $middleHash = \implode(\array_map('strrev', $params));
 
-        $resultHash = strrev($this->config->getKey())
+        $resultHash = \strrev($this->config->getKey())
             . $middleHash
-            . strrev($this->config->getPass());
+            . \strrev($this->config->getPass());
 
-        return md5(strtoupper($resultHash));
+        return \md5(\strtoupper($resultHash));
     }
 }

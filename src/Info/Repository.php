@@ -35,15 +35,15 @@ class Repository
      */
     public function get(\DateTimeInterface $date = null): array
     {
-        $baseUrl = rtrim($this->config->getBaseUrl(), '/');
+        $baseUrl = \rtrim($this->config->getBaseUrl(), '/');
         $response = $this->client->request("POST", "$baseUrl/credit/api/v1/check", [
             GuzzleHttp\RequestOptions::FORM_PARAMS => $this->generateFormParams($date ?? Carbon::now()),
         ]);
-        $body = json_decode((string)$response->getBody(), true);
+        $body = \json_decode((string)$response->getBody(), true);
 
-        $isKeysExists = array_key_exists('data', $body)
-            && array_key_exists('sign', $body)
-            && array_key_exists('api_key', $body);
+        $isKeysExists = \array_key_exists('data', $body)
+            && \array_key_exists('sign', $body)
+            && \array_key_exists('api_key', $body);
 
         if (!$isKeysExists) {
             throw new InvalidResponseException("Missing keys in response", 1, $body);
@@ -73,7 +73,7 @@ class Repository
 
     protected function formatAmount(string $amount): float
     {
-        return (float)str_replace(['&nbsp;', ','], ['', '.'], $amount);
+        return (float)\str_replace(['&nbsp;', ','], ['', '.'], $amount);
     }
 
     /**
@@ -86,11 +86,11 @@ class Repository
             return;
         }
 
-        $sign = array_reduce($body['data'], function (string $carry, array $statistics): string {
-            return $carry . implode($statistics);
+        $sign = \array_reduce($body['data'], function (string $carry, array $statistics): string {
+            return $carry . \implode($statistics);
         }, '');
 
-        if (hash('sha256', $sign . $this->config->getPrivateKey()) !== $body['sign']) {
+        if (\hash('sha256', $sign . $this->config->getPrivateKey()) !== $body['sign']) {
             throw new InvalidResponseException("Damaged data obtained", 3, $body);
         }
     }
@@ -103,7 +103,7 @@ class Repository
         ];
         return [
             'data' => $params,
-            'sign' => hash("sha256", implode($params) . $this->config->getPrivateKey()),
+            'sign' => \hash("sha256", \implode($params) . $this->config->getPrivateKey()),
         ];
     }
 }

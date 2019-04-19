@@ -10,9 +10,9 @@ use Wearesho\Bobra\Payments\Credit;
  */
 class Response extends \ArrayObject implements Credit\Response
 {
-    public function __construct(array $input = [], int $flags = 0, string $iterator_class = "ArrayIterator")
+    public function __construct(array $input = [], int $flags = 0, string $iterator_class = \ArrayIterator::class)
     {
-        if (!array_key_exists('result', $input)) {
+        if (!isset($input['result'])) {
             throw new \InvalidArgumentException('Response Array have to contain result key');
         }
 

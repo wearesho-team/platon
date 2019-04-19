@@ -54,7 +54,7 @@ class Client implements Credit\ClientInterface
             'form_params' => $this->generateParams($creditToCard),
         ]);
 
-        $creditResponse = new Response(json_decode((string)$response->getBody(), true));
+        $creditResponse = new Response(\json_decode((string)$response->getBody(), true));
 
         $this->responseValidator->validate($creditResponse, $creditToCard);
 
@@ -73,7 +73,7 @@ class Client implements Credit\ClientInterface
             'order_currency' => $creditToCard->getCurrency(),
             'order_description' => $creditToCard->getDescription(),
             'order_id' => $creditToCard->getId(),
-            'order_amount' => number_format($creditToCard->getAmount(), 2, '.', ''),
+            'order_amount' => \number_format($creditToCard->getAmount(), 2, '.', ''),
         ];
 
         $token = $creditToCard->getCardToken();
@@ -104,34 +104,36 @@ class Client implements Credit\ClientInterface
 
     protected function isCardNumber(string $token): bool
     {
-        return preg_match('/^\d{16}$/', $token) && $this->luhn->isValid(LuhnAlgorithm\Number::fromString($token));
+        return \preg_match('/^\d{16}$/', $token) && $this->luhn->isValid(LuhnAlgorithm\Number::fromString($token));
     }
 
     protected function validateCardToken(string $cardToken): void
     {
-        if (!preg_match('/^\w{32}$/', $cardToken)) {
+        if (!\preg_match('/^\w{32}$/', $cardToken)) {
             throw new \InvalidArgumentException("Invalid card token");
         }
     }
 
     protected function appendTokenHash(array &$data): void
     {
-        $data['hash'] = md5(strtoupper(
-            $data['order_id']
-            . $data['order_amount']
-            . $data['order_description']
-            . $data['card_token']
-            . $this->config->getPass()
+        $data['hash'] = \md5(\strtoupper(
+            \implode([
+                $data['order_id'],
+                $data['order_amount'],
+                $data['order_description'],
+                $data['card_token'],
+                $this->config->getPass(),
+            ])
         ));
     }
 
     protected function appendCardHash(array &$data): void
     {
-        $data['hash'] = md5(
-            strtoupper(
+        $data['hash'] = \md5(
+            \strtoupper(
                 $this->config->getPass()
-                . strrev(
-                    substr($data['card_number'], 0, 6) . substr($data['card_number'], -4)
+                . \strrev(
+                    \substr($data['card_number'], 0, 6) . \substr($data['card_number'], -4)
                 )
             )
         );

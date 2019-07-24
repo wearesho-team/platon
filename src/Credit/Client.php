@@ -94,7 +94,9 @@ class Client implements Credit\ClientInterface
         } else {
             $this->validateCardToken($token);
 
-            $params['action'] = CreditToCardInterface::ACTION_TOKEN;
+            $params['action'] = mb_strlen($token) === 64
+                ? CreditToCardInterface::ACTION_CARD
+                : CreditToCardInterface::ACTION_TOKEN;
             $params['card_token'] = $token;
             $this->appendTokenHash($params);
         }

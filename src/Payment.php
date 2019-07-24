@@ -15,6 +15,7 @@ abstract class Payment implements PaymentInterface
     use PaymentTrait;
 
     public const TYPE = null;
+    public const FORM_ID_VERIFY = 'VERIFY';
 
     /** @var string */
     protected $lang;
@@ -73,6 +74,11 @@ abstract class Payment implements PaymentInterface
 
         if (!is_null($this->formId)) {
             $json['formid'] = $this->formId;
+
+            if ($this->formId === static::FORM_ID_VERIFY) {
+                $this->ext['ext10'] = strtolower(static::FORM_ID_VERIFY);
+                $json['req_token'] = 'Y';
+            }
         }
 
         if (!empty($this->ext)) {

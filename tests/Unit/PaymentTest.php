@@ -8,12 +8,9 @@ use Wearesho\Bobra\Platon\Payment;
 
 class PaymentTest extends TestCase
 {
-    /** @var Payment */
-    protected $payment;
-
-    protected function setUp()
+    public function testConstruct()
     {
-        $this->payment = new Payment\CC(
+        $payment = new Payment\CC(
             2,
             "de",
             new Payments\UrlPair("good_string"),
@@ -24,10 +21,7 @@ class PaymentTest extends TestCase
             ["one", "two", "three"],
             "some_formId"
         );
-    }
 
-    public function testConstruct()
-    {
         $this->assertEquals(
             [
                 'data' => 'data_string',
@@ -42,7 +36,29 @@ class PaymentTest extends TestCase
                 '1' => 'two',
                 '2' => 'three',
             ],
-            $this->payment->jsonSerialize()['data']
+            $payment->jsonSerialize()['data']
         );
+    }
+
+    public function testFormIdVerify(): void
+    {
+        $payment = new Payment\CC(
+            2,
+            "de",
+            new Payments\UrlPair("good_string"),
+            "qwerty_sign",
+            "key_string",
+            "form_url_string",
+            "data_string",
+            ["one", "two", "three"],
+            Payment::FORM_ID_VERIFY
+        );
+
+        $this->assertArraySubset([
+            'data' => 'data_string',
+            'ext10' => 'verify',
+            'formid' => 'VERIFY',
+            'req_token' => 'Y',
+        ], $payment->jsonSerialize()['data']);
     }
 }

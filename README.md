@@ -8,6 +8,11 @@
 [Changelog](./CHANGELOG.md) |
 [Usage Examples](./examples/README.md)
 
+## API
+- [Docs](https://github.com/wearesho-team/platon/tree/docs)
+    - [Integration](https://github.com/wearesho-team/platon/tree/docs/docs/integration_v2.2.pdf)
+    - [CardDebitAdvanced](https://github.com/wearesho-team/platon/blob/docs/docs/card_debit_advanced_1.3.pdf)
+
 ## Installation
 Using composer:
 ```bash

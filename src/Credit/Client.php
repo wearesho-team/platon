@@ -118,7 +118,7 @@ class Client implements Credit\ClientInterface
 
     protected function appendTokenHash(array &$data): void
     {
-        if (mb_strlen($data['card_token'] === 64)) {
+        if (mb_strlen($data['card_token']) === 64) {
             $hash = \md5(
                 \strtoupper($this->config->getPass()
                     . strrev($data['card_token']))

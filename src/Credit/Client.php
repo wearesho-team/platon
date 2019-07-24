@@ -118,15 +118,24 @@ class Client implements Credit\ClientInterface
 
     protected function appendTokenHash(array &$data): void
     {
-        $data['hash'] = \md5(\strtoupper(
-            \implode([
-                $data['order_id'],
-                $data['order_amount'],
-                $data['order_description'],
-                $data['card_token'],
-                $this->config->getPass(),
-            ])
-        ));
+        if (mb_strlen($data['card_token'] === 64)) {
+            $hash = \md5(
+                \strtoupper($this->config->getPass()
+                    . strrev($data['card_token']))
+            );
+        } else {
+            $hash = \md5(\strtoupper(
+                \implode([
+                    $data['order_id'],
+                    $data['order_amount'],
+                    $data['order_description'],
+                    $data['card_token'],
+                    $this->config->getPass(),
+                ])
+            ));
+        }
+
+        $data['hash'] = $hash;
     }
 
     protected function appendCardHash(array &$data): void

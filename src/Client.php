@@ -65,8 +65,7 @@ class Client implements Payments\ClientInterface
                         $amount,
                         $transaction->getCurrency(),
                         $transaction->getDescription(),
-                        $pair->getGood(),
-                        $cardToken
+                        $pair->getGood()
                     ),
                     $this->config->getKey(),
                     $this->getUrl(),

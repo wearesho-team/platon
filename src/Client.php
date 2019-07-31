@@ -37,7 +37,14 @@ class Client implements Payments\ClientInterface
                     $transaction->getService(),
                     $language,
                     $pair,
-                    $this->getSign($payment, $data, $pair->getGood(), $cardToken),
+                    $this->getSign(
+                        $cardToken
+                            ? Payment\CC::TYPE_CARD_TOKEN
+                            : Payment\CC::TYPE,
+                        $data,
+                        $pair->getGood(),
+                        $cardToken
+                    ),
                     $this->config->getKey(),
                     $this->getUrl(),
                     $data,
@@ -52,7 +59,9 @@ class Client implements Payments\ClientInterface
                     $language,
                     $pair,
                     $this->getSign(
-                        $payment,
+                        $cardToken
+                            ? Payment\C2A::TYPE_CARD_TOKEN
+                            : Payment\C2A::TYPE,
                         $amount,
                         $transaction->getCurrency(),
                         $transaction->getDescription(),

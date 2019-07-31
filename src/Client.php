@@ -28,6 +28,7 @@ class Client implements Payments\ClientInterface
         $ext = $this->transformInfoIntoExt($transaction->getInfo());
         $language = $this->fetchLanguage($transaction);
         $formId = $transaction instanceof TransactionInterface ? $transaction->getFormId() : $transaction->getType();
+        $cardToken = $transaction instanceof Transaction\CardToken ? $transaction->getCardToken() : null;
 
         switch ($payment) {
             case Payment\CC::TYPE:
@@ -36,12 +37,13 @@ class Client implements Payments\ClientInterface
                     $transaction->getService(),
                     $language,
                     $pair,
-                    $this->getSign($payment, $data, $pair->getGood()),
+                    $this->getSign($payment, $data, $pair->getGood(), $cardToken),
                     $this->config->getKey(),
                     $this->getUrl(),
                     $data,
                     $ext,
-                    $formId
+                    $formId,
+                    $cardToken
                 );
             case Payment\C2A::TYPE:
                 $amount = $this->fetchAmount($transaction);
@@ -62,7 +64,8 @@ class Client implements Payments\ClientInterface
                     $transaction->getDescription(),
                     $transaction->getCurrency(),
                     $ext,
-                    $formId
+                    $formId,
+                    $cardToken
                 );
         }
 

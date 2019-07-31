@@ -25,9 +25,10 @@ class CC extends Platon\Payment
         string $formUrl,
         string $data,
         array $ext = [],
-        string $formId = null
+        string $formId = null,
+        string $cardToken = null
     ) {
-        parent::__construct($id, $lang, $urlPair, $sign, $key, $formUrl, $ext, $formId);
+        parent::__construct($id, $lang, $urlPair, $sign, $key, $formUrl, $ext, $formId, $cardToken);
         $this->data = $data;
     }
 
@@ -36,6 +37,7 @@ class CC extends Platon\Payment
         $json = parent::jsonSerialize();
         $json['data'] = array_merge($json['data'] ?? [], [
             'data' => $this->data,
+            'payment' => is_null($this->cardToken) ? static::TYPE : static::TYPE . 'T',
         ]);
 
         return $json;

@@ -38,6 +38,9 @@ abstract class Payment implements PaymentInterface
     /** @var string */
     protected $formUrl;
 
+    /** @var string|null */
+    protected $cardToken;
+
     public function __construct(
         int $id,
         string $lang,
@@ -46,7 +49,8 @@ abstract class Payment implements PaymentInterface
         string $key,
         string $formUrl,
         array $ext = [],
-        string $formId = null
+        string $formId = null,
+        string $cardToken = null
     ) {
         $this->id = $id;
         $this->lang = $lang;
@@ -56,6 +60,7 @@ abstract class Payment implements PaymentInterface
         $this->formUrl = $formUrl;
         $this->formId = $formId;
         $this->key = $key;
+        $this->cardToken = $cardToken;
     }
 
     /**
@@ -83,6 +88,10 @@ abstract class Payment implements PaymentInterface
 
         if (!empty($this->ext)) {
             $json = array_merge($json, $this->ext);
+        }
+
+        if (!is_null($this->cardToken)) {
+            $json['card_token'] = $this->cardToken;
         }
 
         return [

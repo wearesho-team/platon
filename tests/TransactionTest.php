@@ -30,4 +30,26 @@ class TransactionTest extends TestCase
         );
         $this->assertEquals(228, $transaction->getAmount());
     }
+
+    public function testCardToken(): void
+    {
+        $transaction = new Platon\Transaction(
+            1,
+            2.28,
+            'type',
+            'Description',
+            [],
+            'UAH',
+            null,
+            "CardToken"
+        );
+        $this->assertEquals(
+            $transaction->getCardToken(),
+            "CardToken"
+        );
+        $this->assertEquals(
+            '{"id":1,"amount":228,"type":"type","description":"Description","info":[],"currency":"UAH","cardToken":"CardToken"}', // phpcs:ignore
+            json_encode($transaction)
+        );
+    }
 }

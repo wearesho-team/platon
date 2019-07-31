@@ -16,13 +16,9 @@ class C2ATest extends TestCase
     protected const DESCRIPTION = 'Some Description';
     protected const CURRENCY = 'UAH';
 
-    /** @var Platon\Payment\C2A */
-    protected $payment;
-
-    protected function setUp(): void
+    public function testJsonAdditionalFields(): void
     {
-        parent::setUp();
-        $this->payment = new Platon\Payment\C2A(
+        $payment = new Platon\Payment\C2A(
             1,
             Platon\ConfigInterface::LANGUAGE_RU,
             new UrlPair('', ''),
@@ -33,11 +29,7 @@ class C2ATest extends TestCase
             static::DESCRIPTION,
             static::CURRENCY
         );
-    }
-
-    public function testJsonAdditionalFields(): void
-    {
-        $json = $this->payment->jsonSerialize();
+        $json = $payment->jsonSerialize();
 
         $this->assertArrayHasKey('data', $json);
         $this->assertArrayHasKey('action', $json);
@@ -46,6 +38,28 @@ class C2ATest extends TestCase
             'amount' => static::AMOUNT,
             'description' => static::DESCRIPTION,
             'currency' => static::CURRENCY,
-        ], $this->payment->jsonSerialize()['data']);
+        ], $payment->jsonSerialize()['data']);
+    }
+
+    public function testJsonCardToken(): void
+    {
+        $payment = new Platon\Payment\C2A(
+            1,
+            Platon\ConfigInterface::LANGUAGE_RU,
+            new UrlPair('', ''),
+            'sign',
+            'key',
+            'formUrl',
+            static::AMOUNT,
+            static::DESCRIPTION,
+            static::CURRENCY,
+            [],
+            'formId',
+            $cardToken = 'cardToken'
+        );
+
+        $json = $payment->jsonSerialize()['data'];
+        $this->assertArrayHasKey('card_token', $json);
+        $this->assertEquals($cardToken, $json['card_token']);
     }
 }

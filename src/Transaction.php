@@ -8,7 +8,7 @@ use Wearesho\Bobra\Payments;
  * Class Transaction
  * @package Wearesho\Bobra\Platon
  */
-class Transaction extends Payments\Transaction implements TransactionInterface
+class Transaction extends Payments\Transaction implements TransactionInterface, Transaction\CardToken
 {
     use TransactionTrait {
         jsonSerialize as private platonJsonSerialize;
@@ -21,10 +21,12 @@ class Transaction extends Payments\Transaction implements TransactionInterface
         string $description,
         array $info = [],
         string $currency = 'UAH',
-        string $formId = null
+        string $formId = null,
+        string $cardToken = null
     ) {
         parent::__construct($service, $amount, $type, $description, $info, $currency);
         $this->formId = $formId;
+        $this->cardToken = $cardToken;
     }
 
     public function jsonSerialize()

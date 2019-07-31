@@ -61,6 +61,7 @@ class C2ATest extends TestCase
         );
 
         $data = $payment->jsonSerialize()['data'];
+
         $this->assertArrayHasKey('card_token', $data);
         $this->assertEquals($cardToken, $data['card_token']);
 

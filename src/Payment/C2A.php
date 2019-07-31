@@ -12,6 +12,7 @@ use Wearesho\Bobra\Platon;
 class C2A extends Platon\Payment
 {
     public const TYPE = 'C2A,CC';
+    public const TYPE_CARD_TOKEN = 'C2AT,CCT';
 
     /** @var int */
     protected $amount;
@@ -51,6 +52,9 @@ class C2A extends Platon\Payment
             'description' => $this->description,
             'currency' => $this->currency,
         ]);
+        if (!is_null($this->cardToken)) {
+            $json['data']['payment'] = static::TYPE_CARD_TOKEN;
+        }
 
         return $json;
     }

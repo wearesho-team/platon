@@ -12,6 +12,7 @@ use Wearesho\Bobra\Platon;
 class CC extends Platon\Payment
 {
     public const TYPE = 'CC';
+    public const TYPE_CARD_TOKEN = 'CCT';
 
     /** @var string */
     protected $data;
@@ -37,8 +38,10 @@ class CC extends Platon\Payment
         $json = parent::jsonSerialize();
         $json['data'] = array_merge($json['data'] ?? [], [
             'data' => $this->data,
-            'payment' => is_null($this->cardToken) ? static::TYPE : static::TYPE . 'T',
         ]);
+        if (!is_null($this->cardToken)) {
+            $json['data']['payment'] = static::TYPE_CARD_TOKEN;
+        }
 
         return $json;
     }

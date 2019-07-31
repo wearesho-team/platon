@@ -38,7 +38,9 @@ class C2ATest extends TestCase
             'amount' => static::AMOUNT,
             'description' => static::DESCRIPTION,
             'currency' => static::CURRENCY,
-        ], $payment->jsonSerialize()['data']);
+        ], $json['data']);
+
+        $this->assertEquals(Platon\Payment\C2A::TYPE, $json['data']['payment']);
     }
 
     public function testJsonCardToken(): void
@@ -58,8 +60,10 @@ class C2ATest extends TestCase
             $cardToken = 'cardToken'
         );
 
-        $json = $payment->jsonSerialize()['data'];
-        $this->assertArrayHasKey('card_token', $json);
-        $this->assertEquals($cardToken, $json['card_token']);
+        $data = $payment->jsonSerialize()['data'];
+        $this->assertArrayHasKey('card_token', $data);
+        $this->assertEquals($cardToken, $data['card_token']);
+
+        $this->assertEquals(Platon\Payment\C2A::TYPE_CARD_TOKEN, $data['payment']);
     }
 }

@@ -9,6 +9,7 @@
     "horat1us/environment-config": "^1.2",
     "nekman/luhn-algorithm": "^4.0",
     "nesbot/carbon": "^1.29",
+    "symfony/polyfill-php80": "^1.20",
     "wearesho-team/bobra-payments": "^1.5"
   },
   "require-dev": {

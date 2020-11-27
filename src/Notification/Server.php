@@ -29,16 +29,6 @@ class Server
     {
         $config = $this->validateSign($data);
 
-        $paymentData = [];
-
-        foreach ([1, 2, 3, 4,] as $extKey) {
-            $key = "ext{$extKey}";
-
-            if (array_key_exists($key, $data)) {
-                $paymentData[$key] = $data[$key];
-            }
-        }
-
         return new Payment(
             $data['id'],
             $config->getKey(),
@@ -49,7 +39,7 @@ class Server
             $data['card'],
             Carbon::parse($data['date'], new \DateTimeZone('UTC')),
             $data['rc_token'] ?? null,
-            $paymentData,
+            $this->extractPaymentData($data),
             $data
         );
     }
@@ -70,5 +60,19 @@ class Server
         }
 
         return $this->configProvider->provide($data['order'], $data['card'], $data['sign']);
+    }
+
+    protected function extractPaymentData(array $data): array
+    {
+        static $paymentDataPrefix = 'ext';
+
+        $paymentData = [];
+        foreach($data as $key => $value) {
+            if (!str_starts_with($key, $paymentDataPrefix)) {
+                continue;
+            }
+            $paymentData[$key] = $value;
+        }
+        return $paymentData;
     }
 }

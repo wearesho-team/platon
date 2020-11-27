@@ -1,5 +1,8 @@
 # Platon Integration Changelog
 
+## 1.13.3
+- Fix handling extX (where X > 4) in [Notification\Server](./src/Notification/Server.php)
+
 ## 1.5.0 - 10 Jule, 2018
 - Add timezone to Notification payments date
 

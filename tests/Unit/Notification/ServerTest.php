@@ -88,6 +88,9 @@ class ServerTest extends TestCase
             'currency' => 'UAH',
             'key' => static::KEY,
             'rc_token' => uniqid(),
+            'ext1' => '2',
+            'ext5' => '10',
+            'ext10' => '20',
         ];
 
         $server = new Notification\Server(
@@ -100,5 +103,10 @@ class ServerTest extends TestCase
             $payment->getDate()->getTimezone()
         );
         $this->assertArraySubset($data, $payment->getBody());
+        $this->assertEquals([
+            'ext1' => '2',
+            'ext5' => '10',
+            'ext10' => '20',
+        ], $payment->getData());
     }
 }

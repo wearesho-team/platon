@@ -206,7 +206,7 @@ class ClientTest extends TestCase
 
         // preventing failed test few years later
         $currentYear = Carbon::now()->year;
-        $currentYearShort = substr(Carbon::now()->year, 2);
+        $currentYearShort = (int)substr((string)Carbon::now()->year, 2);
         $credit2Card = new Platon\Credit\CardTransfer(1, 100, $card, 1, $currentYearShort);
 
         $params = $client->getParams($credit2Card);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -7,8 +9,7 @@ use Wearesho\Bobra\Platon\Config;
 
 class ConfigTest extends TestCase
 {
-    /** @var Config */
-    protected $config;
+    protected Config $config;
 
     protected function setUp(): void
     {
@@ -16,7 +17,7 @@ class ConfigTest extends TestCase
         $this->config = new Config("key_string_global", "pass_string_global", "payment_string_global");
     }
 
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $configObject = new Config(
             "key_string",
@@ -40,7 +41,7 @@ class ConfigTest extends TestCase
         );
     }
 
-    public function testGetUrl()
+    public function testGetUrl(): void
     {
         $this->assertEquals(
             "https://secure.platononline.com/",
@@ -48,7 +49,7 @@ class ConfigTest extends TestCase
         );
     }
 
-    public function testGetKey()
+    public function testGetKey(): void
     {
         $this->assertEquals(
             "key_string_global",
@@ -56,7 +57,7 @@ class ConfigTest extends TestCase
         );
     }
 
-    public function testGetPass()
+    public function testGetPass(): void
     {
         $this->assertEquals(
             "pass_string_global",
@@ -64,7 +65,7 @@ class ConfigTest extends TestCase
         );
     }
 
-    public function testGetPayment()
+    public function testGetPayment(): void
     {
         $this->assertEquals(
             "payment_string_global",

@@ -8,11 +8,9 @@ namespace Wearesho\Bobra\Platon;
  */
 trait TransactionTrait
 {
-    /** @var string|null */
-    protected $formId = null;
+    protected ?string $formId = null;
 
-    /** @var string|null */
-    protected $cardToken = null;
+    protected ?string $cardToken = null;
 
     public function getFormId(): ?string
     {

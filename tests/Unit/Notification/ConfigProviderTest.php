@@ -39,32 +39,27 @@ class ConfigProviderTest extends TestCase
         $this->assertEquals($targetConfig->getPass(), $config->getPass());
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Notification\InvalidSignException
-     */
     public function testEmpty(): void
     {
         $provider = new Notification\ConfigProvider();
+        $this->expectException(\Wearesho\Bobra\Platon\Notification\InvalidSignException::class);
         $provider->provide('order', 'card', 'sign');
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Notification\InvalidSignException
-     */
     public function testMissing(): void
     {
         $provider = new Notification\ConfigProvider([
             new Config('test', 'test', 'CC'),
         ]);
+        $this->expectException(\Wearesho\Bobra\Platon\Notification\InvalidSignException::class);
         $provider->provide('order', 'invalidPass', 'invalidSign');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage All configs have to implement Wearesho\Bobra\Platon\ConfigInterface
-     */
     public function testInvalidParam(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('All configs have to implement Wearesho\Bobra\Platon\ConfigInterface');
+        /** @noinspection PhpParamsInspection */
         new Notification\ConfigProvider([1]);
     }
 }

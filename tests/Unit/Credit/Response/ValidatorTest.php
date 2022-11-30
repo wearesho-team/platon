@@ -27,13 +27,12 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Wearesho\Bobra\Payments\Credit\Exception
-     * @expectedExceptionMessage Duplicate request
-     *
      * @singe 1.5.1 this test expect Credit\Exception to be thrown instead of DuplicatedTransfer
      */
     public function testDuplicateRequest(): void
     {
+        $this->expectException(\Wearesho\Bobra\Payments\Credit\Exception::class);
+        $this->expectExceptionMessage('Duplicate request');
         $this->validator->validate(
             new Response([
                 'result' => 'ERROR',
@@ -43,12 +42,10 @@ class ValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Payments\Credit\Exception\DuplicatedTransfer
-     * @expectedExceptionMessage Order already exists
-     */
     public function testOrderExists(): void
     {
+        $this->expectException(\Wearesho\Bobra\Payments\Credit\Exception\DuplicatedTransfer::class);
+        $this->expectExceptionMessage('Order already exists');
         $this->validator->validate(
             new Response([
                 'result' => 'ERROR',
@@ -58,12 +55,10 @@ class ValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Credit\Exception
-     * @expectedExceptionMessage Custom error message
-     */
     public function testErrorWithCustomMessage(): void
     {
+        $this->expectException(\Wearesho\Bobra\Platon\Credit\Exception::class);
+        $this->expectExceptionMessage('Custom error message');
         $this->validator->validate(
             new Response([
                 'result' => 'ERROR',
@@ -73,12 +68,10 @@ class ValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Payments\Credit\Exception\InvalidCardToken
-     * @expectedExceptionMessage Invalid card
-     */
     public function testInvalidCard(): void
     {
+        $this->expectException(\Wearesho\Bobra\Payments\Credit\Exception\InvalidCardToken::class);
+        $this->expectExceptionMessage('Invalid card');
         $this->validator->validate(
             new Response([
                 'result' => 'DECLINED',
@@ -88,12 +81,10 @@ class ValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Credit\Exception
-     * @expectedExceptionMessage Custom reason
-     */
     public function testDeclineWithCustomMessage(): void
     {
+        $this->expectException(\Wearesho\Bobra\Platon\Credit\Exception::class);
+        $this->expectExceptionMessage('Custom reason');
         $this->validator->validate(
             new Response([
                 'result' => 'DECLINED',
@@ -103,12 +94,10 @@ class ValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Credit\Exception
-     * @expectedExceptionMessage Unknown result: unknown
-     */
     public function testUnknownResult(): void
     {
+        $this->expectException(\Wearesho\Bobra\Platon\Credit\Exception::class);
+        $this->expectExceptionMessage('Unknown result: unknown');
         $this->validator->validate(
             new Response([
                 'result' => 'unknown',

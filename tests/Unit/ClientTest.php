@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
@@ -7,8 +9,6 @@ use Wearesho\Bobra\Payments;
 use Wearesho\Bobra\Platon;
 
 /**
- * Class ClientTest
- * @package Wearesho\Bobra\Platon\Tests\Unit
  * @coversDefaultClass \Wearesho\Bobra\Platon\Client
  */
 class ClientTest extends TestCase
@@ -133,13 +133,11 @@ class ClientTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage  Payment type TEST is not supported
-     */
     public function testInvalidPaymentType(): void
     {
         $this->client = new PLaton\Client(new Platon\Config("key_string", "pass_string", "TEST"));
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Payment type TEST is not supported');
         $this->client->createPayment(
             new Payments\UrlPair("good_string_pair"),
             new Platon\Transaction(

@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\ConfigInterface;
 use Wearesho\Bobra\Platon\LanguageConfigTrait;
 
-/**
- * Class LanguageConfigTraitTest
- * @package Wearesho\Bobra\Platon\Tests
- */
 class LanguageConfigTraitTest extends TestCase
 {
     public function testMethods()
@@ -25,9 +23,6 @@ class LanguageConfigTraitTest extends TestCase
         $this->assertEquals(ConfigInterface::LANGUAGE_RU, $config->getLanguage());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidLangException()
     {
         $config = new class
@@ -35,7 +30,8 @@ class LanguageConfigTraitTest extends TestCase
             use LanguageConfigTrait;
         };
 
-        $config->setLanguage("qwerty");
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("Invalid language");
+        $config->setLanguage("qwerty");
     }
 }

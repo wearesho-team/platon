@@ -5,23 +5,16 @@ namespace Wearesho\Bobra\Platon\Payment;
 use Wearesho\Bobra\Payments\UrlPairInterface;
 use Wearesho\Bobra\Platon;
 
-/**
- * Class C2A
- * @package Wearesho\Bobra\Platon\Payment
- */
 class C2A extends Platon\Payment
 {
     public const TYPE = 'C2A,CC';
     public const TYPE_CARD_TOKEN = 'C2AT,CCT';
 
-    /** @var int */
-    protected $amount;
+    protected string $amount;
 
-    /** @var string */
-    protected $description;
+    protected string $description;
 
-    /** @var string */
-    protected $currency;
+    protected string $currency;
 
     public function __construct(
         int $id,

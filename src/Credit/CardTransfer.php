@@ -4,10 +4,6 @@ namespace Wearesho\Bobra\Platon\Credit;
 
 use Wearesho\Bobra\Payments\Credit;
 
-/**
- * Class CardTransfer
- * @package Wearesho\Bobra\Platon\Credit
- */
 class CardTransfer extends Credit\Transfer implements CreditToCardInterface, HasExpireDate
 {
     use HasExpireDateTrait;

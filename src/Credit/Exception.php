@@ -1,17 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Credit;
 
 use Wearesho\Bobra\Payments\Credit;
 
-/**
- * Class Exception
- * @package Wearesho\Bobra\Platon\Credit
- */
 class Exception extends Credit\Exception
 {
-    /** @var Response */
-    protected $response;
+    protected Response $response;
 
     public function __construct(
         Credit\TransferInterface $transfer,

@@ -10,8 +10,7 @@ trait LanguageConfigTrait
 {
     use ValidateLanguage;
 
-    /** @var string */
-    protected $language = ConfigInterface::LANGUAGE_UA;
+    protected string $language = ConfigInterface::LANGUAGE_UA;
 
     /**
      * @inheritdoc

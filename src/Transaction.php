@@ -4,10 +4,6 @@ namespace Wearesho\Bobra\Platon;
 
 use Wearesho\Bobra\Payments;
 
-/**
- * Class Transaction
- * @package Wearesho\Bobra\Platon
- */
 class Transaction extends Payments\Transaction implements TransactionInterface, Transaction\CardToken
 {
     use TransactionTrait {

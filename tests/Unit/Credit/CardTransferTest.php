@@ -26,39 +26,31 @@ class CardTransferTest extends TestCase
         $this->assertEquals($year, $transfer->getExpireYear());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid expire month 0 passed
-     */
     public function testLowMonth(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid expire month 0 passed');
         new Credit\CardTransfer(1, 100, '', 0, 18);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid expire month 13 passed
-     */
     public function testBigMonth(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid expire month 13 passed');
         new Credit\CardTransfer(1, 100, '', 13, 18);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid expire year 17 passed
-     */
     public function testLowYear(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid expire year 17 passed');
         new Credit\CardTransfer(1, 100, '', 1, 17);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid expire year 50 passed
-     */
     public function testBigYear(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid expire year 50 passed');
         new Credit\CardTransfer(1, 100, '', 1, 50);
     }
 }

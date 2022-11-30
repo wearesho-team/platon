@@ -1,13 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Info;
 
 use Horat1us\Environment;
 
-/**
- * Class EnvironmentConfig
- * @package Wearesho\Bobra\Platon\Info
- */
 class EnvironmentConfig extends Environment\Config implements ConfigInterface
 {
     public function __construct(string $keyPrefix = 'PLATON_INFO_')

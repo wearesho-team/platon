@@ -7,17 +7,11 @@ namespace Wearesho\Bobra\Platon\Info;
 use Carbon\Carbon;
 use GuzzleHttp;
 
-/**
- * Class Repository
- * @package Wearesho\Bobra\Platon\Info
- */
 class Repository
 {
-    /** @var ConfigInterface */
-    protected $config;
+    protected ConfigInterface $config;
 
-    /** @var GuzzleHttp\ClientInterface */
-    protected $client;
+    protected GuzzleHttp\ClientInterface $client;
 
     public function __construct(
         ConfigInterface $config,
@@ -28,8 +22,6 @@ class Repository
     }
 
     /**
-     * @param \DateTimeInterface $date
-     * @return Response[]
      * @throws GuzzleHttp\Exception\GuzzleException
      * @throws InvalidResponseException
      */
@@ -77,7 +69,6 @@ class Repository
     }
 
     /**
-     * @param array $body
      * @throws InvalidResponseException
      */
     protected function validateResponseSign(array $body): void

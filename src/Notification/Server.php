@@ -3,16 +3,12 @@
 namespace Wearesho\Bobra\Platon\Notification;
 
 use Carbon\Carbon;
+use Carbon\CarbonTimeZone;
 use Wearesho\Bobra\Platon;
 
-/**
- * Class Server
- * @package Wearesho\Bobra\Platon\Notification
- */
 class Server
 {
-    /** @var ConfigProviderInterface */
-    protected $configProvider;
+    protected ConfigProviderInterface $configProvider;
 
     public function __construct(ConfigProviderInterface $configProvider)
     {
@@ -67,7 +63,7 @@ class Server
         static $paymentDataPrefix = 'ext';
 
         $paymentData = [];
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             if (!str_starts_with($key, $paymentDataPrefix)) {
                 continue;
             }

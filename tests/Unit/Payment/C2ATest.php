@@ -20,7 +20,7 @@ class C2ATest extends TestCase
     {
         $payment = new Platon\Payment\C2A(
             1,
-            Platon\ConfigInterface::LANGUAGE_RU,
+            Platon\ConfigInterface::LANGUAGE_UA,
             new UrlPair('', ''),
             'sign',
             'key',
@@ -34,10 +34,16 @@ class C2ATest extends TestCase
         $this->assertArrayHasKey('data', $json);
         $this->assertArrayHasKey('action', $json);
 
-        $this->assertArraySubset([
+        $this->assertEquals([
             'amount' => static::AMOUNT,
             'description' => static::DESCRIPTION,
             'currency' => static::CURRENCY,
+            'key' => 'key',
+            'payment' => 'C2A,CC',
+            'url' => '',
+            'error_url' => '',
+            'lang' => 'uk',
+            'sign' => 'sign'
         ], $json['data']);
 
         $this->assertEquals(Platon\Payment\C2A::TYPE, $json['data']['payment']);
@@ -47,7 +53,7 @@ class C2ATest extends TestCase
     {
         $payment = new Platon\Payment\C2A(
             1,
-            Platon\ConfigInterface::LANGUAGE_RU,
+            Platon\ConfigInterface::LANGUAGE_UA,
             new UrlPair('', ''),
             'sign',
             'key',

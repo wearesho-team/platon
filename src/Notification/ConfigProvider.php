@@ -5,14 +5,10 @@ namespace Wearesho\Bobra\Platon\Notification;
 use Wearesho\Bobra\Platon;
 use Horat1us\Environment;
 
-/**
- * Class ConfigProvider
- * @package Wearesho\Bobra\Platon\Notification
- */
 class ConfigProvider implements Platon\Notification\ConfigProviderInterface
 {
     /** @var Platon\ConfigInterface[] */
-    protected $configs;
+    protected array $configs;
 
     /**
      * ConfigProvider constructor.
@@ -31,10 +27,6 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
     }
 
     /**
-     * @param string $order
-     * @param string $card
-     * @param string $sign
-     * @return Platon\ConfigInterface
      * @throws InvalidSignException
      */
     public function provide(string $order, string $card, string $sign): Platon\ConfigInterface

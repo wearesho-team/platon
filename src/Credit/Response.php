@@ -4,10 +4,6 @@ namespace Wearesho\Bobra\Platon\Credit;
 
 use Wearesho\Bobra\Payments\Credit;
 
-/**
- * Class Response
- * @package Wearesho\Bobra\Platon\Credit
- */
 class Response extends \ArrayObject implements Credit\Response
 {
     public function __construct(array $input = [], int $flags = 0, string $iterator_class = "ArrayIterator")

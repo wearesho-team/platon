@@ -4,10 +4,6 @@ namespace Wearesho\Bobra\Platon;
 
 use Wearesho\Bobra\Payments;
 
-/**
- * Class LanguageTransaction
- * @package Wearesho\Bobra\Platon
- */
 class LanguageTransaction extends Transaction implements Payments\HasLanguage
 {
     use LanguageConfigTrait;

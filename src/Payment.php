@@ -17,29 +17,22 @@ abstract class Payment implements PaymentInterface
     public const TYPE = null;
     public const FORM_ID_VERIFY = 'VERIFY';
 
-    /** @var string */
-    protected $lang;
+    protected string $lang;
 
-    /** @var UrlPairInterface */
-    protected $urlPair;
+    protected UrlPairInterface $urlPair;
 
-    /** @var string */
-    protected $sign;
+    protected string $sign;
 
-    /** @var string */
-    protected $key;
+    protected string $key;
 
-    /** @var string|null */
-    protected $formId = null;
 
-    /** @var array */
-    protected $ext = [];
+    protected array $ext = [];
 
-    /** @var string */
-    protected $formUrl;
+    protected string $formUrl;
 
-    /** @var string|null */
-    protected $cardToken;
+    protected ?string $formId = null;
+
+    protected ?string $cardToken = null;
 
     public function __construct(
         int $id,

@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Credit\Response;
 
 /**
- * Class ResponseTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Credit
  * @coversDefaultClass \Wearesho\Bobra\Platon\Credit\Response
  */
 class ResponseTest extends TestCase

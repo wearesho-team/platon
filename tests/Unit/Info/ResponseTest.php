@@ -1,14 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Info;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Info\Response;
 
-/**
- * Class ResponseTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Info
- */
 class ResponseTest extends TestCase
 {
     public function testPrivat(): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit\Response;
 
 use PHPUnit\Framework\TestCase;
@@ -7,17 +9,13 @@ use Wearesho\Bobra\Payments\Credit\Transfer;
 use Wearesho\Bobra\Platon\Credit\Response;
 
 /**
- * Class ValidatorTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Credit\Response
  * @coversDefaultClass \Wearesho\Bobra\Platon\Credit\Response\Validator
  */
 class ValidatorTest extends TestCase
 {
-    /** @var Response\Validator */
-    protected $validator;
+    protected Response\Validator $validator;
 
-    /** @var Transfer */
-    protected $transfer;
+    protected Transfer $transfer;
 
     protected function setUp(): void
     {

@@ -1,22 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Info;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon;
 
-/**
- * Class ConfigTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Info
- */
 class ConfigTest extends TestCase
 {
     protected const TEST_PUBLIC_KEY = 'publicKey';
     protected const TEST_PRIVATE_KEY = 'privateKey';
     protected const TEST_BASE_URL = Platon\Info\ConfigInterface::DEFAULT_BASE_URL;
 
-    /** @var Platon\Info\Config */
-    protected $config;
+    protected Platon\Info\Config $config;
 
     protected function setUp(): void
     {

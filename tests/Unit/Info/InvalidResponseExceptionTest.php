@@ -1,14 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Info;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Info\InvalidResponseException;
 
-/**
- * Class InvalidResponseExceptionTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Info
- */
 class InvalidResponseExceptionTest extends TestCase
 {
     public function testGetBody(): void

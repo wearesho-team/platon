@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Payment;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Payments\UrlPair;
 use Wearesho\Bobra\Platon;
 
-/**
- * Class C2ATest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Payment
- */
 class C2ATest extends TestCase
 {
     protected const AMOUNT = '100.12';

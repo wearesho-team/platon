@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
 use Carbon\Carbon;
@@ -13,21 +15,16 @@ use Wearesho\Bobra\Platon\Credit\CreditToCard;
 use Wearesho\Bobra\Platon\Credit\Response;
 use Wearesho\Bobra\Platon\Credit\Response\Validator;
 
-/**
- * Class ClientTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Credit
- * @coversDefaultClass \Wearesho\Bobra\Platon\Credit\Client
- */
 class ClientTest extends TestCase
 {
     /** @var GuzzleHttp\Handler\MockHandler */
-    protected $mock;
+    protected GuzzleHttp\Handler\MockHandler $mock;
 
     /** @var array */
-    protected $container;
+    protected array $container;
 
     /** @var Client */
-    protected $client;
+    protected Client $client;
 
     protected function setUp(): void
     {

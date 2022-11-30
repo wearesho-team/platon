@@ -13,8 +13,7 @@ use Wearesho\Bobra\Platon;
  */
 class ClientTest extends TestCase
 {
-    /** @var Platon\Client */
-    protected $client;
+    protected Platon\Client $client;
 
     protected function setUp(): void
     {

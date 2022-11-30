@@ -2,22 +2,15 @@
 
 namespace Wearesho\Bobra\Platon;
 
-/**
- * Class Config
- * @package Wearesho\Bobra\Platon
- */
 class Config implements ConfigInterface
 {
     use LanguageConfigTrait;
 
-    /** @var string */
-    protected $key;
+    protected string $key;
 
-    /** @var string */
-    protected $pass;
+    protected string $pass;
 
-    /** @var string */
-    protected $payment;
+    protected string $payment;
 
     public function __construct(string $key, string $pass, string $payment)
     {
@@ -38,8 +31,6 @@ class Config implements ConfigInterface
 
     /**
      * Public key for Platon
-     *
-     * @return string
      */
     public function getKey(): string
     {

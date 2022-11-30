@@ -54,11 +54,18 @@ class PaymentTest extends TestCase
             Payment::FORM_ID_VERIFY
         );
 
-        $this->assertArraySubset([
+        $this->assertEquals([
             'data' => 'data_string',
             'ext10' => 'verify',
             'formid' => 'VERIFY',
             'req_token' => 'Y',
+            'key' => 'key_string',
+            'payment' => 'CC',
+            'url' => 'good_string',
+            'error_url' => 'good_string',
+            'lang' => 'de',
+            'sign' => 'qwerty_sign',
+            "one", "two", "three"
         ], $payment->jsonSerialize()['data']);
     }
 }

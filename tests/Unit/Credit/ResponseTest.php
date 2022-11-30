@@ -12,12 +12,10 @@ use Wearesho\Bobra\Platon\Credit\Response;
  */
 class ResponseTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Response Array have to contain result key
-     */
     public function testMissingResult(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Response Array have to contain result key');
         new Response([]);
     }
 

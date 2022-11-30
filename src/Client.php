@@ -4,16 +4,11 @@ namespace Wearesho\Bobra\Platon;
 
 use Wearesho\Bobra\Payments;
 
-/**
- * Class Client
- * @package Wearesho\Bobra\Platon
- */
 class Client implements Payments\ClientInterface
 {
     use ValidateLanguage;
 
-    /** @var ConfigInterface */
-    protected $config;
+    protected ConfigInterface $config;
 
     public function __construct(ConfigInterface $config)
     {
@@ -141,7 +136,7 @@ class Client implements Payments\ClientInterface
      * @param array $params
      * @return string
      */
-    protected function getSign(...$params)
+    protected function getSign(...$params): string
     {
         $middleHash = \implode(\array_map('strrev', $params));
 

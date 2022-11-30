@@ -4,20 +4,13 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Info;
 
-/**
- * Class Config
- * @package Wearesho\Bobra\Platon\Info
- */
 class Config implements ConfigInterface
 {
-    /** @var string */
-    protected $publicKey;
+    protected string $publicKey;
 
-    /** @var string */
-    protected $privateKey;
+    protected string $privateKey;
 
-    /** @var string */
-    protected $baseUrl;
+    protected string $baseUrl;
 
     public function __construct(
         string $publicKey,
@@ -28,7 +21,6 @@ class Config implements ConfigInterface
         $this->privateKey = $privateKey;
         $this->baseUrl = $baseUrl;
     }
-
 
     public function getPublicKey(): string
     {

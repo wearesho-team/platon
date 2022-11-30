@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests;
 
 use Wearesho\Bobra\Platon;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Class TransactionTest
- * @package Wearesho\Bobra\Platon\Tests
- */
 class TransactionTest extends TestCase
 {
-    public function testFormId()
+    public function testFormId(): void
     {
         $transaction = new Platon\Transaction(
             1,

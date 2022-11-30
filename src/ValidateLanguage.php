@@ -2,10 +2,6 @@
 
 namespace Wearesho\Bobra\Platon;
 
-/**
- * Trait ValidateLanguage
- * @package Wearesho\Bobra\Platon
- */
 trait ValidateLanguage
 {
     /**

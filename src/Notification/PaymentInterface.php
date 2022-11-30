@@ -4,10 +4,6 @@ namespace Wearesho\Bobra\Platon\Notification;
 
 use Wearesho\Bobra\Platon\Notification\Payment\Status;
 
-/**
- * Interface PaymentInterface
- * @package Wearesho\Bobra\Platon\Notification
- */
 interface PaymentInterface
 {
     public function getId(): string;

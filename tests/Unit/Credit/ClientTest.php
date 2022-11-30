@@ -2,6 +2,7 @@
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
+use Carbon\Carbon;
 use GuzzleHttp;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Payments\Credit\TransferInterface;
@@ -54,12 +55,10 @@ class ClientTest extends TestCase
         $this->assertEquals('CC', $config->getPayment());
     }
 
-    /**
-     * @expectedException GuzzleHttp\Exception\RequestException
-     * @expectedExceptionMessage Runtime error
-     */
     public function testInvalidResponseFormat(): void
     {
+        $this->expectException(GuzzleHttp\Exception\RequestException::class);
+        $this->expectExceptionMessage('Runtime error');
         $this->mock->append(
             new GuzzleHttp\Exception\RequestException(
                 'Runtime error',
@@ -70,37 +69,27 @@ class ClientTest extends TestCase
         $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid card token
-     */
     public function testInvalidCardToken(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid card token');
         $this->client->send(new CreditToCard(1, 100, 'invalid token'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid card token
-     */
     public function testTooBigCardToken(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid card token');
         $this->client->send(new CreditToCard(1, 100, md5('1') . '1'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid card token
-     */
     public function testTooBigCardNumber(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid card token');
         $this->client->send(new CreditToCard(1, 100, '11111111111111111'));
     }
 
-    /**
-     * @expectedException GuzzleHttp\Exception\RequestException
-     * @expectedExceptionMessage Runtime error
-     */
     public function testMissingResultKey(): void
     {
         $this->mock->append(
@@ -110,13 +99,11 @@ class ClientTest extends TestCase
                 new GuzzleHttp\Psr7\Response(500, [], '{}')
             )
         );
+        $this->expectException(GuzzleHttp\Exception\RequestException::class);
+        $this->expectExceptionMessage('Runtime error');
         $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
     }
 
-    /**
-     * @expectedException GuzzleHttp\Exception\RequestException
-     * @expectedExceptionMessage Runtime error
-     */
     public function testMissingErrorMessage(): void
     {
         $this->mock->append(
@@ -127,6 +114,8 @@ class ClientTest extends TestCase
             )
         );
 
+        $this->expectException(GuzzleHttp\Exception\RequestException::class);
+        $this->expectExceptionMessage('Runtime error');
         $this->client->send(new CreditToCard(1, 100, md5(uniqid())));
     }
 
@@ -155,7 +144,7 @@ class ClientTest extends TestCase
         );
 
         $response = $this->client->send(
-            new class(1, 100, md5(uniqid())) extends CreditToCard implements Platon\Credit\Transfer\Unique
+            new class (1, 100, md5(uniqid())) extends CreditToCard implements Platon\Credit\Transfer\Unique
             {
             }
         );
@@ -172,7 +161,7 @@ class ClientTest extends TestCase
 
     public function testGenerateCardData(): void
     {
-        $client = new class() extends Client
+        $client = new class () extends Client
         {
             public function __construct()
             {
@@ -218,12 +207,15 @@ class ClientTest extends TestCase
 
         $card = "5555555555555599";
 
-        $credit2Card = new Platon\Credit\CardTransfer(1, 100, $card, 1, 20);
+        // preventing failed test few years later
+        $currentYear = Carbon::now()->year;
+        $currentYearShort = substr(Carbon::now()->year, 2);
+        $credit2Card = new Platon\Credit\CardTransfer(1, 100, $card, 1, $currentYearShort);
 
         $params = $client->getParams($credit2Card);
         $this->assertArrayHasKey('card_exp_month', $params);
         $this->assertEquals('01', $params['card_exp_month']);
         $this->assertArrayHasKey('card_exp_year', $params);
-        $this->assertEquals('2020', $params['card_exp_year']);
+        $this->assertEquals($currentYear, $params['card_exp_year']);
     }
 }

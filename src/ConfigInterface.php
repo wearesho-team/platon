@@ -2,10 +2,6 @@
 
 namespace Wearesho\Bobra\Platon;
 
-/**
- * Interface ConfigInterface
- * @package Wearesho\Bobra\Platon
- */
 interface ConfigInterface
 {
     public const LANGUAGE_RU = 'ru';

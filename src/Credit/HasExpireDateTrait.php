@@ -4,17 +4,11 @@ namespace Wearesho\Bobra\Platon\Credit;
 
 use Carbon\Carbon;
 
-/**
- * Trait HasExpireDateTrait
- * @package Wearesho\Bobra\Platon\Credit
- */
 trait HasExpireDateTrait
 {
-    /** @var int */
-    protected $expireMonth;
+    protected int $expireMonth;
 
-    /** @var int */
-    protected $expireYear;
+    protected int $expireYear;
 
     public function getExpireMonth(): int
     {
@@ -39,7 +33,8 @@ trait HasExpireDateTrait
 
     protected function setExpireYear(int $expireYear): self
     {
-        if ($expireYear < (int)Carbon::now()->format('y')
+        if (
+            $expireYear < (int)Carbon::now()->format('y')
             || $expireYear > (int)Carbon::now()->addYears(10)->format('y')
         ) {
             throw new \InvalidArgumentException("Invalid expire year {$expireYear} passed");

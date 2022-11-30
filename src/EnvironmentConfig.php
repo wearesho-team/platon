@@ -4,10 +4,6 @@ namespace Wearesho\Bobra\Platon;
 
 use Horat1us\Environment;
 
-/**
- * Class EnvironmentConfig
- * @package Wearesho\Bobra\Platon
- */
 class EnvironmentConfig extends Environment\Config implements ConfigInterface
 {
     /**

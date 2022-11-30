@@ -1,15 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Info;
 
-/**
- * Class InvalidResponseException
- * @package Wearesho\Bobra\Platon\Info
- */
 class InvalidResponseException extends \RuntimeException
 {
-    /** @var array */
-    protected $body;
+    protected array $body;
 
     public function __construct(string $message, int $code, array $body, \Throwable $previous = null)
     {

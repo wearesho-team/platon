@@ -4,32 +4,21 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Info;
 
-/**
- * Class Response
- * @package Wearesho\Bobra\Platon\Info
- */
 class Response implements \JsonSerializable
 {
-    /** @var string */
-    protected $id;
+    protected string $id;
 
-    /** @var int */
-    protected $account;
+    protected int $account;
 
-    /** @var int */
-    protected $type;
+    protected int $type;
 
-    /** @var \DateTimeInterface */
-    protected $lastOperation;
+    protected \DateTimeInterface $lastOperation;
 
-    /** @var float */
-    protected $outcome;
+    protected float $outcome;
 
-    /** @var float */
-    protected $balance;
+    protected float $balance;
 
-    /** @var array */
-    protected $raw;
+    protected array $raw;
 
     public function __construct(
         string $id,
@@ -51,7 +40,6 @@ class Response implements \JsonSerializable
 
     /**
      * Ключ
-     * @return string
      */
     public function getId(): string
     {
@@ -60,7 +48,6 @@ class Response implements \JsonSerializable
 
     /**
      * Транзитный счет
-     * @return string
      */
     public function getAccount(): int
     {
@@ -69,7 +56,6 @@ class Response implements \JsonSerializable
 
     /**
      * Дата\время последней операции
-     * @return \DateTimeInterface
      */
     public function getLastOperation(): \DateTimeInterface
     {
@@ -78,7 +64,6 @@ class Response implements \JsonSerializable
 
     /**
      * Выплачено
-     * @return string
      */
     public function getOutcome(): float
     {
@@ -87,7 +72,6 @@ class Response implements \JsonSerializable
 
     /**
      * Баланс
-     * @return string
      */
     public function getBalance(): float
     {

@@ -2,44 +2,29 @@
 
 namespace Wearesho\Bobra\Platon\Notification;
 
-/**
- * Class Payment
- * @package Wearesho\Bobra\Platon\Notification
- */
 class Payment implements PaymentInterface, HasBody
 {
-    /** @var string */
-    protected $id;
+    protected string $id;
 
-    /** @var string */
-    protected $key;
+    protected string $key;
 
-    /** @var string */
-    protected $orderId;
+    protected string $orderId;
 
-    /** @var float */
-    protected $amount;
+    protected float $amount;
 
-    /** @var string */
-    protected $currency;
+    protected string $currency;
 
-    /** @var string */
-    protected $status;
+    protected string $status;
 
-    /** @var string */
-    protected $card;
+    protected string $card;
 
-    /** @var \DateTimeInterface */
-    protected $date;
+    protected \DateTimeInterface $date;
 
-    /** @var array */
-    protected $data;
+    protected array $data;
 
-    /** @var string|null */
-    protected $rcToken;
+    protected array $body;
 
-    /** @var array */
-    protected $body;
+    protected ?string $rcToken = null;
 
     public function __construct(
         string $id,

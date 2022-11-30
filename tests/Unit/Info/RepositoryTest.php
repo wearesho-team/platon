@@ -1,26 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Info;
 
 use GuzzleHttp;
 use PHPUnit\Framework\TestCase;
-use Wearesho\Bobra\Platon\Info\Config;
-use Wearesho\Bobra\Platon\Info\Repository;
+use Wearesho\Bobra\Platon\Info;
 
-/**
- * Class RepositoryTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Info
- */
 class RepositoryTest extends TestCase
 {
-    /** @var GuzzleHttp\Handler\MockHandler */
-    protected $mock;
+    protected GuzzleHttp\Handler\MockHandler $mock;
 
     /** @var array[] */
-    protected $history;
+    protected array $history;
 
-    /** @var Repository */
-    protected $repository;
+    protected Info\Repository $repository;
 
     protected function setUp(): void
     {
@@ -32,45 +27,39 @@ class RepositoryTest extends TestCase
         $stack = new GuzzleHttp\HandlerStack($this->mock);
         $stack->push($history);
 
-        $this->repository = new Repository(
-            new Config('public', 'private'),
+        $this->repository = new Info\Repository(
+            new Info\Config('public', 'private'),
             new GuzzleHttp\Client([
                 'handler' => $stack,
             ])
         );
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Info\InvalidResponseException
-     * @expectedExceptionMessage Missing keys in response
-     * @expectedExceptionCode 1
-     */
     public function testMissingData(): void
     {
+        $this->expectException(Info\InvalidResponseException::class);
+        $this->expectExceptionMessage('Missing keys in response');
+        $this->expectExceptionCode(1);
         $this->mock->append(new GuzzleHttp\Psr7\Response(200, [], '{}'));
         $this->repository->get(new \DateTime());
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Info\InvalidResponseException
-     * @expectedExceptionMessage Missing keys in response
-     * @expectedExceptionCode 1
-     */
     public function testMissingSign(): void
     {
+        $this->expectException(Info\InvalidResponseException::class);
+        $this->expectExceptionMessage('Missing keys in response');
+        $this->expectExceptionCode(1);
         $this->mock->append(new GuzzleHttp\Psr7\Response(200, [], json_encode([
             'data' => [],
         ])));
         $this->repository->get();
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Info\InvalidResponseException
-     * @expectedExceptionMessage Missing keys in response
-     * @expectedExceptionCode 1
-     */
     public function testMissingApiKey(): void
     {
+        $this->expectException(Info\InvalidResponseException::class);
+        $this->expectExceptionMessage('Missing keys in response');
+        $this->expectExceptionCode(1);
         $this->mock->append(new GuzzleHttp\Psr7\Response(200, [], json_encode([
             'data' => [],
             'sign' => '',
@@ -78,13 +67,11 @@ class RepositoryTest extends TestCase
         $this->repository->get();
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Info\InvalidResponseException
-     * @expectedExceptionMessage Invalid api_key given
-     * @expectedExceptionCode 2
-     */
     public function testInvalidApiKey(): void
     {
+        $this->expectException(Info\InvalidResponseException::class);
+        $this->expectExceptionMessage('Invalid api_key given');
+        $this->expectExceptionCode(2);
         $this->mock->append(new GuzzleHttp\Psr7\Response(200, [], json_encode([
             'data' => [],
             'sign' => '',
@@ -103,13 +90,12 @@ class RepositoryTest extends TestCase
         $this->assertEquals([], $this->repository->get());
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Info\InvalidResponseException
-     * @expectedExceptionMessage Damaged data obtained
-     * @expectedExceptionCode 3
-     */
     public function testInvalidSign(): void
     {
+
+        $this->expectException(Info\InvalidResponseException::class);
+        $this->expectExceptionMessage('Damaged data obtained');
+        $this->expectExceptionCode(3);
         $this->mock->append(new GuzzleHttp\Psr7\Response(200, [], json_encode([
             'data' => [[],],
             'sign' => '',

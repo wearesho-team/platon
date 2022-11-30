@@ -14,17 +14,13 @@ use GuzzleHttp;
  */
 class Client implements Credit\ClientInterface
 {
-    /** @var GuzzleHttp\ClientInterface */
-    protected $guzzleClient;
+    protected GuzzleHttp\ClientInterface $guzzleClient;
 
-    /** @var Platon\Config */
-    protected $config;
+    protected Platon\ConfigInterface $config;
 
-    /** @var Response\Validator */
-    protected $responseValidator;
+    protected Response\Validator $responseValidator;
 
-    /** @var LuhnAlgorithm\Contract\LuhnAlgorithmInterface */
-    protected $luhn;
+    protected LuhnAlgorithm\Contract\LuhnAlgorithmInterface $luhn;
 
     public function __construct(
         Platon\ConfigInterface $config,
@@ -38,8 +34,6 @@ class Client implements Credit\ClientInterface
     }
 
     /**
-     * @param Credit\TransferInterface $creditToCard
-     * @return Response
      * @throws Exception
      * @throws GuzzleHttp\Exception\GuzzleException
      */

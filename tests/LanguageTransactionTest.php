@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon;
 
 /**
- * Class LanguageTransactionTest
- * @package Wearesho\Bobra\Platon\Tests
  * @coversDefaultClass \Wearesho\Bobra\Platon\LanguageTransaction
  */
 class LanguageTransactionTest extends TestCase
@@ -27,12 +27,10 @@ class LanguageTransactionTest extends TestCase
         $this->assertEquals(Platon\ConfigInterface::LANGUAGE_RU, $transaction->getLanguage());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid language
-     */
     public function testInvalidLanguage(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid language');
         new Platon\LanguageTransaction(
             1,
             200,

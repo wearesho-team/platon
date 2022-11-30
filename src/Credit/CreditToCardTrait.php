@@ -1,13 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Credit;
 
 use Wearesho\Bobra\Payments\Credit;
 
-/**
- * Trait CreditToCardTrait
- * @package Wearesho\Bobra\Platon\Credit
- */
 trait CreditToCardTrait
 {
     use Credit\TransferTrait;

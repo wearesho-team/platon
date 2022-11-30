@@ -2,6 +2,7 @@
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Notification;
 
+use Carbon\CarbonTimeZone;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Config;
 use Wearesho\Bobra\Platon\Notification;
@@ -24,10 +25,6 @@ class ServerTest extends TestCase
         $this->config = new Config(static::KEY, 'test', 'CC');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Key `order` is required
-     */
     public function testMissingOrder(): void
     {
         $data = [
@@ -37,13 +34,11 @@ class ServerTest extends TestCase
         $server = new Notification\Server(
             new Notification\ConfigProvider([$this->config])
         );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Key `order` is required');
         $server->handle($data);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Key `card` is required
-     */
     public function testMissingCard(): void
     {
         $data = [
@@ -54,12 +49,11 @@ class ServerTest extends TestCase
         $server = new Notification\Server(
             new Notification\ConfigProvider([$this->config])
         );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Key `card` is required');
         $server->handle($data);
     }
 
-    /**
-     * @expectedException \Wearesho\Bobra\Platon\Notification\InvalidSignException
-     */
     public function testInvalidSign(): void
     {
         $data = [
@@ -72,6 +66,7 @@ class ServerTest extends TestCase
         $server = new Notification\Server(
             new Notification\ConfigProvider([$this->config])
         );
+        $this->expectException(Notification\InvalidSignException::class);
         $server->handle($data);
     }
 
@@ -99,10 +94,10 @@ class ServerTest extends TestCase
         $payment = $server->handle($data);
         $this->assertInstanceOf(Notification\Payment::class, $payment);
         $this->assertEquals(
-            new \DateTimeZone('UTC'),
-            $payment->getDate()->getTimezone()
+            'UTC',
+            $payment->getDate()->getTimezone()->getName()
         );
-        $this->assertArraySubset($data, $payment->getBody());
+        $this->assertEquals($data, $payment->getBody());
         $this->assertEquals([
             'ext1' => '2',
             'ext5' => '10',

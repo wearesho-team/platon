@@ -35,9 +35,6 @@ class EnvironmentConfigTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Horat1us\Environment\MissingEnvironmentException
-     */
     public function testGetKeyException()
     {
         $this->expectException(MissingEnvironmentException::class);
@@ -54,9 +51,6 @@ class EnvironmentConfigTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Horat1us\Environment\MissingEnvironmentException
-     */
     public function testGetPassException()
     {
         $this->expectException(MissingEnvironmentException::class);

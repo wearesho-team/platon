@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Notification;
 
 use Carbon\Carbon;
@@ -7,14 +9,11 @@ use Wearesho\Bobra\Platon\Notification\Payment;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class PaymentTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Notification
  * @coversDefaultClass \Wearesho\Bobra\Platon\Payment
  */
 class PaymentTest extends TestCase
 {
-    /** @var Payment */
-    protected $payment;
+    protected Payment $payment;
 
     protected function setUp(): void
     {

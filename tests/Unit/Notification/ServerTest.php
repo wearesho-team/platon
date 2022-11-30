@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Notification;
 
 use Carbon\CarbonTimeZone;

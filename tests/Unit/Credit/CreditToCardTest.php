@@ -1,19 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
 use Wearesho\Bobra\Platon\Credit\CreditToCard;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class CreditToCardTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Credit
  * @coversDefaultClass \Wearesho\Bobra\Platon\Credit\CreditToCard
  */
 class CreditToCardTest extends TestCase
 {
-    /** @var CreditToCard */
-    protected $model;
+    protected CreditToCard $model;
 
     protected function setUp(): void
     {

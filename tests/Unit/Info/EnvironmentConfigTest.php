@@ -1,14 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Info;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Info\EnvironmentConfig;
 
-/**
- * Class EnvironmentConfigTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Info
- */
 class EnvironmentConfigTest extends TestCase
 {
     public function testGetters(): void

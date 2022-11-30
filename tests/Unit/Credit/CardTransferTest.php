@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
 use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Credit;
 
-/**
- * Class CardTransferTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Credit
- */
 class CardTransferTest extends TestCase
 {
     public function testCorrect(): void

@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Payments\Credit\Transfer;
 use Wearesho\Bobra\Platon;
 
-/**
- * Class ExceptionTest
- * @package Wearesho\Bobra\Platon\Tests\Unit\Credit
- */
 class ExceptionTest extends TestCase
 {
     public function testConstruct(): void

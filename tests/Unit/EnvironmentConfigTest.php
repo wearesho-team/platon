@@ -8,8 +8,7 @@ use Wearesho\Bobra\Platon\EnvironmentConfig;
 
 class EnvironmentConfigTest extends TestCase
 {
-    /** @var EnvironmentConfig */
-    protected $config;
+    protected EnvironmentConfig $config;
 
     protected function setUp(): void
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Notification;
 
+use Carbon\CarbonTimeZone;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Config;
 use Wearesho\Bobra\Platon\Notification;

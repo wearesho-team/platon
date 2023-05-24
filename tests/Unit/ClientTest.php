@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit;
 
+use Wearesho\Bobra\Payments\PayerDetails;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Payments;
 use Wearesho\Bobra\Platon;
@@ -22,6 +23,7 @@ class ClientTest extends TestCase
 
     public function testConstruct(): void
     {
+        $payerDetails = new PayerDetails('John', 'Doe', '380123456789');
         $this->assertEquals(
             "b13ee30a74ea76d7a89871caf8140639",
             $this->client
@@ -32,7 +34,8 @@ class ClientTest extends TestCase
                         2.28,
                         "type_string",
                         "description_string"
-                    )
+                    ),
+                    $payerDetails
                 )
                 ->jsonSerialize()["data"]['sign']
         );
@@ -47,7 +50,8 @@ class ClientTest extends TestCase
                         2.28,
                         "type_string",
                         "description_string"
-                    )
+                    ),
+                    $payerDetails
                 )
                 ->jsonSerialize()["data"]['sign']
         );
@@ -55,11 +59,13 @@ class ClientTest extends TestCase
 
     public function testCreatePayment(): void
     {
+        $payerDetails = new PayerDetails('John', 'Doe', '380123456789');
         $this->assertEquals(
             new Platon\Payment\CC(
                 228,
                 "uk",
                 new Payments\UrlPair("good_string_pair"),
+                $payerDetails,
                 "b13ee30a74ea76d7a89871caf8140639",
                 "key_string",
                 "https://secure.platononline.com/payment/auth",
@@ -86,18 +92,21 @@ class ClientTest extends TestCase
                         '2' => "two",
                         'key1' => "three",
                     ]
-                )
+                ),
+                $payerDetails
             )
         );
     }
 
     public function testCreatePaymentWithTransactionLanguage(): void
     {
+        $payerDetails = new PayerDetails('John', 'Doe', '380123456789');
         $this->assertEquals(
             new Platon\Payment\CC(
                 228,
                 "ru",
                 new Payments\UrlPair("good_string_pair"),
+                $payerDetails,
                 "b13ee30a74ea76d7a89871caf8140639",
                 "key_string",
                 "https://secure.platononline.com/payment/auth",
@@ -127,13 +136,15 @@ class ClientTest extends TestCase
                     'UAH',
                     null,
                     Platon\ConfigInterface::LANGUAGE_RU
-                )
+                ),
+                $payerDetails
             )
         );
     }
 
     public function testInvalidPaymentType(): void
     {
+        $payerDetails = new PayerDetails('John', 'Doe', '380123456789');
         $this->client = new PLaton\Client(new Platon\Config("key_string", "pass_string", "TEST"));
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Payment type TEST is not supported');
@@ -152,13 +163,15 @@ class ClientTest extends TestCase
                 ],
                 'UAH',
                 'formId'
-            )
+            ),
+            $payerDetails
         );
     }
 
 
     public function testCreateC2APayment(): void
     {
+        $payerDetails = new PayerDetails('John', 'Doe', '380123456789');
         $this->client = new PLaton\Client(new Platon\Config("key_string", "pass_string", "C2A,CC"));
 
         $this->assertEquals(
@@ -166,6 +179,7 @@ class ClientTest extends TestCase
                 228,
                 "uk",
                 new Payments\UrlPair("good_string_pair"),
+                $payerDetails,
                 "26b693a3f0519f0a52edd1a0bbb53005",
                 "key_string",
                 "https://secure.platononline.com/payment/auth",
@@ -195,7 +209,8 @@ class ClientTest extends TestCase
                     ],
                     'UAH',
                     'formId'
-                )
+                ),
+                $payerDetails
             )
         );
     }

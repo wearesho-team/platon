@@ -1,5 +1,10 @@
 # Platon Integration Changelog
 
+## 2.0.0
+- Migrate to [wearesho-team/bobra-payments 2.0](https://github.com/wearesho-team/bobra-payments/releases/tag/2.0.0)
+- Add support for first_name, last_name, email, phone payment parameters
+- Change [Client](./src/Client.php) implementation to support *PayerDetailsInterface* argument
+
 ## 1.13.3
 - Fix handling extX (where X > 4) in [Notification\Server](./src/Notification/Server.php)
 

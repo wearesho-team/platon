@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da64fb18d8af8b7589c98b779e098260",
+    "content-hash": "2f4a71e5837f12f1d63c4df5bc7dcbc1",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -1086,27 +1086,26 @@
         },
         {
             "name": "wearesho-team/bobra-payments",
-            "version": "1.5.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wearesho-team/bobra-payments.git",
-                "reference": "4add42ee280f6e6828ada55222183396754508c4"
+                "reference": "76458409ee4965cba861844e6679ee68158a2513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wearesho-team/bobra-payments/zipball/4add42ee280f6e6828ada55222183396754508c4",
-                "reference": "4add42ee280f6e6828ada55222183396754508c4",
+                "url": "https://api.github.com/repos/wearesho-team/bobra-payments/zipball/76458409ee4965cba861844e6679ee68158a2513",
+                "reference": "76458409ee4965cba861844e6679ee68158a2513",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.1",
-                "squizlabs/php_codesniffer": "^3.2"
+                "phpunit/phpunit": "^9.6",
+                "squizlabs/php_codesniffer": "^3.7"
             },
             "suggest": {
-                "wearesho-team/i-pay": "IPay payments integration",
                 "wearesho-team/platon": "Platon.ua payments integration"
             },
             "type": "library",
@@ -1128,9 +1127,9 @@
             "description": "Common interfaces for processing payment",
             "support": {
                 "issues": "https://github.com/wearesho-team/bobra-payments/issues",
-                "source": "https://github.com/wearesho-team/bobra-payments/tree/master"
+                "source": "https://github.com/wearesho-team/bobra-payments/tree/2.0.0"
             },
-            "time": "2018-07-02T11:36:08+00:00"
+            "time": "2023-05-24T10:45:50+00:00"
         }
     ],
     "packages-dev": [

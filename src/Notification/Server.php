@@ -55,7 +55,12 @@ class Server
             }
         }
 
-        return $this->configProvider->provide($data['order'], $data['card'], $data['sign']);
+        return $this->configProvider->provide(
+            $data['order'],
+            $data['card'],
+            $data['sign'],
+            $data['email'] ?? null
+        );
     }
 
     protected function extractPaymentData(array $data): array

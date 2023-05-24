@@ -29,7 +29,7 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
     /**
      * @throws InvalidSignException
      */
-    public function provide(string $order, string $card, string $sign): Platon\ConfigInterface
+    public function provide(string $order, string $card, string $sign, ?string $email = null): Platon\ConfigInterface
     {
         foreach ($this->configs as $config) {
             $configSign = md5(strtoupper(
@@ -55,6 +55,20 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
             ));
 
             if ($debitConfigSign === $sign) {
+                return $config;
+            }
+
+            $debitConfigSignWithEmail = md5(strtoupper(
+                strrev($email)
+                . strrev($config->getPass())
+                . strrev($order)
+                . strrev(
+                    substr($card, 0, 6)
+                    . substr($card, -4)
+                )
+            ));
+
+            if ($debitConfigSignWithEmail == $sign) {
                 return $config;
             }
         }

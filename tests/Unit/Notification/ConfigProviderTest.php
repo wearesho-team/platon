@@ -41,6 +41,20 @@ class ConfigProviderTest extends TestCase
         $this->assertEquals($targetConfig->getPass(), $config->getPass());
     }
 
+    public function testSuccessDebitWithEmail(): void
+    {
+        $config = new Config('key', 'pass', 'CC');
+        $provider = new Notification\ConfigProvider([$config]);
+
+        $targetConfig = $provider->provide(
+            'order',
+            '411111****1111',
+            'fc0c63b436e7b63efc5a33bd5a5b7827',
+             'john.doe@example.com'
+        );
+        $this->assertEquals($targetConfig->getPass(), $config->getPass());
+    }
+
     public function testEmpty(): void
     {
         $provider = new Notification\ConfigProvider();

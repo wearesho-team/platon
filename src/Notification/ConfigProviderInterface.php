@@ -9,5 +9,5 @@ interface ConfigProviderInterface
     /**
      * @throws InvalidSignException
      */
-    public function provide(string $order, string $card, string $sign): Platon\ConfigInterface;
+    public function provide(string $order, string $card, string $sign, ?string $email = null): Platon\ConfigInterface;
 }

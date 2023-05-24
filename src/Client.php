@@ -17,7 +17,8 @@ class Client implements Payments\ClientInterface
 
     public function createPayment(
         Payments\UrlPairInterface $pair,
-        Payments\TransactionInterface $transaction
+        Payments\TransactionInterface $transaction,
+        Payments\PayerDetailsInterface $payerDetails
     ): Payments\PaymentInterface {
         $payment = $this->config->getPayment();
         $ext = $this->transformInfoIntoExt($transaction->getInfo());
@@ -32,6 +33,7 @@ class Client implements Payments\ClientInterface
                     $transaction->getService(),
                     $language,
                     $pair,
+                    $payerDetails,
                     $this->getSign(
                         $cardToken
                             ? Payment\CC::TYPE_CARD_TOKEN
@@ -53,6 +55,7 @@ class Client implements Payments\ClientInterface
                     $transaction->getService(),
                     $language,
                     $pair,
+                    $payerDetails,
                     $this->getSign(
                         $cardToken
                             ? Payment\C2A::TYPE_CARD_TOKEN

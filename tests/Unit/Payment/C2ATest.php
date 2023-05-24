@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Payment;
 
-use PHPUnit\Framework\TestCase;
+use Wearesho\Bobra\Payments\PayerDetails;
 use Wearesho\Bobra\Payments\UrlPair;
+use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon;
 
 class C2ATest extends TestCase
@@ -16,10 +17,13 @@ class C2ATest extends TestCase
 
     public function testJsonAdditionalFields(): void
     {
+        $payerDetails = new PayerDetails('John', 'Doe', '380123456789', 'john.doe@example.com');
+
         $payment = new Platon\Payment\C2A(
             1,
             Platon\ConfigInterface::LANGUAGE_UA,
             new UrlPair('', ''),
+            $payerDetails,
             'sign',
             'key',
             'formUrl',
@@ -41,7 +45,11 @@ class C2ATest extends TestCase
             'url' => '',
             'error_url' => '',
             'lang' => 'uk',
-            'sign' => 'sign'
+            'sign' => 'sign',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'phone' => '380123456789',
+            'email' => 'john.doe@example.com',
         ], $json['data']);
 
         $this->assertEquals(Platon\Payment\C2A::TYPE, $json['data']['payment']);
@@ -49,10 +57,12 @@ class C2ATest extends TestCase
 
     public function testJsonCardToken(): void
     {
+        $payerDetails = new PayerDetails('John', 'Doe', '380123456789');
         $payment = new Platon\Payment\C2A(
             1,
             Platon\ConfigInterface::LANGUAGE_UA,
             new UrlPair('', ''),
+            $payerDetails,
             'sign',
             'key',
             'formUrl',

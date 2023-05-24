@@ -2,9 +2,10 @@
 
 namespace Wearesho\Bobra\Platon;
 
+use Wearesho\Bobra\Payments\PayerDetailsInterface;
 use Wearesho\Bobra\Payments\PaymentInterface;
-use Wearesho\Bobra\Payments\PaymentTrait;
 use Wearesho\Bobra\Payments\UrlPairInterface;
+use Wearesho\Bobra\Payments\PaymentTrait;
 
 /**
  * Class Payment
@@ -20,6 +21,8 @@ abstract class Payment implements PaymentInterface
     protected string $lang;
 
     protected UrlPairInterface $urlPair;
+
+    protected PayerDetailsInterface $payerDetails;
 
     protected string $sign;
 
@@ -38,6 +41,7 @@ abstract class Payment implements PaymentInterface
         int $id,
         string $lang,
         UrlPairInterface $urlPair,
+        PayerDetailsInterface $payerDetails,
         string $sign,
         string $key,
         string $formUrl,
@@ -48,6 +52,7 @@ abstract class Payment implements PaymentInterface
         $this->id = $id;
         $this->lang = $lang;
         $this->urlPair = $urlPair;
+        $this->payerDetails = $payerDetails;
         $this->sign = $sign;
         $this->ext = $ext;
         $this->formUrl = $formUrl;
@@ -68,7 +73,14 @@ abstract class Payment implements PaymentInterface
             'error_url' => $this->urlPair->getBad(),
             'lang' => $this->lang,
             'sign' => $this->sign,
+            'first_name' => $this->payerDetails->getFirstName(),
+            'last_name' => $this->payerDetails->getLastName(),
+            'phone' => $this->payerDetails->getPhone(),
         ];
+
+        if (!is_null($email = $this->payerDetails->getEmail())) {
+            $json['email'] = $email;
+        }
 
         if (!is_null($this->formId)) {
             $json['formid'] = $this->formId;

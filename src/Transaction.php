@@ -25,7 +25,7 @@ class Transaction extends Payments\Transaction implements TransactionInterface, 
         $this->cardToken = $cardToken;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_merge(parent::jsonSerialize(), $this->platonJsonSerialize());
     }

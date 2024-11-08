@@ -141,7 +141,10 @@ class Client implements Payments\ClientInterface
      */
     protected function getSign(...$params): string
     {
-        $middleHash = \implode(\array_map('strrev', $params));
+        $middleHash = \implode(\array_map(
+            fn($param) => strrev($param ?? ''),
+            $params
+        ));
 
         $resultHash = \strrev($this->config->getKey())
             . $middleHash

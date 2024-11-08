@@ -1,5 +1,10 @@
 # Platon Integration Changelog
 
+## 3.0.0
+- Migrate to [wearesho-team/bobra-payments 3.0](https://github.com/wearesho-team/bobra-payments/releases/tag/3.0.0)
+- Update PHP to 8.1, fix compatibility issues (null to \strrev)
+- Update nekman/luhn-algorithm to ^5.0
+
 ## 2.0.0
 - Migrate to [wearesho-team/bobra-payments 2.0](https://github.com/wearesho-team/bobra-payments/releases/tag/2.0.0)
 - Add support for first_name, last_name, email, phone payment parameters

@@ -59,7 +59,7 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
             }
 
             $debitConfigSignWithEmail = md5(strtoupper(
-                strrev($email)
+                strrev($email ?? '')
                 . strrev($config->getPass())
                 . strrev($order)
                 . strrev(

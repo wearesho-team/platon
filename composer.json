@@ -8,7 +8,7 @@
     "guzzlehttp/guzzle": "^6.5.8 || ^7.4.5",
     "horat1us/environment-config": "^1.2",
     "nekman/luhn-algorithm": "^5.0.1",
-    "nesbot/carbon": "^2.24 || ^1.22",
+    "nesbot/carbon": "^2.24 || ^3.0",
     "wearesho-team/bobra-payments": "^3.0"
   },
   "require-dev": {

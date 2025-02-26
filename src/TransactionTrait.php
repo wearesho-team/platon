@@ -22,7 +22,7 @@ trait TransactionTrait
         return $this->cardToken;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [];
         if (!is_null($this->formId)) {

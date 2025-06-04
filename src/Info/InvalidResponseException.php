@@ -8,7 +8,7 @@ class InvalidResponseException extends \RuntimeException
 {
     protected array $body;
 
-    public function __construct(string $message, int $code, array $body, \Throwable $previous = null)
+    public function __construct(string $message, int $code, array $body, ?\Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->body = $body;

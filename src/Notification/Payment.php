@@ -35,7 +35,7 @@ class Payment implements PaymentInterface, HasBody
         string $status,
         string $card,
         \DateTimeInterface $date,
-        string $rcToken = null,
+        ?string $rcToken = null,
         array $data = [],
         array $body = []
     ) {

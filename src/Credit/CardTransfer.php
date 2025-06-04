@@ -14,8 +14,8 @@ class CardTransfer extends Credit\Transfer implements CreditToCardInterface, Has
         string $card,
         int $expireMonth,
         int $expireYear,
-        string $description = null,
-        string $currency = null
+        ?string $description = null,
+        ?string $currency = null
     ) {
         parent::__construct($id, $amount, $card, $description, $currency);
 

@@ -15,7 +15,7 @@ class Exception extends Credit\Exception
         Response $response,
         string $message,
         int $code = 0,
-        \Throwable $previous = null
+        ?\Throwable $previous = null
     ) {
         parent::__construct($transfer, $message, $code, $previous);
         $this->response = $response;

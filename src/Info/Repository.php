@@ -25,7 +25,7 @@ class Repository
      * @throws GuzzleHttp\Exception\GuzzleException
      * @throws InvalidResponseException
      */
-    public function get(\DateTimeInterface $date = null): array
+    public function get(?\DateTimeInterface $date = null): array
     {
         $baseUrl = \rtrim($this->config->getBaseUrl(), '/');
         $response = $this->client->request("POST", "$baseUrl/credit/api/v1/check", [

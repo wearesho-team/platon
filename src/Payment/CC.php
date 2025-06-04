@@ -23,8 +23,8 @@ class CC extends Platon\Payment
         string $formUrl,
         string $data,
         array $ext = [],
-        string $formId = null,
-        string $cardToken = null
+        ?string $formId = null,
+        ?string $cardToken = null
     ) {
         parent::__construct($id, $lang, $urlPair, $payerDetails, $sign, $key, $formUrl, $ext, $formId, $cardToken);
         $this->data = $data;

@@ -46,8 +46,8 @@ abstract class Payment implements PaymentInterface
         string $key,
         string $formUrl,
         array $ext = [],
-        string $formId = null,
-        string $cardToken = null
+        ?string $formId = null,
+        ?string $cardToken = null
     ) {
         $this->id = $id;
         $this->lang = $lang;

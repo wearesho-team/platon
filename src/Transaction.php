@@ -17,8 +17,8 @@ class Transaction extends Payments\Transaction implements TransactionInterface, 
         string $description,
         array $info = [],
         string $currency = 'UAH',
-        string $formId = null,
-        string $cardToken = null
+        ?string $formId = null,
+        ?string $cardToken = null
     ) {
         parent::__construct($service, $amount, $type, $description, $info, $currency);
         $this->formId = $formId;

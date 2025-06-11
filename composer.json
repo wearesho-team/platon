@@ -7,7 +7,7 @@
     "ext-json": "*",
     "guzzlehttp/guzzle": "^6.5.8 || ^7.4.5",
     "horat1us/environment-config": "^1.6",
-    "nekman/luhn-algorithm": "^5.0.1",
+    "horat1us/luhn-algorithm": "^6.0",
     "nesbot/carbon": "^3.8.4",
     "wearesho-team/bobra-payments": "^3.1"
   },

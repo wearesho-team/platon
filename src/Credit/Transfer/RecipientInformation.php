@@ -1,5 +1,5 @@
 <?php
-
+// phpcs:ignoreFile PHPCS doesn't support interface properties yet (3.13)
 declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Credit\Transfer;

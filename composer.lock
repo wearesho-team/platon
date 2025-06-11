@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85a976acc26ca9d5e9b7fde7903021e0",
+    "content-hash": "2ddc80bf12334c0575f7430bb3bb2b5b",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -445,24 +445,24 @@
             "time": "2025-06-04T18:34:46+00:00"
         },
         {
-            "name": "nekman/luhn-algorithm",
-            "version": "5.0.1",
+            "name": "horat1us/luhn-algorithm",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Ekman/luhn-algorithm.git",
-                "reference": "12da0bd99cb109eec0d2159e6ca80571e2b27f57"
+                "url": "https://github.com/Horat1us/luhn-algorithm.git",
+                "reference": "40859c7efb251402e4c8adab5ef605fc1b29cf55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ekman/luhn-algorithm/zipball/12da0bd99cb109eec0d2159e6ca80571e2b27f57",
-                "reference": "12da0bd99cb109eec0d2159e6ca80571e2b27f57",
+                "url": "https://api.github.com/repos/Horat1us/luhn-algorithm/zipball/40859c7efb251402e4c8adab5ef605fc1b29cf55",
+                "reference": "40859c7efb251402e4c8adab5ef605fc1b29cf55",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4||^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.15",
+                "friendsofphp/php-cs-fixer": "^3.75",
                 "php-coveralls/php-coveralls": "^2.1",
                 "phpunit/phpunit": "^9.0"
             },
@@ -497,7 +497,7 @@
                 "issues": "https://github.com/Ekman/Luhn-Algorithm/issues",
                 "source": "https://github.com/Ekman/Luhn-Algorithm"
             },
-            "time": "2022-03-11T10:27:19+00:00"
+            "time": "2025-06-11T12:49:26+00:00"
         },
         {
             "name": "nesbot/carbon",

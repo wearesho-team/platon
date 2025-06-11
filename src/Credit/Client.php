@@ -95,11 +95,20 @@ class Client implements Credit\ClientInterface
             $this->appendTokenHash($params);
         }
 
-        if ($creditToCard instanceof Transfer\AgreementNumber) {
-            $params['agreement_num'] = $creditToCard->agreementNumber;
-        }
+        $this->appendRecipientInformation($creditToCard, $params);
 
         return $params;
+    }
+
+    protected function appendRecipientInformation(Credit\TransferInterface $creditToCard, array &$params): void
+    {
+        if (!$creditToCard instanceof Transfer\RecipientInformation) {
+            return;
+        }
+        $params['agreement_num'] = $creditToCard->agreementNumber;
+        $params['taxn'] = $creditToCard->taxNumber;
+        $params['last_name'] = $creditToCard->lastName;
+        $params['first_name'] = $creditToCard->firstName;
     }
 
     protected function isCardNumber(string $token): bool

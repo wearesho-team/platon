@@ -2,7 +2,8 @@
 
 ## 3.2.0
 - Update PHP to 8.4, fix compatibility issues (library Ekman/luhn-algorithm [needs upgrade](https://github.com/Ekman/luhn-algorithm/issues/43))
-- Add [Credit\Transfer\AgreementNumber](./src/Credit/Transfer/AgreementNumber.php) interface with readonly agreementNumber property to match new Platon API.
+- Add [Credit\Transfer\RecipientInformation](./src/Credit/Transfer/RecipientInformation.php) interface with readonly
+agreementNumber, taxNumber, firstName, lastName properties to match new Platon API.
 
 ## 3.0.0
 - Migrate to [wearesho-team/bobra-payments 3.0](https://github.com/wearesho-team/bobra-payments/releases/tag/3.0.0)

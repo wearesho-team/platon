@@ -78,6 +78,11 @@ abstract class Payment implements PaymentInterface
             'phone' => $this->payerDetails->getPhone(),
         ];
 
+        if ($this->payerDetails instanceof Payment\PayerDetails) {
+            $json['itn'] = $this->payerDetails->taxNumber;
+            $json['agreement_num'] = $this->payerDetails->agreementNumber;
+        }
+
         if (!is_null($email = $this->payerDetails->getEmail())) {
             $json['email'] = $email;
         }

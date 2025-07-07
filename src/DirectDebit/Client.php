@@ -53,10 +53,10 @@ readonly class Client
      */
     private function request(string $method, string $endpoint, array $body): array
     {
-        $url = Platon\ConfigInterface::PAYMENT_URL . $endpoint;
+        $url = rtrim(Platon\ConfigInterface::PAYMENT_URL, '/') . $endpoint;
         try {
             $response = $this->httpClient->request($method, $url, [
-                GuzzleHttp\RequestOptions::JSON => $body,
+                GuzzleHttp\RequestOptions::FORM_PARAMS => $body,
             ]);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
             if ($e instanceof GuzzleHttp\Exception\BadResponseException) {

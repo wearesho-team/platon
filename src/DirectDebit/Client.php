@@ -33,7 +33,7 @@ readonly class Client
             'action' => 'SALE',
             'client_key' => $this->config->getKey(),
             'order_id' => $request->orderId,
-            'order_amount' => $request->amount,
+            'order_amount' => number_format($request->amount, 2, '.', ''),
             'order_currency' => 'UAH',
             'order_description' => $request->description,
             'card_token' => $request->cardToken,

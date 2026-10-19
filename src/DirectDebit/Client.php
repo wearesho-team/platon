@@ -12,6 +12,12 @@ readonly class Client
 {
     private const string ENDPOINT_CHARGE = '/post-unq/';
 
+    /**
+     * Routes the charge to Platon recurring terminal.
+     * ext3=recurring is only an analytics label: without channel_id=rec charge is processed as ordinary token payment.
+     */
+    private const string CHANNEL_RECURRING = 'rec';
+
     public function __construct(
         private Platon\ConfigInterface $config,
         private GuzzleHttp\ClientInterface $httpClient,
@@ -40,6 +46,7 @@ readonly class Client
             'payer_email' => $request->email,
             'payer_phone' => $request->phone,
             'term_url_3ds' => $request->termUrl,
+            'channel_id' => self::CHANNEL_RECURRING,
             'hash' => $request->hash($this->config->getPass()),
         ];
         foreach ($ext as $extKey => $extValue) {

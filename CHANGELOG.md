@@ -1,5 +1,13 @@
 # Platon Integration Changelog
 
+## 3.4.0
+- Add [DirectDebit\Client](./src/DirectDebit/Client.php) for recurring charges (SALE by card token),
+sends `ext3=recurring` and `channel_id=rec` to route charges to Platon recurring terminal.
+- Update squizlabs/php_codesniffer to ^4.0 to support PHP 8.4 interface properties.
+
+## 3.3.0
+- Add [Payment\PayerDetails](./src/Payment/PayerDetails.php) interface with additional taxNumber and agreementNumber fields.
+
 ## 3.2.0
 - Update PHP to 8.4, fix compatibility issues (library Ekman/luhn-algorithm [needs upgrade](https://github.com/Ekman/luhn-algorithm/issues/43))
 - Add [Credit\Transfer\RecipientInformation](./src/Credit/Transfer/RecipientInformation.php) interface with readonly

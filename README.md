@@ -129,6 +129,36 @@ class PlatonController
 
 ```
 
+### Direct Debit
+Recurring charge of previously saved card token (no 3DS, customer is not present).
+Use [DirectDebit\Client](./src/DirectDebit/Client.php):
+
+```php
+<?php
+
+use Wearesho\Bobra\Platon;
+
+$client = new Platon\DirectDebit\Client(new Platon\EnvironmentConfig(), new GuzzleHttp\Client());
+
+try {
+    $response = $client->charge(new Platon\DirectDebit\Request(
+        orderId: 'order-1',
+        amount: 100.50,
+        description: 'Recurring charge',
+        cardToken: $cardToken, // from previous payment notification
+        termUrl: 'https://example.com/',
+        phone: '380930000000',
+        email: 'payer@example.com', // the same email as in original payment, if any
+        ext: ['ext1 value', 'ext2 value'], // optional, ext3 is reserved
+    ));
+    // $response['result']: SUCCESS or DECLINED (see $response['decline_reason'])
+} catch (Platon\DirectDebit\InvalidCardException $exception) {
+    // card token can not be used anymore
+} catch (Platon\DirectDebit\Exception $exception) {
+    // request failed
+}
+```
+
 ### Info
 Fetching information about account balance.
 Use [Info\ConfigInterface](./src/Info/ConfigInterface.php) for configuration.

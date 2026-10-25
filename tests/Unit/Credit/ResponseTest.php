@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Credit\Response;
 
-/**
- * @coversDefaultClass \Wearesho\Bobra\Platon\Credit\Response
- */
+#[CoversClass(\Wearesho\Bobra\Platon\Credit\Response::class)]
 class ResponseTest extends TestCase
 {
     public function testMissingResult(): void

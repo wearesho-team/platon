@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Notification;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Config;
 use Wearesho\Bobra\Platon\Notification;
@@ -11,8 +12,8 @@ use Wearesho\Bobra\Platon\Notification;
 /**
  * Class ConfigProviderTest
  * @package Wearesho\Bobra\Platon\Tests\Unit\Notification
- * @coversDefaultClass \Wearesho\Bobra\Platon\Notification\ConfigProvider
  */
+#[CoversClass(\Wearesho\Bobra\Platon\Notification\ConfigProvider::class)]
 class ConfigProviderTest extends TestCase
 {
     public function testSuccess(): void

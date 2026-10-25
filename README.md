@@ -9,6 +9,8 @@
 [Changelog](./CHANGELOG.md) |
 [Usage Examples](./examples/README.md)
 
+Compatibility: tested on PHP 8.4, PHP 8.5
+
 ## API
 - [Docs](https://github.com/wearesho-team/platon/tree/docs)
     - [Integration](https://github.com/wearesho-team/platon/tree/docs/docs/integration_v2.2.pdf)

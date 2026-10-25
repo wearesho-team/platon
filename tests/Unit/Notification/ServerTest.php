@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Notification;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Carbon\CarbonTimeZone;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon\Config;
@@ -12,8 +13,8 @@ use Wearesho\Bobra\Platon\Notification;
 /**
  * Class ServerTest
  * @package Wearesho\Bobra\Platon\Tests\Unit\Notification
- * @coversDefaultClass \Wearesho\Bobra\Platon\Notification\Server
  */
+#[CoversClass(\Wearesho\Bobra\Platon\Notification\Server::class)]
 class ServerTest extends TestCase
 {
     protected const KEY = 'test key';

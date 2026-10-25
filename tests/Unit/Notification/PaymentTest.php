@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Notification;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Carbon\Carbon;
 use Wearesho\Bobra\Platon\Notification\Payment;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Wearesho\Bobra\Platon\Payment
- */
+#[CoversClass(\Wearesho\Bobra\Platon\Notification\Payment::class)]
 class PaymentTest extends TestCase
 {
     protected Payment $payment;

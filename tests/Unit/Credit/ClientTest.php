@@ -132,6 +132,7 @@ class ClientTest extends TestCase
             'https://secure.platononline.com/p2p/index.php',
             (string)$request->getUri()
         );
+        $this->assertEquals('POST', $request->getMethod());
     }
 
     public function testSuccessUniqueResponse(): void
@@ -154,6 +155,7 @@ class ClientTest extends TestCase
             'https://secure.platononline.com/p2p-unq/',
             (string)$request->getUri()
         );
+        $this->assertEquals('POST', $request->getMethod());
     }
 
     public function testGenerateCardData(): void

@@ -1,5 +1,11 @@
 # Platon Integration Changelog
 
+## 3.5.0
+- Pass an uppercase `POST` method to Guzzle in [Credit\Client](./src/Credit/Client.php):
+guzzlehttp/guzzle 7.11+ deprecates lowercase methods, Guzzle 8 will send them as is.
+- Drop guzzlehttp/guzzle 6 support, require `^7.4.5`.
+- Fail tests on deprecations, including the ones silenced by `trigger_deprecation()`.
+
 ## 3.4.0
 - Add [DirectDebit\Client](./src/DirectDebit/Client.php) for recurring charges (SALE by card token),
 sends `ext3=recurring` and `channel_id=rec` to route charges to Platon recurring terminal.

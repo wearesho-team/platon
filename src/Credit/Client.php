@@ -43,7 +43,7 @@ class Client implements Credit\ClientInterface
             ? '/p2p-unq/'
             : '/p2p/index.php';
 
-        $response = $this->guzzleClient->request('post', $path, [
+        $response = $this->guzzleClient->request('POST', $path, [
             'base_uri' => $this->config->getBaseUrl(),
             'form_params' => $this->generateParams($creditToCard),
         ]);

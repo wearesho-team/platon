@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Wearesho\Bobra\Payments\PayerDetails;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Payments;
 use Wearesho\Bobra\Platon;
 
-/**
- * @coversDefaultClass \Wearesho\Bobra\Platon\Client
- */
+#[CoversClass(\Wearesho\Bobra\Platon\Client::class)]
 class ClientTest extends TestCase
 {
     protected Platon\Client $client;

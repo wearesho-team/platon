@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit\Response;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Payments\Credit\Transfer;
 use Wearesho\Bobra\Platon\Credit\Response;
 
-/**
- * @coversDefaultClass \Wearesho\Bobra\Platon\Credit\Response\Validator
- */
+#[CoversClass(\Wearesho\Bobra\Platon\Credit\Response\Validator::class)]
 class ValidatorTest extends TestCase
 {
     protected Response\Validator $validator;

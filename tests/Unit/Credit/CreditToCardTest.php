@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests\Unit\Credit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Wearesho\Bobra\Platon\Credit\CreditToCard;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Wearesho\Bobra\Platon\Credit\CreditToCard
- */
+#[CoversClass(\Wearesho\Bobra\Platon\Credit\CreditToCard::class)]
 class CreditToCardTest extends TestCase
 {
     protected CreditToCard $model;

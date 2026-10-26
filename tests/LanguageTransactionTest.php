@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Wearesho\Bobra\Platon\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Wearesho\Bobra\Platon;
 
-/**
- * @coversDefaultClass \Wearesho\Bobra\Platon\LanguageTransaction
- */
+#[CoversClass(\Wearesho\Bobra\Platon\LanguageTransaction::class)]
 class LanguageTransactionTest extends TestCase
 {
     public function testLanguage(): void

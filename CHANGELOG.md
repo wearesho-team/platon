@@ -1,5 +1,10 @@
 # Platon Integration Changelog
 
+## 3.5.1
+- Fix [Notification\ConfigProvider](./src/Notification/ConfigProvider.php) rejecting card callbacks signed with email
+as documented by Platon: `md5(strtoupper(strrev(email) . pass . order . strrev(first6 . last4)))`
+- Compare callback signs with `hash_equals` (the email-signed debit variant used loose `==`) and accept uppercase signs
+
 ## 3.5.0
 - Pass an uppercase `POST` method to Guzzle in [Credit\Client](./src/Credit/Client.php):
 guzzlehttp/guzzle 7.11+ deprecates lowercase methods, Guzzle 8 will send them as is.

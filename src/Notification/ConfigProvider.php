@@ -31,45 +31,28 @@ class ConfigProvider implements Platon\Notification\ConfigProviderInterface
      */
     public function provide(string $order, string $card, string $sign, ?string $email = null): Platon\ConfigInterface
     {
+        $cardDigits = strrev(substr($card, 0, 6) . substr($card, -4));
+        $reversedEmail = strrev($email ?? '');
+        $sign = strtolower($sign);
+
         foreach ($this->configs as $config) {
-            $configSign = md5(strtoupper(
-                $config->getPass()
-                . $order
-                . strrev(
-                    substr($card, 0, 6)
-                    . substr($card, -4)
-                )
-            ));
-
-            if ($configSign === $sign) {
-                return $config;
+            $pass = $config->getPass();
+            $candidates = [
+                // Documented card callback sign: strrev(email) . pass . order . strrev(first6 . last4)
+                $reversedEmail . $pass . $order . $cardDigits,
+                // Debit (recurring) callback sign: pass and order are reversed too
+                $reversedEmail . strrev($pass) . strrev($order) . $cardDigits,
+            ];
+            if ($reversedEmail !== '') {
+                // Callbacks that carry an email but are signed without it
+                $candidates[] = $pass . $order . $cardDigits;
+                $candidates[] = strrev($pass) . strrev($order) . $cardDigits;
             }
 
-            $debitConfigSign = md5(strtoupper(
-                strrev($config->getPass())
-                . strrev($order)
-                . strrev(
-                    substr($card, 0, 6)
-                    . substr($card, -4)
-                )
-            ));
-
-            if ($debitConfigSign === $sign) {
-                return $config;
-            }
-
-            $debitConfigSignWithEmail = md5(strtoupper(
-                strrev($email ?? '')
-                . strrev($config->getPass())
-                . strrev($order)
-                . strrev(
-                    substr($card, 0, 6)
-                    . substr($card, -4)
-                )
-            ));
-
-            if ($debitConfigSignWithEmail == $sign) {
-                return $config;
+            foreach ($candidates as $candidate) {
+                if (hash_equals(md5(strtoupper($candidate)), $sign)) {
+                    return $config;
+                }
             }
         }
 
